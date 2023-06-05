@@ -1,0 +1,32 @@
+.paginadocontainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  
+  .paginado1 {
+    margin: 0 5px;
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 2px solid #020303;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #020303;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .paginado1:hover,
+  .paginado1:focus {
+    background-color: #020303;
+    color: #fff;
+  }
+  
+  .paginado1[aria-current='page'] {
+    background-color: #020303;
+    color: #fff;
+  }
+  
