@@ -31,9 +31,18 @@ export function getBrands(filteredBrands) {
   return { type: GET_BRANDS, payload: filteredBrands };
 }
 
-export function getCategories(filteredCategories) {
-  return { type: GET_CATEGORIES, payload: filteredCategories };
+export function getCategories() {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("/api/categories");
+      const categories = response.data;
+      dispatch({ type: GET_CATEGORIES, payload: categories });
+    } catch (error) {
+      dispatch({ type: USERS_ERROR, payload: error.message });
+    }
+  };
 }
+
 
 export function getSubCategories(filteredSubCategories) {
   return { type: GET_SUB_CATEGORIES, payload: filteredSubCategories };
@@ -57,6 +66,8 @@ export function getFilteredProducts(filters) {
   if (filters.brand !== "none") {
     result = (b) => b.brand.includes(filters.brand);
   }
+
+  
 
   // if (filters.category !== "none") {
   //   result = (c) => c.category.includes(filters.category);

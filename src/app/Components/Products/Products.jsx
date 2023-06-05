@@ -11,18 +11,17 @@ export default function Products() {
     dispatch(getProducts());
   }, [dispatch]);
 
-  // const allProducts = useSelector((state) => state.products);
   const allProducts = useSelector((state) => state.filteredProducts);
 
-  if (allProducts.length === 0)
+  if (!allProducts || allProducts.length === 0) {
     return (
       <div className={styles.container}>
-        {" "}
         <h1 className={styles.notFound}>
-          No se encontraron resultados - Resetear filtros, por favor.{" "}
+          No se encontraron resultados - Resetear filtros, por favor.
         </h1>
       </div>
     );
+  }
 
   return (
     <div className={styles.productos}>

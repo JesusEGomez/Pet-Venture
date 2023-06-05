@@ -5,10 +5,7 @@ import {
   getBrands,
   getCategories,
   getSubCategories,
-  getFilteredProducts,
   getProducts,
-  dynamicSearchName,
-  setFilteredProducts,
 } from "../../../../redux/actions";
 
 const Filtros = () => {
@@ -34,103 +31,71 @@ const Filtros = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-    const filterBrands = () => {
-      console.log("allProducts.length", allProducts.length);
-      const brandsArr = allProducts.map((b) => b.brand);
-      const uniqueBrands = [...new Set(brandsArr)];
-      // console.log("uniqueBrands", uniqueBrands);
-      return uniqueBrands;
-    };
+  }, [dispatch]);
+  
+  // ...
+  
+ // ...
 
-    const filterCategory = () => {
-      const categoryArr = allProducts.map((b) => b.category);
-      const uniqueCategory = [...new Set(categoryArr)];
-      // console.log("uniqueCategory", uniqueCategory);
-      return uniqueCategory;
-    };
+useEffect(() => {
+  dispatch(getProducts());
+}, [dispatch]);
 
-    const filterSubCategory = () => {
-      const subCategoryArr = allProducts.map((b) => b.subCategory);
-      const uniqueSubCategory = [...new Set(subCategoryArr)];
-      return uniqueSubCategory;
-    };
-    dispatch(getBrands(filterBrands()));
-    dispatch(getSubCategories(filterSubCategory()));
-    dispatch(getCategories(filterCategory()));
-  }, [allProducts.length]);
+// ...
 
-  useEffect(() => {
-    let productsCopy = [...allProducts];
-    // console.log("productsCopy", productsCopy);
-
-    if (productsCopy.length > 0) {
-      let j = 0;
-      // console.log("brands", brands);
-
-      for (let i = 0; i < productsCopy.length; i++) {
-        if (productsCopy[i].hasOwnProperty("category")) {
-          j++;
-        }
-      }
-      // console.log("jota", j);
-      if (filterPanel.name !== "") {
-        productsCopy = productsCopy.filter((p) =>
-          p.name?.toLowerCase().includes(filterPanel.name.toLowerCase())
-        );
-      }
-
-      if (filterPanel.brand !== "none") {
-        productsCopy = productsCopy.filter((p) =>
-          p.brand?.includes(filterPanel.brand)
-        );
-      }
-
-      if (filterPanel.category !== "none") {
-        productsCopy = productsCopy.filter((p) =>
-          p.category?.includes(filterPanel.category)
-        );
-      }
-
-      if (filterPanel.subCategory !== "none") {
-        productsCopy = productsCopy.filter((p) =>
-          p.subCategory?.includes(filterPanel.subCategory)
-        );
-      }
-
-      if (filterPanel.price !== "none") {
-        if (filterPanel.price === "higher") {
-          console.log("filterPanel.price", productsCopy[0]);
-          productsCopy = productsCopy.sort((a, b) => a.price - b.price);
-        } else {
-          productsCopy = productsCopy.sort((a, b) => b.price - a.price);
-        }
-      }
-
-      dispatch(setFilteredProducts(productsCopy));
+useEffect(() => {
+  const filterBrands = () => {
+    if (!allProducts) {
+      return [];
     }
-  }, [filterPanel]);
+    const brandsArr = allProducts.map((b) => b.brand);
+    const uniqueBrands = [...new Set(brandsArr)];
+    return uniqueBrands;
+  };
 
-  // console.log("filterMachine", filterMachine);
+  const filterCategory = () => {
+    if (!allProducts) {
+      return [];
+    }
+    const categoryArr = allProducts.map((b) => b.category);
+    const uniqueCategory = [...new Set(categoryArr)];
+    return uniqueCategory;
+  };
 
-  // console.log("filterPanel", filterPanel);
+  const filterSubCategory = () => {
+    if (!allProducts) {
+      return [];
+    }
+    const subCategoryArr = allProducts.map((b) => b.subCategory);
+    const uniqueSubCategory = [...new Set(subCategoryArr)];
+    return uniqueSubCategory;
+  };
+
+  dispatch(getBrands(filterBrands()));
+  dispatch(getSubCategories(filterSubCategory()));
+  dispatch(getCategories(filterCategory()));
+}, [allProducts]);
+
+// ...
 
   const handleChange = (e) => {
     e.preventDefault();
-    setFilterPanel(() => {
-      return { ...filterPanel, [e.target.name]: e.target.value };
+    setFilterPanel((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
     });
-    // dispatch(getFilteredProducts(filterPanel));
   };
 
   const handleNameClick = (e) => {
     e.preventDefault();
-    setFilterPanel(() => {
-      return { ...filterPanel, name: e.target.value };
+    setFilterPanel((prevState) => {
+      return { ...prevState, name: e.target.value };
     });
   };
 
   const handleResetClick = (e) => {
     e.preventDefault();
+   
+
     setFilterPanel({
       name: "",
       brand: "none",
