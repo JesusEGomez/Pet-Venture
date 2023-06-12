@@ -8,7 +8,7 @@ import Card from "../Card/Card";
 export default function Ofertas(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-   // dispatch(getProducts());
+    // dispatch(getProducts());
   }, [dispatch]);
 
   return (
