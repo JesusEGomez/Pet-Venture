@@ -14,7 +14,10 @@ import {
   ADD_CARRITO,
   DELETE_CARRITO,
   SET_CARRITO,
-  ADD_COMMENT
+  ADD_COMMENT,
+  // actionTypes.js
+
+
 
 } from "./actions";
 

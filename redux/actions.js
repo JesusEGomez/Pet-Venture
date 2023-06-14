@@ -21,6 +21,9 @@ export const DELETE_CARRITO = "DELETE_CARRITO";
 export const SET_USER_STATE = "SET_USER_STATE";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CARRITO = "SET_CARRITO";
+// actionTypes.js
+
+
 
 export const ADD_COMMENT ='ADD_COMMENT';
 // export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
