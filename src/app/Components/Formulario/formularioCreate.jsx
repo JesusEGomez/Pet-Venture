@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Grid, Button } from "@nextui-org/react";
 import styles from "./formularioCreate.module.css";
 import { useFormik } from "formik";
@@ -6,8 +6,11 @@ import * as Yup from "yup";
 import axios from "axios";
 import Link from "next/link";
 
-const Formulario = () => {
-  const { handleSubmit, handleChange, values, errors } = useFormik({
+const FormularioCreate = () => {
+  const [image, setImage] = useState("");
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+
+  const formik = useFormik({
     initialValues: {
       name: "",
       brand: "",
@@ -19,43 +22,68 @@ const Formulario = () => {
 
     validationSchema: Yup.object({
       name: Yup.string()
-        .max(20, "Maximo 20 caracteres")
-        .min(5, "Minimo 5 caracteres")
-        .required("Required"),
+        .max(20, "Máximo 20 caracteres")
+        .min(5, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
       brand: Yup.string()
-        .max(20, "Maximo 20 caracteres")
-        .min(5, "Minimo 5 caracteres")
-        .required("Requerido"),
+        .max(20, "Máximo 20 caracteres")
+        .min(5, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
       price: Yup.number()
         .min(1, "El precio debe ser mayor a 1")
-        .required("Requerido"),
-      image: Yup.string()
-        .url("Debe ser una URL")
-        .matches(
-          /^https?:\/\/[^\s/$.?#].[^\s]*\.(gif|jpe?g|tiff?|png|webp|bmp)$/i,
-          "El URL debe ser una imagen"
-        )
-        .required("Requerido"),
+        .required("Campo requerido"),
       category: Yup.string()
-        .max(20, "Maximo 20 caracteres")
-        .min(5, "Minimo 5 caracteres")
-        .required("Requerido"),
+        .max(20, "Máximo 20 caracteres")
+        .min(5, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
       subCategory: Yup.string()
-        .max(20, "Maximo 20 caracteres")
-        .min(5, "Minimo 5 caracteres")
-        .required("Requerido"),
+        .max(20, "Máximo 20 caracteres")
+        .min(5, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
     }),
 
     onSubmit: async (values) => {
       const response = await axios.post("/api/createProduct", values);
+      console.log(response);
     },
+    validateOnBlur: true,
   });
+
+  const submitImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "petventure");
+    data.append("cloud_name", "dkjimr8mq");
+
+    fetch("https://api.cloudinary.com/v1_1/dkjimr8mq/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const imageUrl = data.secure_url;
+        setUploadedImageUrl(imageUrl);
+        formik.setFieldValue("image", imageUrl); // Setea la URL en el campo "image" del formulario
+        formik.handleSubmit(); // Envía el formulario
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className={styles["body"]}>
-      <form className={styles["form-container"]} onSubmit={handleSubmit}>
-        <h2> Crear Producto</h2>
+      <form className={styles["form-container"]} onSubmit={formik.handleSubmit}>
+        <input
+          type="hidden"
+          name="image"
+          value={uploadedImageUrl}
+          onChange={formik.handleChange}
+        />
+        <h2>Crear Producto</h2>
         <Grid.Container gap={4}>
-          <Grid>
+          <Grid xs={12} md={6}>
             <Input
               rounded
               bordered
@@ -63,15 +91,16 @@ const Formulario = () => {
               type="text"
               label="name"
               placeholder="name"
-              color="default"
+              color="primary"
               name="name"
-              onChange={handleChange}
-              value={values.name}
-              error={errors.name}
-              helperText={errors.name}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              error={formik.touched.name && formik.errors.name}
+              helperText={formik.touched.name && formik.errors.name}
             />
           </Grid>
-          <Grid>
+
+          <Grid xs={12} md={6}>
             <Input
               rounded
               bordered
@@ -79,47 +108,32 @@ const Formulario = () => {
               type="text"
               label="brand"
               placeholder="brand"
-              color="default"
+              color="primary"
               name="brand"
-              onChange={handleChange}
-              value={values.brand}
-              error={errors.brand}
-              helperText={errors.brand}
+              onChange={formik.handleChange}
+              value={formik.values.brand}
+              error={formik.touched.brand && formik.errors.brand}
+              helperText={formik.touched.brand && formik.errors.brand}
             />
           </Grid>
-          <Grid>
+          <Grid xs={12} md={6}>
             <Input
               rounded
               bordered
               className={styles["field"]}
-              type="Number"
+              type="number"
+              min={1}
               label="price"
               placeholder="price"
-              color="default"
+              color="primary"
               name="price"
-              onChange={handleChange}
-              value={values.price}
-              error={errors.price}
-              helperText={errors.price}
+              onChange={formik.handleChange}
+              value={formik.values.price}
+              error={formik.touched.price && formik.errors.price}
+              helperText={formik.touched.price && formik.errors.price}
             />
           </Grid>
-          <Grid>
-            <Input
-              rounded
-              bordered
-              className={styles["field"]}
-              type="text"
-              label="image"
-              placeholder="image"
-              color="default"
-              name="image"
-              onChange={handleChange}
-              value={values.image}
-              error={errors.image}
-              helperText={errors.image}
-            />
-          </Grid>
-          <Grid>
+          <Grid xs={12} md={6}>
             <Input
               rounded
               bordered
@@ -127,15 +141,15 @@ const Formulario = () => {
               type="text"
               label="category"
               placeholder="category"
-              color="default"
+              color="primary"
               name="category"
-              onChange={handleChange}
-              value={values.category}
-              error={errors.category}
-              helperText={errors.category}
+              onChange={formik.handleChange}
+              value={formik.values.category}
+              error={formik.touched.category && formik.errors.category}
+              helperText={formik.touched.category && formik.errors.category}
             />
           </Grid>
-          <Grid>
+          <Grid xs={12} md={6}>
             <Input
               rounded
               bordered
@@ -143,26 +157,60 @@ const Formulario = () => {
               type="text"
               label="subCategory"
               placeholder="subCategory"
-              color="default"
+              color="primary"
               name="subCategory"
-              onChange={handleChange}
-              value={values.subCategory}
-              error={errors.subCategory}
-              helperText={errors.subCategory}
+              onChange={formik.handleChange}
+              value={formik.values.subCategory}
+              error={formik.touched.subCategory && formik.errors.subCategory}
+              helperText={
+                formik.touched.subCategory && formik.errors.subCategory
+              }
+            />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Input
+              label="Image"
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              rounded
+              bordered
+              className={styles["field"]}
+              color="primary"
+              value=""
             />
           </Grid>
         </Grid.Container>
-        <div className={styles["btn-cont"]}>
-          <Button type="submit" className={styles["btn-green"]}>
-            Enviar
-          </Button>
-          <Link href="/">
-            <Button className={styles["btn-green"]}>Home</Button>
-          </Link>
-        </div>
+        {uploadedImageUrl && (
+          <div className={styles["image-container"]}>
+            <img
+              src={uploadedImageUrl}
+              alt="Uploaded Image"
+              className={styles.image}
+            />
+          </div>
+        )}
+        <Grid.Container gap={0} rowSpacing={3}>
+          <Grid xs={12} md={4}>
+            <Button auto type="submit" className={styles["btn-green"]}>
+              Enviar
+            </Button>
+          </Grid>
+          <Grid xs={12} md={4}>
+            <Link href="/">
+              <Button auto className={styles["btn-green"]}>
+                Home
+              </Button>
+            </Link>
+          </Grid>
+          <Grid xs={12} md={4}>
+            <Button auto className={styles["btn-green"]} onClick={submitImage}>
+              Cargar imagen
+            </Button>
+          </Grid>
+        </Grid.Container>
       </form>
     </div>
   );
 };
 
-export default Formulario;
+export default FormularioCreate;

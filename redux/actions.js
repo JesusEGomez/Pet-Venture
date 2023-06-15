@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-import { getFakeProducts } from "@/app/fakeApi/getFakeProducts";
+// import { getFakeProducts } from "@/app/fakeApi/getFakeProducts";
 import { DYNAMIC_ERROR_CODE } from "next/dist/client/components/hooks-server-context";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const SEARCH = "SEARCH";
@@ -109,10 +109,6 @@ export function getFilteredProducts(filters) {
   };
 }
 
-//& category - filter category
-//& subcategory - filter subcategory
-//& price - sort price
-//& name - filter name
 // * Actions de usuario
 export function setUserState(state) {
   return { type: SET_USER_STATE, payload: state };

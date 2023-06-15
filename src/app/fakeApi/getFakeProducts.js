@@ -1,7 +1,7 @@
-const products = require("./products.json");
+// const products = require("./products.json");
 
-function getFakeProducts() {
-  return products;
-}
+// function getFakeProducts() {
+//   return products;
+// }
 
-module.exports = { getFakeProducts };
+// module.exports = { getFakeProducts };

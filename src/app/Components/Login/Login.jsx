@@ -83,16 +83,22 @@ export default function Login() {
         .required("Requerido")
     }),
     onSubmit: async values => {
-      const refUSer = await createUserWithEmailAndPassword(auth, values.email, values.password)
-      console.log(values.email, values.password)
+      try {
+
+        const refUSer = await createUserWithEmailAndPassword(auth, values.email, values.password)
+        console.log(refUSer)
+      } catch (error) {
+        console.error(error)
+      }
+
     }
   })
 
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <h2>Bienvenido a Pet Venture crea una cuenta</h2>
+    <div className={styles.container}>
+      <form className={styles.formContainer} onSubmit={formik.handleSubmit}>
+        <h2>Bienvenido a Pet Venture registrate</h2>
         <label htmlFor="email">Email: </label>
         <input
           type="email"
@@ -101,7 +107,7 @@ export default function Login() {
           onChange={formik.handleChange}
           value={formik.values.email}
         />
-        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+        {formik.errors.email && formik.touched.email && <div>{formik.errors.email}</div>}
         <label htmlFor="password">Contraseña: </label>
         <input
           type="password"
@@ -110,11 +116,11 @@ export default function Login() {
           onChange={formik.handleChange}
           value={formik.values.password}
         />
-        {formik.errors.password ? <div>{formik.errors.password}</div> : null}
+        {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
         <button type="submit">Crear</button>
 
+        <button onClick={handlerOnClick}> Login with Google </button>
       </form>
-      <button onClick={handlerOnClick}> Login with Google </button>
     </div>
 
   )

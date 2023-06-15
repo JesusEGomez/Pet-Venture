@@ -1,0 +1,19 @@
+.main {
+  background: rgb(219, 213, 213);
+  min-height: max-content;
+}
+
+.left {
+  background: greenyellow;
+  min-height: max-content;
+
+  padding-left: 20px;
+  width: 10%;
+}
+
+.right {
+  background: rgb(231, 28, 28);
+  min-height: fit-content;
+  margin-left: 10%;
+  width: 90%;
+}

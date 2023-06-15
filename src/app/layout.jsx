@@ -4,13 +4,13 @@ export const metadata = {
 }
 
 export default function RootLayout({
-  children})
-   {
+  children }) {
+
   return (
     <html lang="en">
       <body>
         {children}
-        </body>
+      </body>
     </html>
   )
 }; 

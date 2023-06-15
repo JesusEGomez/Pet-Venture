@@ -1,71 +1,67 @@
 /* Button.module.css */
 
 .container {
-  
-    
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
-    
-  }
-  .fondo{
+}
+.fondo {
   background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-      position: fixed;
-  }
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: fixed;
+}
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  font-size: 24px;
+  background-color: #644d00;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
 
+.button:hover {
+  background-color: #2e2424;
+}
 
-  .button {
-    padding: 20px 40px;
-    font-size: 24px;
-    background-color: #000000;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #2e2424;
-  }
-  
-  .container {
-    position: relative;
-  }
-  
-  .homeContainer {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 10px 30px;
-    background-color: #ffffff;
-    color: #090000;
-    border-radius: 10px;
-  }
-  .deleteFilter {
-    padding: 10px 10px;
-    background-color: gray;
-    color: white;
-    border-radius: 5px;
-    font-size: 20px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
+.container {
+  position: relative;
+}
 
-  
-    /* transition: background-color 0.3s ease-in-out; */
-  }
-  
-  .deleteFilter:hover {
-    background-color: rgb(217, 168, 34);
-  }
-  
-  .deleteFilter:active {
-    top: 2px;
-  }
-  
+.homeContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px 30px;
+  background-color: #ffffff;
+  color: #090000;
+  border-radius: 10px;
+}
+.deleteFilter {
+  padding: 10px 10px;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  /* transition: background-color 0.3s ease-in-out; */
+}
+
+.deleteFilter:hover {
+  background-color: rgb(217, 168, 34);
+}
+
+.deleteFilter:active {
+  top: 2px;
+}

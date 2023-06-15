@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   GET_BRANDS,
@@ -15,9 +15,7 @@ import {
   DELETE_CARRITO,
   SET_CARRITO,
   ADD_COMMENT,
-
   CLEAR_USER_DATA,
-
 } from "./actions";
 
 export const initialState = {

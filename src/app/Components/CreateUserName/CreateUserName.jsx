@@ -29,17 +29,19 @@ export default function CreateUserName() {
         if (userState === 3 || userState === 1) {
             router.push("/")
         }
-    })
-    const { displayName } = userInfo
+    }, [userState])
+
     const formik = useFormik({
         initialValues: {
-            userName: ""
+            userName: "",
+            name: ""
         },
         validate,
         onSubmit: async values => {
             const tmp = { ...userInfo }
             tmp.username = values.userName
             tmp.processCompleted = true
+            values.name.length ? tmp.displayName = values.name : null
             await updateUser(tmp)
             dispatch(setUserState(3))
             Swal.fire({
@@ -52,25 +54,57 @@ export default function CreateUserName() {
     })
     return (
         <div className={styles.container}>
-            <div>
-        <form className={styles.mensaje}onSubmit={formik.handleSubmit}>
-        <div>
-             ¡Bienvenido! {displayName ? displayName : null}
-            <p style={{ marginTop: "10px" }}>Crea tu nombre de usuario</p>
-               </div>
+            {userInfo.displayName !== null ?
+                <div>
+                    <form className={styles.mensaje} onSubmit={formik.handleSubmit}>
+                        <h2>
+                            ¡Bienvenido! {userInfo.displayName}
+                        </h2>
+                        <label htmlFor="userName">Crea tu Nombre de usuario: </label>
+                        <input className={styles.input}
+                            type="text"
+                            name="userName"
+                            id="userName"
+                            onChange={formik.handleChange}
+                            value={formik.values.userName}
+                        />
+                        {formik.errors.userName ? <div>{formik.errors.userName}</div> : null}
+                        <button className={styles.deleteFilter} type="submit">Crear</button>
 
-            <input className={styles.input}
-                type="text"
-                name="userName"
-                id="userName"
-                onChange={formik.handleChange}
-                value={formik.values.userName}
-            />
-            {formik.errors.userName ? <div>{formik.errors.userName}</div> : null}
-            <button className={styles.deleteFilter} type="submit">Crear</button>
 
-        </form>
-        </div>
+                    </form>
+                </div> :
+                <div>
+                    <form className={styles.mensaje} onSubmit={formik.handleSubmit}>
+                        <h2>
+                            ¡Bienvenido!
+                        </h2>
+                        <label htmlFor="name">Ingresa tu Nombre: </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            onChange={formik.handleChange}
+                            value={formik.values.name}
+                        />
+                        {formik.errors.email && formik.touched.email && <div>{formik.errors.email}</div>}
+                        <label htmlFor="userName">Crea tu Nombre de usuario: </label>
+                        <input className={styles.input}
+                            type="text"
+                            name="userName"
+                            id="userName"
+                            onChange={formik.handleChange}
+                            value={formik.values.userName}
+                        />
+                        {formik.errors.email && formik.touched.email && <div>{formik.errors.email}</div>}
+                        <button className={styles.deleteFilter} type="submit">Crear</button>
+
+
+                    </form>
+                </div>
+
+            }
+
         </div>
     )
 }

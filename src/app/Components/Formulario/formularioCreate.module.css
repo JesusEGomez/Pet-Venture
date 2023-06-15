@@ -13,6 +13,7 @@
   background-color: white;
   color: #999;
   padding: 20px;
+  flex-wrap: wrap;
   border-radius: 20px;
   box-shadow: 0 0 5px black;
   margin: auto;
@@ -47,8 +48,9 @@
 }
 .btn-green {
   color: white;
+  display: flex;
   border-radius: 3px;
-  width: 50%;
+  width: 100%;
   background-color: #3cc93f;
   margin: 10px;
 }
@@ -62,4 +64,8 @@
 }
 .center-content {
   text-align: center;
+}
+.image {
+  width: 400px;
+  height: 400px;
 }
