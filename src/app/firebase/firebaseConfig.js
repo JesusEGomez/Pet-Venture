@@ -14,6 +14,7 @@ import {
 import database from "../utils/db.json";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyAwcrHY5rIKNV57k9Bxj0pXKQRH1p7tUHs",
   authDomain: "pet-venture.firebaseapp.com",
   projectId: "pet-venture",

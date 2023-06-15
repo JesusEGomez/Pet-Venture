@@ -15,9 +15,8 @@ import {
   DELETE_CARRITO,
   SET_CARRITO,
   ADD_COMMENT,
-  // actionTypes.js
 
-
+  CLEAR_USER_DATA,
 
 } from "./actions";
 
@@ -1254,18 +1253,18 @@ export const initialState = {
   userInfo: [],
   carrito: [],
   compras: [], //agrego estado de compras del usuario.
-  comments:{}
+  comments: {},
 };
 
 try {
-  if (typeof window !== 'undefined') {
-    const storedComments = localStorage.getItem('comments');
+  if (typeof window !== "undefined") {
+    const storedComments = localStorage.getItem("comments");
     if (storedComments) {
       initialState.comments = JSON.parse(storedComments);
     }
   }
 } catch (error) {
-  console.error('Error al acceder al localStorage:', error);
+  console.error("Error al acceder al localStorage:", error);
 }
 // * Estados del usuario
 //* 1: No legueado, 2: autenticado, 3: Registrado
@@ -1314,96 +1313,96 @@ export default function (state = initialState, action) {
         paginaactual: 1,
       };
 
-    case  ADD_CARRITO: 
-    return {
-      ...state,
-      carrito: [...state.carrito,action.payload]
-    }
-
- 
-// En el reducer correspondiente
-
-case DELETE_CARRITO:
-  const { id, quantityToDelete } = action.payload;
-  const productIndex = state.carrito.findIndex((product) => product.id === id);
-
-  if (productIndex !== -1) {
-    const updatedCart = [...state.carrito];
-    const product = updatedCart[productIndex];
-
-    if (product.quantity > quantityToDelete) {
-      // Si la cantidad es mayor a quantityToDelete, decrementar la cantidad
-      updatedCart[productIndex] = {
-        ...product,
-        quantity: product.quantity - quantityToDelete,
+    case ADD_CARRITO:
+      return {
+        ...state,
+        carrito: [...state.carrito, action.payload],
       };
-    } else {
-      // Si la cantidad es menor o igual a quantityToDelete, eliminar el producto del carrito
-      updatedCart.splice(productIndex, 1);
-    }
 
-    return {
-      ...state,
-      carrito: updatedCart,
-    };
-  }
+    // En el reducer correspondiente
 
-  return state;
+    case DELETE_CARRITO:
+      const { id, quantityToDelete } = action.payload;
+      const productIndex = state.carrito.findIndex(
+        (product) => product.id === id
+      );
 
-  // Filtrar los productos eliminados (null) del carrito
-  const filteredCart = updatedCart.filter((product) => product !== null);
+      if (productIndex !== -1) {
+        const updatedCart = [...state.carrito];
+        const product = updatedCart[productIndex];
 
-  return {
-    ...state,
-    carrito: filteredCart,
-  };
+        if (product.quantity > quantityToDelete) {
+          // Si la cantidad es mayor a quantityToDelete, decrementar la cantidad
+          updatedCart[productIndex] = {
+            ...product,
+            quantity: product.quantity - quantityToDelete,
+          };
+        } else {
+          // Si la cantidad es menor o igual a quantityToDelete, eliminar el producto del carrito
+          updatedCart.splice(productIndex, 1);
+        }
+        state.userInfo.carrito = updatedCart;
 
-  return {
-    ...state,
-    carrito: updatedCart
-  };
+        return {
+          ...state,
+          carrito: updatedCart,
+        };
+      }
 
-    
-  case SET_CARRITO:
-  return {
-    ...state,
-    carrito: action.payload,
-    compras: action.compras // probando. 
-  };
+      return state;
 
-  
+      // Filtrar los productos eliminados (null) del carrito
+      const filteredCart = updatedCart.filter((product) => product !== null);
 
+      return {
+        ...state,
+        carrito: filteredCart,
+      };
+
+      return {
+        ...state,
+        carrito: updatedCart,
+      };
+
+    case SET_CARRITO:
+      return {
+        ...state,
+        carrito: action.payload,
+        compras: action.compras, // probando.
+      };
 
     case ADD_COMMENT:
-          const { productId, comment } = action.payload;
-          const updatedComments = {
-            ...state.comments,
-            [productId]: [...(state.comments[productId] || []), comment],
-          };
-          localStorage.setItem('comments', JSON.stringify(updatedComments));
-          return {
-            ...state,
-            comments: updatedComments,
-          };
+      const { productId, comment } = action.payload;
+      const updatedComments = {
+        ...state.comments,
+        [productId]: [...(state.comments[productId] || []), comment],
+      };
+      localStorage.setItem("comments", JSON.stringify(updatedComments));
+      return {
+        ...state,
+        comments: updatedComments,
+      };
 
-
-
-
-  case USERS_ERROR:
-
+    case USERS_ERROR:
       return {
         error: action.payload,
       };
 
-   case SET_USER_STATE:
+    case SET_USER_STATE:
       return {
         ...state,
         userState: action.payload,
       };
-  case SET_USER_INFO:
+    case SET_USER_INFO:
       return {
         ...state,
         userInfo: action.payload,
+      };
+    case CLEAR_USER_DATA:
+      return {
+        ...state,
+        userInfo: [],
+        carrito: [],
       };
     default:
       return state;

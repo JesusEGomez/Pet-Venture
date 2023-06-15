@@ -6,9 +6,12 @@ import Link from "next/link";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
+import { updateUser } from "@/app/firebase/firebaseConfig";
 
 export default function NavBarCarrito(props) {
   const carrito = useSelector((state) => state.carrito);
+  const userInfo = useSelector((state) => state.userInfo);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,24 +19,31 @@ export default function NavBarCarrito(props) {
     if (cartFromLocalStorage) {
       dispatch({ type: "SET_CARRITO", payload: cartFromLocalStorage });
     }
+    if (userInfo.carrito?.length !== 0) {
+      const userCarrito = [];
+      userInfo.carrito?.forEach((element) => {
+        userCarrito.push(element);
+      });
+      dispatch({ type: "SET_CARRITO", payload: userCarrito });
+    }
+    console.log(userInfo.carrito);
   }, [dispatch]);
 
   useEffect(() => {
+    console.log(carrito);
     localStorage.setItem("cart", JSON.stringify(carrito));
   }, [carrito]);
 
-  
+  const handlerDelete = async (id, quantityToDelete) => {
+    dispatch(deleteCarrito(id, quantityToDelete));
+    await updateUser(userInfo);
 
- 
-const handlerDelete = (id, quantityToDelete) => {
-  dispatch(deleteCarrito(id, quantityToDelete));
-  
-  Swal.fire(
-    "Producto borrado del carrito",
-    "Se ha eliminado el producto del carrito",
-    "success"
-  );
-}
+    Swal.fire(
+      "Producto borrado del carrito",
+      "Se ha eliminado el producto del carrito",
+      "success"
+    );
+  };
 
   let totalPrice = 0;
 
@@ -66,7 +76,7 @@ const handlerDelete = (id, quantityToDelete) => {
         return (
           <div className={styles.cartCard} key={e.id}>
             <div className={styles.cartCardInfo}>
-              {e.image && (
+              {e?.image && (
                 <img
                   className={styles.cartCardImage}
                   src={e.image}
@@ -95,10 +105,13 @@ const handlerDelete = (id, quantityToDelete) => {
           </div>
         );
       })}
+
+      {carrito.forEach((e) => {
+        totalPrice += e?.price;
+        // console.log(totalPrice)
+      })}
+
       <div className={styles.precios}>
-        {carrito.forEach((product) => {
-          totalPrice += product.price;
-        })}
         Precio Total: {totalPrice}$
         {isCarritoEmpty ? (
           <>
@@ -118,6 +131,4 @@ const handlerDelete = (id, quantityToDelete) => {
       </div>
     </div>
   );
-
-};
-
+}

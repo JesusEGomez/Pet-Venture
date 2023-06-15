@@ -48,7 +48,6 @@ const Formulario = () => {
 
     onSubmit: async (values) => {
       const response = await axios.post("/api/createProduct", values);
-      console.log(response);
     },
   });
   return (
