@@ -2,7 +2,8 @@
 
 import axios from "axios";
 
-// import { getFakeProducts } from "@/app/fakeApi/getFakeProducts";
+import { getFakeProducts } from "@/app/fakeApi/getFakeProducts";
+
 import { DYNAMIC_ERROR_CODE } from "next/dist/client/components/hooks-server-context";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const SEARCH = "SEARCH";
@@ -17,7 +18,6 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
 export const ADD_CARRITO = "ADD_CARRITO";
 export const DELETE_CARRITO = "DELETE_CARRITO";
-
 export const SET_USER_STATE = "SET_USER_STATE";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CARRITO = "SET_CARRITO";
@@ -32,7 +32,7 @@ export function getProducts() {
   return async function (dispatch) {
     const response = (await axios.get("/api/products")).data;
 
-    //const response = getFakeProducts();
+    // const response = getFakeProducts();
 
     return dispatch({ type: GET_PRODUCTS, payload: response });
   };

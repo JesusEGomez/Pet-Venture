@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getFakeProducts } from "@/app/fakeApi/getFakeProducts";
+
 import { DataGrid } from "@mui/x-data-grid";
 
-import Link from "next/link";
 import { Switch } from "@nextui-org/react";
+import Link from "next/link";
 
-function ProductsDash() {
+function UsersDash() {
   const [dataArray, setDataArray] = useState([]);
 
   // const [dataArray, setDataArray] = useState([]);
@@ -14,9 +14,9 @@ function ProductsDash() {
   useEffect(() => {
     const getDbProducts = async () => {
       try {
-        const response = (await axios.get("http://localhost:3000/api/products"))
+        const response = (await axios.get("http://localhost:3000/api/users"))
           .data;
-        // const response = getFakeProducts();
+
         setDataArray(response);
         console.log("response", response);
       } catch (error) {
@@ -26,21 +26,6 @@ function ProductsDash() {
 
     getDbProducts();
   }, []);
-
-  const rows = dataArray.map((item) => ({
-    id: item.id,
-    col1: item.name,
-    // col2: item.col2,
-    col3: item.brand_url,
-    col4: item.brand,
-    col5: item.category,
-    col6: item.price,
-    col7: item.image,
-    col8: item.subCategory,
-    col9: item.quantitySold,
-    col10: item.stock,
-    col11: item.isActive,
-  }));
 
   const handleSwitchChange = (e, id) => {
     const updatedRows = dataArray.map((row) => {
@@ -55,6 +40,14 @@ function ProductsDash() {
 
     setDataArray(updatedRows);
   };
+  const rows = dataArray.map((item) => ({
+    id: item.id,
+    col1: item.username,
+    col2: item.displayName,
+    col3: item.uid,
+    col4: item.processCompleted,
+    col5: item.profilePicture,
+  }));
 
   const columns = [
     {
@@ -62,13 +55,13 @@ function ProductsDash() {
       headerName: "",
       width: 150,
       renderCell: (params) => {
-        const { id } = params.row;
+        const { id, edit } = params.row;
 
-        return <Link href={`/dashboard/product_detail/${id}`}>Edit</Link>;
+        return <Link href={`/user_detail/${id}`}>Edit</Link>;
       },
     },
-    { field: "id", hide: true },
-    { field: "col1", headerName: "NAME", width: 150 },
+
+    { field: "id", headerName: "ID", hide: true },
     {
       field: "col11",
       headerName: "isACTIVE",
@@ -85,21 +78,19 @@ function ProductsDash() {
         );
       },
     },
-    { field: "col3", headerName: "BRAND URL", width: 150 },
-    { field: "col4", headerName: "BRAND", width: 150 },
-    { field: "col5", headerName: "CATEGORY", width: 150 },
-    { field: "col6", headerName: "PRICE", width: 150 },
-    { field: "col7", headerName: "IMAGE", width: 150 },
-    { field: "col8", headerName: "SUB-CATEGORY", width: 150 },
-    { field: "col9", headerName: "QUANTITY", width: 150 },
-    { field: "col10", headerName: "STOCK", width: 150 },
+    { field: "col1", headerName: "USERNAME", width: 150 },
+    { field: "col2", headerName: "FULL NAME", width: 150 },
+    { field: "col3", headerName: "UID", width: 150 },
+    { field: "col4", headerName: "PROCESS COMPLETED", width: 150 },
+    { field: "col5", headerName: "PROFILE PICTURE", width: 150 },
   ];
 
+  console.log(dataArray);
   return (
     <div>
-      <h2>Products</h2>
+      <h2>Users</h2>
 
-      <Link href="/formulario"> + Add Product</Link>
+      <Link href="/formulario"> + hacer formulario para user</Link>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} />
       </div>
@@ -107,4 +98,4 @@ function ProductsDash() {
   );
 }
 
-export default ProductsDash;
+export default UsersDash;

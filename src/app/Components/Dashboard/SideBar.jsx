@@ -9,12 +9,12 @@ export default function SideBar({ children }) {
       <div className={styles.sideBar}>
         <div className={styles.icons}>
           <Link href={"/dashboard"}>
-            <div className={styles.topIcon}></div>
+            <div className={styles.topIcon}>Dashboard</div>
           </Link>
           <span className={styles.span}></span>
         </div>
         <div className={styles.icons}>
-          <Link href={"/dashboard/customers"}>
+          <Link href={"/dashboard/users"}>
             <div className={styles.restIcons}>Customers</div>
           </Link>
           <span className={styles.span}></span>

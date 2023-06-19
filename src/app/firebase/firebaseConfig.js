@@ -115,3 +115,16 @@ export default async function addDocuments() {
     console.log(ref);
   }
 }
+
+export async function registerNewPurchase(carrito) {
+  try {
+    let fecha = new Date();
+    let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
+    let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
+    for (const producto of carrito) {
+      const collectionRef = collection(db, "compras");
+      const docRef = doc(collectionRef, producto.id);
+      await setDoc(docRef, { ...producto, fecha: fechaFormateada });
+    }
+  } catch (error) {}
+}

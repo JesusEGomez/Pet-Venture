@@ -1,17 +1,23 @@
 .container {
   display: flex;
+  background: tomato;
+  height: 50px;
 }
 
 .sideBar {
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 20px;
-  min-height: screen;
+  justify-content: flex-start;
+
+  width: 200px;
+  height: 80%;
   padding: 10x;
-  background: white;
-  border-radius: 1px;
+
+  border-color: tomato;
+  border-style: solid;
+  border-radius: 6px;
+  /* background: rgb(223, 217, 217); */
 }
 
 .main {
@@ -26,11 +32,12 @@
 }
 
 .topIcon {
-  background: blueviolet;
-  color: white;
+  /* background: blueviolet; */
+  color: tomato;
   padding: 3px;
   border-radius: lg;
   display: inline-block;
+  font-size: xx-large;
 }
 
 .span {
@@ -40,8 +47,8 @@
   padding: 2px;
 }
 .restIcons {
-  background: grey;
-  color: white;
+  /* background: grey; */
+  color: black;
   padding: 3px;
   border-radius: lg;
   display: inline-block;

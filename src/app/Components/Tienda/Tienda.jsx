@@ -22,7 +22,7 @@ const Tienda = () => {
   const itemsToShow = allProducts?.slice(startIndex, endIndex);
 
   useEffect(() => {
-   dispatch(getProducts());
+    dispatch(getProducts());
   }, []);
 
   return (
@@ -31,8 +31,8 @@ const Tienda = () => {
       <Products itemsToShow={itemsToShow} />
       <Pagination
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage} //& trate funcion del componente pagination con el numero actual
-        totalPages={totalPages} //& le manda las pages a Pagination
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
         // paginate={paginate}
       />
     </div>

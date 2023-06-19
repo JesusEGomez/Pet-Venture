@@ -8,9 +8,10 @@ import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
 import { updateUser } from "@/app/firebase/firebaseConfig";
 
-export default function NavBarCarrito(props) {
+export default function NavBarCarrito() {
   const carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
+  const userState = useSelector((state) => state.userState);
 
   const dispatch = useDispatch();
 
@@ -18,15 +19,14 @@ export default function NavBarCarrito(props) {
     const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
     if (cartFromLocalStorage) {
       dispatch({ type: "SET_CARRITO", payload: cartFromLocalStorage });
-    }
-    if (userInfo.carrito?.length !== 0) {
-      const userCarrito = [...carrito];
+    }else  if (userInfo.carrito?.length !== 0) {
+      const userCarrito = [];
       userInfo.carrito?.forEach((element) => {
         userCarrito.push(element);
       });
       dispatch({ type: "SET_CARRITO", payload: userCarrito });
     }
-
+   
     console.log(userInfo.carrito);
   }, [dispatch]);
 
@@ -35,56 +35,23 @@ export default function NavBarCarrito(props) {
     localStorage.setItem("cart", JSON.stringify(carrito));
   }, [carrito]);
 
-  const handlerDelete = (id) => {
-    const existingProduct = carrito.find((product) => product.id === id);
+  const handlerDelete = async (id, quantityToDelete) => {
+    dispatch(deleteCarrito(id, quantityToDelete));
+    await updateUser(userInfo);
+  const handlerDelete = async (id, quantityToDelete) => {
+    dispatch(deleteCarrito(id, quantityToDelete));
+    await updateUser(userInfo);
 
-    if (existingProduct.quantity > 1) {
-      // Si la cantidad es mayor a 1, mostrar un prompt para ingresar la cantidad a eliminar
-      const quantityToDelete = prompt(
-        `Ingrese la cantidad a eliminar (máximo: ${existingProduct.quantity})`,
-        "1"
-      );
-      const quantityToDeleteNumber = parseInt(quantityToDelete, 10);
-      if (
-        !isNaN(quantityToDeleteNumber) &&
-        quantityToDeleteNumber >= 1 &&
-        quantityToDeleteNumber <= existingProduct.quantity
-      ) {
-        dispatch(decreaseQuantity(id, quantityToDeleteNumber));
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "La cantidad ingresada es inválida",
-        });
-      }
-    } else {
-      // Si la cantidad es igual a 1, eliminar el producto del carrito
-      dispatch(deleteCarrito(id));
-    }
-
-    let timerInterval;
-    Swal.fire({
-      title: "Sacando producto del carrito",
-      html: "Espere <b></b> milisegundos.",
-      timer: 2000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const b = Swal.getHtmlContainer().querySelector("b");
-        timerInterval = setInterval(() => {
-          b.textContent = Swal.getTimerLeft();
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-      }
-    });
+    Swal.fire(
+      "Producto borrado del carrito",
+      "Se ha eliminado el producto del carrito",
+      "success"
+    );
+    Swal.fire(
+      "Producto borrado del carrito",
+      "Se ha eliminado el producto del carrito",
+      "success"
+    );
   };
 
   let totalPrice = 0;
@@ -95,7 +62,8 @@ export default function NavBarCarrito(props) {
     );
 
     if (existingProductIndex !== -1) {
-      // If the product already exists, increase the quantity
+      // Si el producto ya existe, incrementar la cantidad
+      // Si el producto ya existe, incrementar la cantidad
       const existingProduct = accumulator[existingProductIndex];
       const updatedProduct = {
         ...existingProduct,
@@ -103,7 +71,8 @@ export default function NavBarCarrito(props) {
       };
       accumulator.splice(existingProductIndex, 1, updatedProduct);
     } else {
-      // If the product doesn't exist, add it to the accumulator with quantity 1
+      // Si el producto no existe, agregarlo al acumulador con cantidad 1
+      // Si el producto no existe, agregarlo al acumulador con cantidad 1
       accumulator.push({ ...currentProduct, quantity: 1 });
     }
 
@@ -114,7 +83,7 @@ export default function NavBarCarrito(props) {
 
   return (
     <div className={styles.container}>
-      {groupedCarrito.map((e) => {
+      {carrito.map((e) => {
         return (
           <div className={styles.cartCard} key={e.id}>
             <div className={styles.cartCardInfo}>
@@ -154,9 +123,6 @@ export default function NavBarCarrito(props) {
       })}
 
       <div className={styles.precios}>
-        {carrito.forEach((product) => {
-          totalPrice += product.price;
-        })}
         Precio Total: {totalPrice}$
         {isCarritoEmpty ? (
           <>
@@ -167,7 +133,11 @@ export default function NavBarCarrito(props) {
           </>
         ) : (
           <>
-            <MercadoPagoButton carrito={carrito} />
+            {userState === 3 ? (
+              <MercadoPagoButton carrito={carrito} />
+            ) : (
+              <p>Necesitas Registrarte Para Poder Comprar</p>
+            )}
             <Link href="/tienda">
               <p className={styles.deleteFilter}>Volver a la tienda</p>
             </Link>
@@ -177,3 +147,4 @@ export default function NavBarCarrito(props) {
     </div>
   );
 }
+

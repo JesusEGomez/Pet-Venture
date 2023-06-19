@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import styles from "./mercadoPago.button.module.css"
 import { Loader } from "../Loader/Loader";
+import { setTemporalCarrito } from "../../../../redux/actions";
+import { useDispatch } from "react-redux";
 
 
 const MercadoPagoButton = ({ carrito }) => {
@@ -22,7 +24,8 @@ const MercadoPagoButton = ({ carrito }) => {
             }
             setLoading(false)
         };
-
+        console.log("este es el carrito", carrito)
+        localStorage.setItem("temporalCarrito", JSON.stringify(carrito));
         generateLink();
     }, [carrito]);
     return (
@@ -31,7 +34,7 @@ const MercadoPagoButton = ({ carrito }) => {
                 <button className={styles.button} disabled>
                     <Loader />
                 </button>
-            ) : (
+            ) : ( 
                 <a className={styles.button} href={url}>
                     Pagar ahora
                 </a>
