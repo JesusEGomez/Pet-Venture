@@ -1,3 +1,4 @@
+const nodemailer = require('nodemailer');
 const homeURL = 'http://localhost:3000/tienda';
 const MAIL = process.env.NEXT_MAIL;
 const MAIL_PASSWORD = process.env.NEXT_MAIL_PASSWORD;
