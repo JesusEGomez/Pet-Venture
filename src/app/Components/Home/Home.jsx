@@ -5,15 +5,19 @@ import Ofertas from "../Ofertas/Ofertas";
 import Ofertas2 from "../Ofertas2/Ofertas2";
 import Footer from "../Footer/Footer";
 import { useSelector } from "react-redux";
+
+import addDocuments from "@/app/firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
+
+
 import styles from "./Home.module.css";
 import Swal from "sweetalert2";
 import { registerNewPurchase, updateUser } from "@/app/firebase/firebaseConfig";
 // import axios from "axios";
 
 export default function Home() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const userInfo = useSelector((state) => state.userInfo);
 
@@ -57,6 +61,7 @@ export default function Home() {
     registerPurchase()
 
   }, [])
+
 
   // ! Esta funcion esta comenentada para después poder cargar productos
   // const handlerClick = () => {

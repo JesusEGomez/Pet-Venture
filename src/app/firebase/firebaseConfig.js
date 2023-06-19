@@ -78,18 +78,24 @@ export async function registerNewUser(user) {
   } catch (error) {}
 }
 
-export async function updateUser(user) {
+export async function updateUser(user, onSuccess) {
   try {
     const collectionRef = collection(db, "users");
     const docRef = doc(collectionRef, user.uid);
     await setDoc(docRef, user);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }
-export async function updateProduct(product) {
+
+export async function updateProduct(product, onSuccess) {
   try {
     const collectionRef = collection(db, "productos");
     const docRef = doc(collectionRef, product.id);
+    console.log(product);
     await setDoc(docRef, product);
+
+    onSuccess();
   } catch (error) {
     console.error(error);
   }

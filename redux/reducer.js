@@ -91,6 +91,7 @@ export default function (state = initialState, action) {
       };
 
     case ADD_CARRITO:
+
       const productoExiste = state.carrito.find(
         (i) => i.id === action.payload.id
       );
@@ -101,6 +102,7 @@ export default function (state = initialState, action) {
           quantity: productoExiste.quantity + 1,
           price: action.payload.price * (productoExiste.quantity + 1),
         };
+
 
         const updatedCarrito = state.carrito.map((producto) =>
           producto.id === action.payload.id ? productoModificado : producto
