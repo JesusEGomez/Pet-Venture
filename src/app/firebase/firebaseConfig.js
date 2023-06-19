@@ -11,8 +11,10 @@ import {
   query,
   setDoc,
   where,
+  arrayUnion,
 } from "firebase/firestore";
 import database from "../utils/db.json";
+import { merge } from "lodash-es";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdjrZCa-2WG82dmHU1aII0g6cRdKYzoQg",
@@ -111,5 +113,25 @@ export default async function addDocuments() {
   for (const producto of database) {
     const ref = await addDoc(collection(db, "productos"), producto);
     console.log(ref);
+  }
+}
+
+export async function registerNewPurchase(carrito, id, user) {
+  console.log("carrito firebase", carrito, user);
+  try {
+    let fecha = new Date();
+    let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
+    let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
+
+    const collectionRef = collection(db, "compras");
+    const docRef = doc(collectionRef, id);
+
+    await setDoc(docRef, {
+      compras: [...carrito],
+      fecha: fechaFormateada,
+      user: user,
+    });
+  } catch (error) {
+    console.error("Error al agregar la compra:", error);
   }
 }

@@ -18,7 +18,6 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
 export const ADD_CARRITO = "ADD_CARRITO";
 export const DELETE_CARRITO = "DELETE_CARRITO";
-
 export const SET_USER_STATE = "SET_USER_STATE";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CARRITO = "SET_CARRITO";

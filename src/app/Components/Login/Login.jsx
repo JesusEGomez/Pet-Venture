@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import styles from './Login.module.css'
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const router = useRouter()
@@ -35,10 +37,12 @@ export default function Login() {
               username: "",
               processCompleted: false,
               carrito: [],
-              compras: []
+              compras: [],
+              isActive: true
 
             })
             dispatch(setUserState(2))
+
             dispatch(setUserInfo(userInfo))
           }
         }
@@ -46,6 +50,7 @@ export default function Login() {
         dispatch(setUserState(1))
       }
     })
+
     if (userState === 2) {
       router.push("/createUserName")
     }
@@ -66,6 +71,8 @@ export default function Login() {
         console.error(error);
       }
     }
+
+    // async function
   };
 
   const formik = useFormik({
@@ -88,17 +95,21 @@ export default function Login() {
         const refUSer = await createUserWithEmailAndPassword(auth, values.email, values.password)
         console.log(refUSer)
       } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: "El Email esta en uso",
+        })
         console.error(error)
       }
 
-    }
+    },
   })
 
 
   return (
     <div className={styles.container}>
       <form className={styles.formContainer} onSubmit={formik.handleSubmit}>
-        <h2>Bienvenido a Pet Venture registrate</h2>
+        <h2>Bienvenido a Pet Venture</h2>
         <label htmlFor="email">Email: </label>
         <input
           type="email"
@@ -118,8 +129,10 @@ export default function Login() {
         />
         {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
         <button type="submit">Crear</button>
-
         <button onClick={handlerOnClick}> Login with Google </button>
+        <Link href="/ingresar"><button>¿Ya tienes cuenta?</button></Link>
+        <Link href="/"><button>Atrás</button></Link>
+
       </form>
     </div>
 
