@@ -97,16 +97,6 @@ export default function (state = initialState, action) {
       };
 
     case DELETE_CARRITO:
-<<<<<<< HEAD
-      const updatedCart = state.carrito.filter(
-        (item) => item.id !== action.payload
-      );
-      return {
-        ...state,
-        carrito: updatedCart,
-      };
-
-=======
       const { id, quantityToDelete } = action.payload;
       const productIndex = state.carrito.findIndex(
         (product) => product.id === id
@@ -134,7 +124,6 @@ export default function (state = initialState, action) {
         };
       }
 
->>>>>>> cec57955ce202e8c811fa9b3c57f0533bd251802
     case SET_CARRITO:
       return {
         ...state,
