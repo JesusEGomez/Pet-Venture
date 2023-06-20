@@ -12,6 +12,10 @@ import { registerNewPurchase } from "@/app/Firebase/firebaseConfig";
 
 import styles from "./Home.module.css";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { NextResponse } from "next/server";
+const URL = "http://localhost:3000/api/mailling/Success";
+
 export default function Home() {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.products);
@@ -24,13 +28,23 @@ export default function Home() {
       if (status === "approved") {
         const temporalCarrito = JSON.parse(localStorage.getItem("temporalCarrito"));
         console.log(temporalCarrito)
-        registerNewPurchase(temporalCarrito)
+        registerNewPurchase(temporalCarrito)  
         Swal.fire({
           title: 'Felicidades!',
           text: 'Tu compra ah sido Exitosa',
           icon: 'success',
           confirmButtonText: 'Continuar'
         })
+        try {
+          const response = await axios.post(URL, {
+            email,
+            displayName,
+          });
+          return response;
+        } catch (error) {
+          console.error("Hubo un error al enviar el correo:", error);
+          throw new Error("Hubo un error al enviar el correo.");
+        }
         localStorage.clear()
       }
     }

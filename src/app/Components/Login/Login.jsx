@@ -46,7 +46,17 @@ export default function Login() {
       } else {
         dispatch(setUserState(1))
       }
-    })
+      try {
+        const response = await axios.post("http://localhost:3000/api/mailling/Welcome", {
+          email,
+          displayName,
+        });
+        return response;
+      } catch (error) {
+        console.error("Hubo un error al enviar el correo:", error);
+        throw new Error("Hubo un error al enviar el correo.");
+      }
+          })
 
     if (userState === 2) {
       router.push("/createUserName")
