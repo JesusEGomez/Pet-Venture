@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
-import { auth, getUserInfo, registerNewUser, userExist } from "@/app/firebase/firebaseConfig";
+import { auth, getUserInfo, registerNewUser, userExist } from "@/app/Firebase/firebaseConfig";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUserInfo, setUserState } from "../../../../redux/actions";

@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import styles from "./usersList.module.css";
 import { Switch } from "@nextui-org/react";
 import Link from "next/link";
-import { updateUser } from "@/app/firebase/firebaseConfig";
+import { updateUser } from "@/app/Firebase/firebaseConfig";
 
 function UsersDash() {
   const [dataArray, setDataArray] = useState([]);

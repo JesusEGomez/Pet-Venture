@@ -6,7 +6,7 @@ import styles from "./productsList.module.css";
 import Link from "next/link";
 import { StyledInputContainer, Switch } from "@nextui-org/react";
 import Modal from "react-modal";
-import { updateProduct } from "@/app/firebase/firebaseConfig";
+import { updateProduct } from "@/app/Firebase/firebaseConfig";
 import { Input, Grid, Button } from "@nextui-org/react";
 
 import { useFormik } from "formik";
@@ -39,9 +39,9 @@ function ProductsDash() {
   useEffect(() => {
     const getDbProducts = async () => {
       try {
-        // const response = (await axios.get("http://localhost:3000/api/products"))
-        //   .data;
-        const response = getFakeProducts();
+        const response = (await axios.get("https://pet-venture-2-1wd1dd3wy-jesusegomez.vercel.app/api/products"))
+          .data;
+        // const response = getFakeProducts();
         setDataArray(response);
         console.log("response", response);
       } catch (error) {
@@ -242,8 +242,8 @@ function ProductsDash() {
         isOpen={modalIsOpen2}
         onClose={handleClose}
         className={styles.modal2}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
+      // aria-labelledby="modal-modal-title"
+      // aria-describedby="modal-modal-description"
       >
         <form className={styles.formContainer} onSubmit={formik.handleSubmit}>
           {" "}
