@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addComment } from '../../../../redux/actions';
-import styles from './Review.module.css';
+import styles from './review.module.css';
 
 const Review = ({ onAddComment }) => {
   const [comment, setComment] = useState('');

@@ -1,12 +1,11 @@
 import { onAuthStateChanged } from "firebase/auth";
-
 import { setUserInfo, setUserState } from "../../../redux/actions";
 import {
   auth,
   registerNewUser,
   userExist,
   getUserInfo,
-} from "@/app/firebase/firebaseConfig";
+} from "@/app/Firebase/firebaseConfig";
 
 export function handleAuthStateChanged(dispatch) {
   onAuthStateChanged(auth, async (user) => {

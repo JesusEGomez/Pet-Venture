@@ -40,6 +40,9 @@ function Card(props) {
             <h5 className={styles.title}>Marca: {props.brand}</h5>
           </div>
           <div>
+            <h5 className={styles.title}>Precio: {props.price}</h5>
+          </div>
+          <div>
             <Link href={`/detail/${props.id}`}>Detalle</Link>
           </div>
         </div>

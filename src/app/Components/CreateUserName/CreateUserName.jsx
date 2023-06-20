@@ -1,6 +1,5 @@
 import { useFormik } from "formik"
-// import { existsUserName, updateUser } from "@/app/firebase/firebaseConfig"
-import { existsUserName, updateUser } from "@/app/firebase/firebaseConfig"
+import { existsUserName, updateUser } from "@/app/Firebase/firebaseConfig"
 import { useSelector, useDispatch } from "react-redux"
 import { setUserState } from "../../../../redux/actions"
 import { useRouter } from "next/router"
@@ -43,17 +42,19 @@ export default function CreateUserName() {
             values.name.length ? tmp.displayName = values.name : null
             await updateUser(tmp)
             dispatch(setUserState(3))
+
             Swal.fire({
                 title: 'Felicidades!',
                 text: 'Te has registrado con exito',
                 icon: 'success',
                 confirmButtonText: 'Continuar'
             })
+
         }
     })
     return (
         <div className={styles.container}>
-            {userInfo.displayName !== null ?
+            {userInfo?.displayName !== null ?
                 <div>
                     <form className={styles.mensaje} onSubmit={formik.handleSubmit}>
                         <h2>

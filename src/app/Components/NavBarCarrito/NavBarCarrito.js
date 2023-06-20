@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteCarrito, decreaseQuantity } from "../../../../redux/actions";
 import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
-import { useEffect } from "react";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
-import { updateUser } from "@/app/firebase/firebaseConfig";
+import { updateUser } from "@/app/Firebase/firebaseConfig";
 
-export default function NavBarCarrito() {
+export default function NavBarCarrito(props) {
   const carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
   const userState = useSelector((state) => state.userState);
@@ -19,34 +18,27 @@ export default function NavBarCarrito() {
     const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
     if (cartFromLocalStorage) {
       dispatch({ type: "SET_CARRITO", payload: cartFromLocalStorage });
-    }else  if (userInfo.carrito?.length !== 0) {
+    } else if (userInfo.carrito?.length !== 0) {
       const userCarrito = [];
       userInfo.carrito?.forEach((element) => {
         userCarrito.push(element);
       });
       dispatch({ type: "SET_CARRITO", payload: userCarrito });
     }
-   
+
     console.log(userInfo.carrito);
   }, [dispatch]);
 
   useEffect(() => {
     console.log(carrito);
     localStorage.setItem("cart", JSON.stringify(carrito));
+    localStorage.setItem("user", JSON.stringify(userInfo));
   }, [carrito]);
 
   const handlerDelete = async (id, quantityToDelete) => {
     dispatch(deleteCarrito(id, quantityToDelete));
     await updateUser(userInfo);
-  const handlerDelete = async (id, quantityToDelete) => {
-    dispatch(deleteCarrito(id, quantityToDelete));
-    await updateUser(userInfo);
 
-    Swal.fire(
-      "Producto borrado del carrito",
-      "Se ha eliminado el producto del carrito",
-      "success"
-    );
     Swal.fire(
       "Producto borrado del carrito",
       "Se ha eliminado el producto del carrito",
@@ -56,30 +48,7 @@ export default function NavBarCarrito() {
 
   let totalPrice = 0;
 
-  const groupedCarrito = carrito.reduce((accumulator, currentProduct) => {
-    const existingProductIndex = accumulator.findIndex(
-      (p) => p.id === currentProduct.id
-    );
-
-    if (existingProductIndex !== -1) {
-      // Si el producto ya existe, incrementar la cantidad
-      // Si el producto ya existe, incrementar la cantidad
-      const existingProduct = accumulator[existingProductIndex];
-      const updatedProduct = {
-        ...existingProduct,
-        quantity: existingProduct.quantity + 1,
-      };
-      accumulator.splice(existingProductIndex, 1, updatedProduct);
-    } else {
-      // Si el producto no existe, agregarlo al acumulador con cantidad 1
-      // Si el producto no existe, agregarlo al acumulador con cantidad 1
-      accumulator.push({ ...currentProduct, quantity: 1 });
-    }
-
-    return accumulator;
-  }, []);
-
-  const isCarritoEmpty = groupedCarrito.length === 0;
+  const isCarritoEmpty = carrito.length === 0;
 
   return (
     <div className={styles.container}>
@@ -104,7 +73,7 @@ export default function NavBarCarrito() {
                 <br />
                 Precio: {e.price}
                 <br />
-                Cantidad: {e.quantity}
+                Cantidad: {e?.quantity}
               </div>
             </div>
             <button
@@ -116,12 +85,10 @@ export default function NavBarCarrito() {
           </div>
         );
       })}
-
       {carrito.forEach((e) => {
         totalPrice += e?.price;
         // console.log(totalPrice)
       })}
-
       <div className={styles.precios}>
         Precio Total: {totalPrice}$
         {isCarritoEmpty ? (
@@ -144,7 +111,8 @@ export default function NavBarCarrito() {
           </>
         )}
       </div>
+         
     </div>
   );
 }
-}
+

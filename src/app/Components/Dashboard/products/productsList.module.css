@@ -1,0 +1,258 @@
+.table {
+  width: 900px;
+  height: 400px;
+}
+.tableContianer {
+  width: 900px;
+  height: 400px;
+  margin-left: 600px;
+}
+.title {
+  color: tomato;
+  display: flex;
+  position: relative;
+  font-size: xx-large;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+}
+.x-container {
+  position: relative;
+}
+
+.x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  /* background-color: red; */
+  border-color: none;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.nameIdContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  height: 90%;
+}
+.nameCont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.idCont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.close-button {
+  margin-top: 1rem;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* .body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #21a894;
+  box-sizing: border-box;
+  display: flex;
+  height: 600px;
+
+} */
+.field {
+  width: 30px;
+  padding: 10px;
+}
+.form-container {
+  background-color: white;
+  color: #999;
+  padding: 20px;
+  flex-wrap: wrap;
+  border-radius: 20px;
+
+  width: 90%;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 300px;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #18a383;
+  box-sizing: border-box;
+  } */
+
+.center-content {
+  text-align: center;
+}
+.image {
+  width: 40px;
+  height: 40px;
+}
+
+.h4 {
+  color: black;
+}
+
+.formContainer {
+  background-color: white;
+  color: #999;
+  padding: 20px;
+  flex-wrap: wrap;
+  border-radius: 20px;
+
+  width: 70%;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.imageInputs {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-green {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 250px;
+  background-color: rgb(26, 11, 245);
+  padding: 10px;
+}
+.loadButton {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  background-color: rgb(245, 11, 31);
+  padding: 10px;
+}
+
+.btn-green:hover {
+  background-color: #37d839;
+}
+
+.btn-green:active {
+  background-color: #29962a;
+}
+
+.imageField {
+  width: -10px;
+  opacity: 0%;
+  background-color: tomato;
+}
+
+.modal2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 9999;
+}
+
+.selectImageInput {
+  top: 0;
+  left: 0;
+
+  color: black;
+  width: 100px;
+  height: 30px;
+
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.imageCoverBtn {
+  /* color: white;
+  width: 109px;
+  height: 50px;
+
+  background-color: blueviolet;
+  border-radius: 15px;
+  cursor: pointer; */
+}
+
+.imageFileCantainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 220px;
+  height: 40px;
+  background-color: yellow;
+}
+
+.imageDisplay {
+}
+.imageDisplayContainer {
+}

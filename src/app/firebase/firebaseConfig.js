@@ -15,12 +15,13 @@ import {
 import database from "../utils/db.json";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAdjrZCa-2WG82dmHU1aII0g6cRdKYzoQg",
-  authDomain: "pet-venture-1777a.firebaseapp.com",
-  projectId: "pet-venture-1777a",
-  storageBucket: "pet-venture-1777a.appspot.com",
-  messagingSenderId: "202804090837",
-  appId: "1:202804090837:web:69fcf8f98a1c2eefc20f5c",
+  apiKey: "AIzaSyAwcrHY5rIKNV57k9Bxj0pXKQRH1p7tUHs",
+  authDomain: "pet-venture.firebaseapp.com",
+  projectId: "pet-venture",
+  storageBucket: "pet-venture.appspot.com",
+  messagingSenderId: "182451092395",
+  appId: "1:182451092395:web:9e8c2bdf9cf6d1fa31b0ee",
+  measurementId: "G-FVG72QFE24",
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -76,18 +77,25 @@ export async function registerNewUser(user) {
   } catch (error) {}
 }
 
-export async function updateUser(user) {
+export async function updateUser(user, onSuccess) {
   try {
     const collectionRef = collection(db, "users");
     const docRef = doc(collectionRef, user.uid);
     await setDoc(docRef, user);
-  } catch (error) {}
+    onSuccess();
+  } catch (error) {
+    console.error(error);
+  }
 }
-export async function updateProduct(product) {
+
+export async function updateProduct(product, onSuccess) {
   try {
     const collectionRef = collection(db, "productos");
     const docRef = doc(collectionRef, product.id);
+    console.log(product);
     await setDoc(docRef, product);
+
+    onSuccess();
   } catch (error) {
     console.error(error);
   }
@@ -108,15 +116,22 @@ export default async function addDocuments() {
   }
 }
 
-export async function registerNewPurchase(carrito) {
+export async function registerNewPurchase(carrito, id, user) {
+  console.log("carrito firebase", carrito, user);
   try {
     let fecha = new Date();
     let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
     let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
-    for (const producto of carrito) {
-      const collectionRef = collection(db, "compras");
-      const docRef = doc(collectionRef, producto.id);
-      await setDoc(docRef, { ...producto, fecha: fechaFormateada });
-    }
-  } catch (error) {}
+
+    const collectionRef = collection(db, "compras");
+    const docRef = doc(collectionRef, id);
+
+    await setDoc(docRef, {
+      compras: [...carrito],
+      fecha: fechaFormateada,
+      user: user,
+    });
+  } catch (error) {
+    console.error("Error al agregar la compra:", error);
+  }
 }
