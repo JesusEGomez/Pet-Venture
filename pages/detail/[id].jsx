@@ -2,7 +2,6 @@ import axios from 'axios';
 import React from 'react';
 import Link from 'next/link';
 import styles from './detail.module.css';
-import Review from '@/app/Components/Review/Review';
 import CommentBox from '@/app/Components/CommentBox/CommentBox';
 
 function ProductDetail({ productId, product }) {
@@ -39,7 +38,6 @@ function ProductDetail({ productId, product }) {
           </Link>
         </div>
       </div>
-     
       <CommentBox productId={productId} />
     </div>
   );

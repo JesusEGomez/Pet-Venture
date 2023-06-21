@@ -14,11 +14,13 @@ import { registerNewPurchase, updateUser } from "@/app/Firebase/firebaseConfig";
 import axios from "axios";
 import WhatsApp from "../WhatsApp/WhatsApp";
 
+// import axios from "axios";
 
 export default function Home() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const userInfo = useSelector((state) => state.userInfo);
+  const carrito = useSelector((state) => state.carrito);
 
 
   useEffect(() => {
@@ -37,11 +39,14 @@ export default function Home() {
 
         let newCarritoUser = []
         if (user?.compras) {
+          let fecha = new Date();
+          let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
+          let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
           newCarritoUser = [...user.compras]
           temporalCarrito?.forEach(element => {
-            newCarritoUser.push(element)
+            newCarritoUser.push({ ...element, fecha: fechaFormateada })
           });
-          const tmp = { ...user, compras: [...newCarritoUser], carrito: [] }
+          const tmp = { ...user, compras: [...newCarritoUser] }
           console.log("usuario actualizado", tmp)
           await updateUser(tmp)
         }
@@ -62,24 +67,22 @@ export default function Home() {
           return response;
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
-          throw new Error("Hubo un error al enviar el correo.");
         }
         localStorage.clear();
       }
     };
     registerPurchase()
-
   }, [])
 
 
-  // ! Esta funcion esta comenentada para despuÃ©s poder cargar productos
-  // const handlerClick = () => {
-  //   addDocuments();
-  // };
+  // ! Esta funcion esta comenentada para después poder cargar productos
+  const handlerClick = () => {
+    addDocuments();
+  };
 
   return (
     <div className={styles.container}>
-      {/* <button onClick={handlerClick}></button> */}
+      <button onClick={handlerClick}></button>
       <Navbar />
       <Slider />
       <Ofertas products={products} />
@@ -89,4 +92,3 @@ export default function Home() {
     </div>
   );
 }
-
