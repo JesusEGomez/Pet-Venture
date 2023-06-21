@@ -1,4 +1,4 @@
-import { getAllUsers } from "@/app/firebase/firebaseConfig";
+import { getAllUsers } from "@/app/Firebase/firebaseConfig";
 export async function GET() {
   const users = [];
   const querySnampshot = await getAllUsers();

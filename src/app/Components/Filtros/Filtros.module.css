@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: row;
   margin-right: 10px;
+  
 }
 
 .label {
@@ -40,12 +41,23 @@
   width: 150px;
 }
 .select {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #000000;
   font-size: 14px;
   width: 150px;
+  background-color: rgb(197, 135, 19); /* Establece el fondo en color naranja */
+  color: white; /* Establece el color del texto como blanco */
+  transition: background-color 0.3s; /* Agrega una transición suave */
 }
+
+.select:hover {
+  background-color: white; /* Cambia el fondo a blanco al pasar el mouse */
+  color: rgb(205, 137, 11); /* Cambia el color del texto a naranja */
+}
+
 
 .option {
   font-size: 14px;
@@ -120,6 +132,28 @@
 }
 
 .buttonimg {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
+}
+
+
+
+.customInput {
+  display: inline-block;
+  position: relative;
+}
+
+.customInput input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid rgb(143, 100, 21);
+  font-size: 14px;
+  color: rgb(194, 133, 21);
+  transition: border-color 0.3s;
+}
+
+.customInput input:focus {
+  outline: none;
+  border-color: rgb(178, 111, 29);
+  box-shadow: 0 0 5px rgb(136, 92, 38);
 }

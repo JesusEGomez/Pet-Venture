@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 import styles from "./Home.module.css";
 import Swal from "sweetalert2";
-import { registerNewPurchase, updateUser } from "@/app/firebase/firebaseConfig";
+import { registerNewPurchase, updateUser } from "@/app/Firebase/firebaseConfig";
 // import axios from "axios";
 
 export default function Home() {

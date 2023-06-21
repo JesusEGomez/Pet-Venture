@@ -6,20 +6,18 @@
   }
   
   .cartCard {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-    width: 20%;
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: white;
+    height: 300px;
+    width: 150px;
     margin: 5px;
-  padding: 10px;
-  order: 1px solid black;
-  border-radius: 5px;
-  text-align: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-items: stretch;
-  background-image: url("https://as2.ftcdn.net/v2/jpg/02/02/31/39/1000_F_202313943_RmQzYfyv9Yi9rRFwkkFuITTR5ERs4xJM.jpg");
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: space-evenly;
   }
   
   .cartCardInfo {
@@ -58,14 +56,14 @@
   }
   
   .precios {
-    position: fixed;
-    top: 0;
     
-    right:0;
-    width: 14%;
-    background-color: rgb(175, 163, 163);
-    padding: 5px;
-    font-weight: bold;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgb(171, 119, 55);
+      padding: 5px;
+      font-weight: bold;
+      text-align: center;
   }
   
   .rowContainer {
@@ -82,24 +80,25 @@
       display: flex;
       
       flex-wrap: wrap;
+      
     }
     
     .card {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      background-image: url("https://as2.ftcdn.net/v2/jpg/02/02/31/39/1000_F_202313943_RmQzYfyv9Yi9rRFwkkFuITTR5ERs4xJM.jpg");
-      background-size: cover; /* Ajusta el tamaño de la imagen al contenedor */
-      background-repeat: no-repeat;
-      background-position: center center;
-      height: 300px;
-      width: 150px;
-      margin: 5px;
-      padding: 10px;
-      border: 1px solid black;
-      border-radius: 5px;
-      text-align: center;
-      justify-content: space-evenly;
+      
+      
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        background-color: white;
+        height: 300px;
+        width: 150px;
+        margin: 5px;
+        padding: 10px;
+        border: 1px solid white;
+        border-radius: 5px;
+        text-align: center;
+        justify-content: space-evenly;
+      
     }
     
     

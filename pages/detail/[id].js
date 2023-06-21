@@ -9,6 +9,13 @@ function ProductDetail({ productId, product }) {
   return (
     <div>
       <div className={styles.container}>
+      <Link href="/tienda" className={styles.deleteFilter}>
+            Tienda
+          </Link>
+      <Link href="/" className={styles.deleteFilter}>
+            Home
+          </Link>
+         
         <img className={styles.img} src={product[0].image} alt="Not found" />
         <div className={styles.infoContainer}>
           <div className={styles.propertyContainer}>
@@ -31,16 +38,12 @@ function ProductDetail({ productId, product }) {
             <h4>Price: </h4>
             <span> {product[0].price} </span>
           </div>
-          <Link href="/" className={styles.deleteFilter}>
-            Volver a Home
-          </Link>
-          <Link href="/tienda" className={styles.deleteFilter}>
-            Volver a la tienda
-          </Link>
+         
+          <CommentBox productId={productId} />
         </div>
       </div>
-     
-      <CommentBox productId={productId} />
+      
+      
     </div>
   );
 }

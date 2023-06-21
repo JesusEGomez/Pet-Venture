@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllProducts } from "@/app/firebase/firebaseConfig";
+import { getAllProducts } from "@/app/Firebase/firebaseConfig";
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const products = [];
