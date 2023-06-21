@@ -166,6 +166,7 @@ export default function (state = initialState, action) {
           totalPrice: state.totalPrice - precioProducto,
         };
       }
+    }
 
     case SET_CARRITO:
       return {
@@ -198,3 +199,4 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
