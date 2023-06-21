@@ -1,8 +1,8 @@
 .cartContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 5%;
     
+    grid-gap: 10px;
   }
   
   .cartCard {
@@ -12,12 +12,15 @@
     background-color: white;
     height: 300px;
     width: 150px;
-    margin: 5px;
+    margin: 2px 5px; /* Ajusta los márgenes superior e inferior */
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
     text-align: center;
     justify-content: space-evenly;
+  
+    margin: 20px auto 50px; /* Ajusta el margen superior para evitar superposición */
+    
   }
   
   .cartCardInfo {
@@ -54,16 +57,21 @@
     color: rgb(0, 0, 0);
     text-decoration: none;
   }
-  
   .precios {
-    
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: rgb(171, 119, 55);
-      padding: 5px;
-      font-weight: bold;
-      text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(171, 119, 55);
+    padding: 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .precios button {
+    display: inline-block;
   }
   
   .rowContainer {
@@ -78,8 +86,10 @@
       background-repeat: no-repeat;
       background-position: center center;
       display: flex;
-      
       flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      min-height: 100vh;
       
     }
     
@@ -100,5 +110,13 @@
         justify-content: space-evenly;
       
     }
+
+    .right{
+      text-decoration: underline;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+;
     
     

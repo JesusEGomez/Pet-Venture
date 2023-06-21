@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 50vh; /* Cambiar "height" a "min-height" */
+  min-height: 80vh; /* Ajusta el valor según tus necesidades */
   background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   position: fixed;
-  top: 0; /* Asegurarse de que el contenedor esté en la parte superior */
-  left: 0; /* Asegurarse de que el contenedor esté a la izquierda */
-  right: 0; /* Asegurarse de que el contenedor esté a la derecha */
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
 }
 
@@ -27,6 +27,13 @@
   justify-content: space-between;
   /* padding: 5px; */
 }
+
+.infoContainer img {
+  max-width: 50%; /* Ajusta el tamaño máximo de la imagen al ancho del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto de la imagen */
+  align-self: flex-start; /* Alinea la imagen a la izquierda */
+}
+
 .propertyContainer {
   display: flex;
   flex-direction: row;
@@ -130,4 +137,19 @@
 .buttonimg {
   width: 100px;
   height: 100px;
+}
+.propertyContainer {
+  background-color: white;
+  background-color: white;
+  text-align: center; /* Centra el texto horizontalmente */
+  font-weight: bold; /* Establece el texto en negrita */
+  font-style: italic; /* Establece el texto en cursiva (opcional) */
+  font-size: 18px; /* Ajusta el tamaño de fuente según tus preferencias */
+  color: #333;
+}
+.enlaceposicionado {
+  position: absolute;
+  top: 10px; /* Ajusta el valor según la distancia desde la parte superior */
+  right: 10px; /* Ajusta el valor según la distancia desde la derecha */
+  margin: 10px; /* Opcional: agrega margen para ajustar el espacio alrededor del enlace */
 }

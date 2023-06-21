@@ -94,10 +94,10 @@ export default function NavBarCarrito() {
         // console.log(totalPrice)
       })}
       <div className={styles.precios}>
-        Precio Total: {totalPrice}$
+        Precio Total: {totalPrice}$--
         {isCarritoEmpty ? (
           <>
-            <p>El carrito está vacío</p>
+            <p>--El carrito está vacío--</p>
             <Link href="/tienda">
               <p>Volver a la tienda</p>
             </Link>
@@ -107,10 +107,13 @@ export default function NavBarCarrito() {
             {userState === 3 ? (
               <MercadoPagoButton carrito={carrito} />
             ) : (
-              <p>Necesitas Registrarte Para Poder Comprar</p>
+              <p>--Necesitas Registrarte Para Poder Comprar--</p>
             )}
+
+
+
             <Link href="/tienda">
-              <p className={styles.deleteFilter}>Volver a la tienda</p>
+              <p className={styles.right}>Volver a la tienda</p>
             </Link>
           </>
         )}
