@@ -34,6 +34,7 @@ export default function Home() {
     const registerPurchase = async () => {
 
       const response = await getAllPurchases()
+
       console.log("compras", response)
 
 
