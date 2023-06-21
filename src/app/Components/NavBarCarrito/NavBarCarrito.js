@@ -6,6 +6,7 @@ import Link from "next/link";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
 import { updateUser } from "@/app/Firebase/firebaseConfig";
+import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
 export default function NavBarCarrito(props) {
@@ -68,21 +69,22 @@ export default function NavBarCarrito(props) {
               <div>
                 Categoria: {e.category}
                 <br />
-                SubCategoria: {e.subCategory}
-                <br />
-                Marca: {e.brand}
-                <br />
                 Precio: {e.price}
                 <br />
                 Cantidad: {e?.quantity}
               </div>
             </div>
-            <button
+            
+            <Grid>
+            <Button flat color="error" auto
+              
+            
               className={styles.cartCardButton}
-              onClick={() => handlerDelete(e?.id, e?.quantity)}
-            >
+              onClick={() => handlerDelete(e?.id, e?.quantity)}>
+            
               <p>Borrar del Carrito</p>
-            </button>
+              </Button>
+              </Grid>
           </div>
         );
       })}
@@ -96,7 +98,7 @@ export default function NavBarCarrito(props) {
           <>
             <p>El carrito está vacío</p>
             <Link href="/tienda">
-              <p className={styles.deleteFilter}>Volver a la tienda</p>
+              <p>Volver a la tienda</p>
             </Link>
           </>
         ) : (
@@ -116,3 +118,4 @@ export default function NavBarCarrito(props) {
     </div>
   );
 }
+

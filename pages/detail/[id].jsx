@@ -39,6 +39,8 @@ function ProductDetail({ productId, product }) {
           <Link href="/tienda" className={styles.deleteFilter}>
             Volver a la tienda
           </Link>
+          <CommentBox productId={productId} />
+      <Review product={product[0]} />
         </div>
       </div>
       <CommentBox productId={productId} />
@@ -61,3 +63,4 @@ export async function getServerSideProps(context) {
     },
   };
 }
+

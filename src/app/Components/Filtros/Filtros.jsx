@@ -139,7 +139,10 @@ const Filtros = () => {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.searchContainer}>
+      <Link href="/carrito">
+          <img src="img/carrito.png" className={styles.buttonimg} />
+        </Link>
+        <div className={styles.customInput}>
           <input
             name="name"
             value={filterPanel.name}
@@ -147,15 +150,7 @@ const Filtros = () => {
             onChange={handleChange}
             placeholder="Search..."
           ></input>
-          <button
-            name="name"
-            value={filterPanel.name}
-            type="submit"
-            className={styles.searchButton}
-            onClick={handleNameClick}
-          >
-            Search Name
-          </button>{" "}
+          
         </div>
         <div className={styles.selectContainer}>
           <select
@@ -165,7 +160,7 @@ const Filtros = () => {
             onChange={(e) => handleChange(e)}
             value={brandSelect}
           >
-            <option value={"none"}>Filter by Brand</option>
+            <option value={"none"}>Brand</option>
 
             {brands?.map((b, i) => (
               <option key={i} value={b}>
@@ -185,7 +180,7 @@ const Filtros = () => {
           >
             {" "}
             <option value={"none"} defaultValue={"Filter by Category"}>
-              Filter by Category
+              Category
             </option>
             {categories?.map((c, i) => (
               <option key={i} value={c}>
@@ -203,7 +198,7 @@ const Filtros = () => {
             onChange={(e) => handleChange(e)}
             value={subCategorySelect}
           >
-            <option value={"none"}>Filter by SubCategory</option>
+            <option value={"none"}>SubCategory</option>
 
             {subCategories?.map((sc, i) => (
               <option key={i} value={sc}>
@@ -219,32 +214,31 @@ const Filtros = () => {
             className={styles.select}
             onChange={(e) => handleChange(e)}
           >
+           
             {" "}
+
             <option key="none" value="none">
               Price
             </option>
+            
             <option key="higher" value="higher">
               Higher
             </option>
             <option key="lower" value="lower">
               Lower
             </option>
-          </select>
+            </select>
+          
         </div>
 
         <button className={styles.deleteFilter} onClick={handleResetClick}>
-          <span className={styles.front}>Resetear Filtros</span>
+          <span className={styles.front}>Reset</span>
         </button>
         <Link href="/" className={styles.deleteFilter}>
-          Volver a Home
+          Home
         </Link>
       </div>
-      <div>
-        <Link href="/carrito">
-          <img src="img/carrito.png" className={styles.buttonimg} />
-        </Link>
-        <p></p>
-      </div>
+      
     </div>
   );
 };

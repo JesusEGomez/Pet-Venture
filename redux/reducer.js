@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   GET_BRANDS,
@@ -29,8 +29,7 @@ export const initialState = {
   productDetail: [],
   userState: 1,
   userInfo: [],
-  carrito: [],
-  hasPurchased: false,
+  carrito: []
 };
 
 try {

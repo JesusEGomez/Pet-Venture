@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import PetVenture from "../../../../public/img/PetVenture.svg";
+
 import styles from "./NavBar.module.css";
+
 import { logout } from "@/app/Firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { clearUserData, setUserState } from "../../../../redux/actions";

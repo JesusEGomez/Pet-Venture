@@ -4,6 +4,7 @@ import Link from "next/link";
 import { addCarrito, deleteCarrito } from "../../../../redux/actions";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { Button, Grid } from "@nextui-org/react";
 
 function Card(props) {
   const dispatch = useDispatch();
@@ -22,13 +23,7 @@ function Card(props) {
   return (
     <div className={styles.container}>
       <div className={styles.carrito}>
-        <button
-          className={styles.deleteFilter}
-          onClick={() => handleAddToCart(props.id)}
-        >
-          {/* {console.log(props.id)} */}
-          <p>Añadir al Carrito</p>
-        </button>
+        
       </div>
       <div className={styles.card}>
         <img className={styles.img} src={props.image} alt="Not found" />
@@ -44,6 +39,13 @@ function Card(props) {
           </div>
           <div>
             <Link href={`/detail/${props.id}`}>Detalle</Link>
+            <Grid>
+        <Button flat color="warning" auto
+          
+          onClick={() => handleAddToCart(props.id)}>
+            Añadir al carrito
+          </Button>
+      </Grid>
           </div>
         </div>
       </div>
