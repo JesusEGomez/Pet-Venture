@@ -106,7 +106,11 @@ export default function NavBarCarrito(props) {
             {userState === 3 ? (
               <MercadoPagoButton carrito={carrito} />
             ) : (
-              <p>--Necesitas Registrarte Para Poder Comprar--</p>
+             
+            <Link href="/login">
+            <p>Registrarte para comparar</p>
+          </Link>
+
             )}
 
 
