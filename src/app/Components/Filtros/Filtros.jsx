@@ -49,6 +49,7 @@ const Filtros = () => {
       const uniqueSubCategory = [...new Set(subCategoryArr)];
       return uniqueSubCategory;
     };
+
     dispatch(getBrands(filterBrands()));
     dispatch(getSubCategories(filterSubCategory()));
     dispatch(getCategories(filterCategory()));

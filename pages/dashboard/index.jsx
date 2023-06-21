@@ -32,42 +32,50 @@ export default function Dashboard() {
   };
 
   return (
-    <div className={styles.mainContainer}>
-      {/* <NavBar /> */}
-      <div className={styles.sideBarContainer}>
-        <div className={styles.buttonContainer}>
-          <div className={styles.topIcon}>Dashboard</div>
+    <div>
+      {" "}
+      <div>
+        <NavBar />{" "}
+      </div>{" "}
+      <div className={styles.mainContainer}>
+        <div className={styles.sideBarContainer}>
+          <div className={styles.buttonContainer}>
+            <div className={styles.topIcon}>Dashboard</div>
 
-          <button name="users" onClick={handleclick} className={styles.buttons}>
-            Users
-          </button>
+            <button
+              name="users"
+              onClick={handleclick}
+              className={styles.buttons}
+            >
+              Users
+            </button>
 
-          <button
-            name="products"
-            onClick={handleclick}
-            className={styles.buttons}
-          >
-            Products
-          </button>
-          <button
-            name="orders"
-            onClick={handleclick}
-            className={styles.buttons}
-          >
-            Orders
-          </button>
+            <button
+              name="products"
+              onClick={handleclick}
+              className={styles.buttons}
+            >
+              Products
+            </button>
+            <button
+              name="orders"
+              onClick={handleclick}
+              className={styles.buttons}
+            >
+              Orders
+            </button>
 
-          <button
-            name="statisitics"
-            onClick={handleclick}
-            className={styles.buttons}
-          >
-            Statistics
-          </button>
-        </div>
+            <button
+              name="statisitics"
+              onClick={handleclick}
+              className={styles.buttons}
+            >
+              Statistics
+            </button>
+          </div>
+        </div>{" "}
+        <div className={styles.statisticsContainer}>{renderComponent()}</div>
       </div>
-
-      <div className={styles.statisticsContainer}>{renderComponent()}</div>
     </div>
   );
 }

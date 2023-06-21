@@ -5,7 +5,7 @@ import {
   registerNewUser,
   userExist,
   getUserInfo,
-} from "@/app/firebase/firebaseConfig";
+} from "@/app/Firebase/firebaseConfig";
 
 export function handleAuthStateChanged(dispatch) {
   onAuthStateChanged(auth, async (user) => {

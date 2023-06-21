@@ -1,5 +1,17 @@
-.cartel {
+.container {
+  width: 100%;
+  height: 100%;
   size: 100%;
   color: tomato;
   font-size: xx-large;
+  background-color: blueviolet;
+}
+
+.titleContainer {
+  color: black;
+  font-size: small;
+}
+
+.title {
+  padding: 10px;
 }

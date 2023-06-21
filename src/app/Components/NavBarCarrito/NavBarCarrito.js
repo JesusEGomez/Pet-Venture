@@ -5,7 +5,7 @@ import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
-import { updateUser } from "@/app/firebase/firebaseConfig";
+import { updateUser } from "@/app/Firebase/firebaseConfig";
 
 export default function NavBarCarrito(props) {
   const carrito = useSelector((state) => state.carrito);

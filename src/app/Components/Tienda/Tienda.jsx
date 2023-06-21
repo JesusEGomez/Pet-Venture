@@ -14,7 +14,7 @@ const Tienda = () => {
   const allProducts = useSelector((state) => state.filteredProducts);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(15);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   const totalPages = Math.ceil(allProducts.length / itemsPerPage);
   const endIndex = currentPage * itemsPerPage;
@@ -23,8 +23,8 @@ const Tienda = () => {
   const itemsToShow = allProducts?.slice(startIndex, endIndex);
 
   useEffect(() => {
-    dispatch(getProducts())
-    handleAuthStateChanged(dispatch)
+    dispatch(getProducts());
+    handleAuthStateChanged(dispatch);
   }, []);
 
   return (
@@ -35,7 +35,7 @@ const Tienda = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
-      // paginate={paginate}
+        // paginate={paginate}
       />
     </div>
   );

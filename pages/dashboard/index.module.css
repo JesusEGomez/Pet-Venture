@@ -5,18 +5,18 @@
 }
 
 .sideBarContainer {
-  background-color: yellow;
-  width: 18%;
+  background-color: rgb(194, 188, 188);
+  width: 14%;
 }
 
 .statisticsContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
-  border-color: aqua;
-  height: 500px;
-  width: 80%;
+  background-color: white;
+  /* border-color: aqua; */
+  height: 550px;
+  width: 90%;
 }
 .container {
   display: flex;
@@ -31,7 +31,7 @@
 
   width: 200px;
   height: 95%;
-  padding: 10x;
+  /* padding: 10x; */
 
   /* border-color: tomato; */
   /* border-style: solid; */
@@ -52,7 +52,7 @@
 }
 .topIcon {
   /* background: blueviolet; */
-  color: tomato;
+  color: black;
   padding: 3px;
   border-radius: lg;
   display: flex;

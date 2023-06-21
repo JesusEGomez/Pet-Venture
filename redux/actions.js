@@ -68,7 +68,7 @@ export function getProcuctById(id) {
 // trae las categorias para los filtros
 //ojo muchas peticiones
 export function getBrands(filteredBrands) {
-  console.log(filteredBrands);
+  // console.log(filteredBrands);
 
   return { type: GET_BRANDS, payload: filteredBrands };
 }

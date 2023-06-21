@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getFakeProducts } from "@/app/fakeApi/getFakeProducts";
+import {
+  getFakeProducts,
+  postFakeProduct,
+} from "@/app/fakeApi/getFakeProducts";
 import { DataGrid } from "@mui/x-data-grid";
 import styles from "./productsList.module.css";
 import Link from "next/link";
+import Swal from "sweetalert";
 import { StyledInputContainer, Switch } from "@nextui-org/react";
 import Modal from "react-modal";
-import { updateProduct } from "@/app/firebase/firebaseConfig";
+import { updateProduct } from "@/app/Firebase/firebaseConfig";
 import { Input, Grid, Button } from "@nextui-org/react";
-
+import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { functionsIn } from "lodash-es";
+import { useDispatch } from "react-redux";
+import {
+  getBrands,
+  getCategories,
+  getSubCategories,
+  getProducts,
+} from "../../../../../redux/actions";
 
 const customStyles = {
   content: {
@@ -27,23 +38,35 @@ const customStyles = {
 // // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 
 function ProductsDash() {
+  const dispatch = useDispatch();
   const [dataArray, setDataArray] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalIsOpen2, setIsOpen2] = useState(false);
-
+  const [imageEdit, setImageEdit] = useState({});
+  const [image, setImage] = useState({});
+  const [imageCreate, setImageCreate] = useState({});
   const [dataToUpdate, setDataToUpdate] = useState({});
-  const [image, setImage] = useState("");
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+
   const [trigger, setTrigger] = useState(false);
+  const [showUpload, setShowUpload] = useState(true);
+
+  let brands = useSelector((state) => state.brands);
+  let allProducts = useSelector((state) => state.products);
+  let categories = useSelector((state) => state.categories);
+  let subCategories = useSelector((state) => state.subCategories);
+
+  // console.log("allProducts", allProducts);
 
   useEffect(() => {
     const getDbProducts = async () => {
       try {
-        // const response = (await axios.get("http://localhost:3000/api/products"))
-        //   .data;
-        const response = getFakeProducts();
+        const response = (await axios.get("http://localhost:3000/api/products"))
+          .data;
+        // const response = getFakeProducts();
         setDataArray(response);
-        console.log("response", response);
+        // console.log("response", response);
+        dispatch(getProducts(response));
       } catch (error) {
         console.error(error);
       }
@@ -51,6 +74,42 @@ function ProductsDash() {
 
     getDbProducts();
   }, [trigger]);
+
+  useEffect(() => {
+    const filterBrands = () => {
+      const brandsArr = allProducts.map((b) => b.brand);
+      const uniqueBrands = [...new Set(brandsArr)];
+      return uniqueBrands;
+    };
+
+    const filterCategory = () => {
+      const categoryArr = allProducts.map((b) => b.category);
+      const uniqueCategory = [...new Set(categoryArr)];
+      return uniqueCategory;
+    };
+
+    const filterSubCategory = () => {
+      const subCategoryArr = allProducts.map((b) => b.subCategory);
+      const uniqueSubCategory = [...new Set(subCategoryArr)];
+      return uniqueSubCategory;
+    };
+
+    dispatch(getBrands(filterBrands()));
+    dispatch(getSubCategories(filterSubCategory()));
+    dispatch(getCategories(filterCategory()));
+  }, [allProducts.length]);
+
+  // console.log("brands", brands);
+  useEffect(() => {
+    if (image.name) {
+      // console.log("image", image);
+      setShowUpload(false);
+    } else {
+      console.log("image else", Object.keys(image).length);
+
+      setShowUpload(true);
+    }
+  }, [image]);
 
   function handleChangeEdit(e, id) {
     e.preventDefault();
@@ -64,7 +123,7 @@ function ProductsDash() {
 
   //& formik ////
 
-  const formik = useFormik({
+  const formikEdit = useFormik({
     initialValues: {
       stock: "",
       price: "",
@@ -72,10 +131,6 @@ function ProductsDash() {
     },
 
     validationSchema: Yup.object({
-      name: Yup.string()
-        .max(20, "Máximo 20 caracteres")
-        .min(5, "Mínimo 5 caracteres"),
-
       price: Yup.number().min(1, "El precio debe ser mayor a 1"),
       stock: Yup.number().min(0, "El precio debe ser mayor a 0"),
     }),
@@ -86,12 +141,71 @@ function ProductsDash() {
       tmp.price = values.price;
       tmp.stock = values.stock;
       tmp.image = values.image;
-
+      console.log("tmp", tmp);
       await updateProduct(tmp, () => setTrigger((p) => !p));
       closeModal();
       Swal.fire({
-        title: "Producto actualizazdo!!",
+        title: "Edicion Exitosa",
         // text: "Te has registrado con exito",
+        icon: "success",
+        confirmButtonText: "Continuar",
+      });
+    },
+    validateOnBlur: true,
+  });
+
+  const formikCreate = useFormik({
+    initialValues: {
+      id: "", //&comentar con api levantada
+      name: "",
+      brand: "",
+      price: "",
+      image: "",
+      category: "",
+      subCategory: "",
+      stock: "",
+      isActive: "true",
+      image: "",
+    },
+
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .max(20, "Máximo 20 caracteres")
+        .min(1, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
+      brand: Yup.string()
+        .max(50, "Máximo 50 caracteres")
+        .min(1, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
+      price: Yup.number()
+        .min(1, "El precio debe ser mayor a 1")
+        .required("Campo requerido"),
+      category: Yup.string()
+        .max(50, "Máximo 50 caracteres")
+        .min(1, "Mínimo 5 caracteres")
+        .required("Campo requerido"),
+      subCategory: Yup.string()
+        .max(50, "Máximo 50 caracteres")
+        .min(1, "Mínimo 1 caracteres")
+        .required("Campo requerido"),
+      image: Yup.string().required("Campo requerido"),
+      stock: Yup.string()
+        .min(0, "El stock debe ser mayor a 0")
+        .required("Campo requerido"),
+    }),
+
+    onSubmit: async (values) => {
+      console.log("values", values);
+      values.id = Math.floor(Math.random() * 1000000).toString();
+      postFakeProduct(values);
+      // const response = await axios.post("/api/createProduct", values);
+      console.log("response submit", values);
+      handleClose();
+      console.log("submitted");
+
+      Swal.fire({
+        title: "Producto Creado",
+        text: "Producto creado exitosamente",
         icon: "success",
         confirmButtonText: "Continuar",
       });
@@ -101,7 +215,7 @@ function ProductsDash() {
 
   //& Claudinary ////
 
-  const submitImage = () => {
+  const submitImageEdit = () => {
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "petventure");
@@ -116,8 +230,31 @@ function ProductsDash() {
         // console.log(data);
         const imageUrl = data.secure_url;
         setUploadedImageUrl(imageUrl);
-        formik.setFieldValue("image", imageUrl); // Setea la URL en el campo "image" del formulario
-        formik.handleSubmit(); // Envía el formulario
+        formikEdit.setFieldValue("image", imageUrl); // Setea la URL en el campo "image" del formulario
+        formikEdit.handleSubmit(); // Envía el formulario
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const submitImageCreate = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "petventure");
+    data.append("cloud_name", "dkjimr8mq");
+
+    fetch("https://api.cloudinary.com/v1_1/dkjimr8mq/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        const imageUrl = data.secure_url;
+        setUploadedImageUrl(imageUrl);
+        formikCreate.setFieldValue("image", imageUrl); // Setea la URL en el campo "image" del formulario
+        formikCreate.handleSubmit(); // Envía el formulario
       })
       .catch((err) => {
         console.log(err);
@@ -132,21 +269,28 @@ function ProductsDash() {
   function openModal() {
     setIsOpen(true);
   }
-
+  //* Edit
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     // subtitle.style.color = "#f00";
   }
 
   function closeModal() {
+    setImage("");
+    setUploadedImageUrl("");
     setIsOpen(false);
+    formikEdit.resetForm();
   }
-
+  //* create
   function handleOpen() {
     setIsOpen2(true);
   }
+
   function handleClose() {
+    setImage("");
+    setUploadedImageUrl("");
     setIsOpen2(false);
+    formikCreate.resetForm();
   }
 
   //& Tabla ////
@@ -168,16 +312,6 @@ function ProductsDash() {
 
   const handleSwitchChange = async (e, id) => {
     console.log("id", id);
-    // const updatedRows = dataArray.map(async (prod) => {
-    //   if (prod.id === id) {
-    //     await updateProduct({ ...dataToUpdate, isActive: !prod.isActive });
-    //     return {
-    //       ...prod,
-    //       isActive: e.target.checked,
-    //     };
-    //   }
-    //   return prod;
-    // });
 
     const foundRow = dataArray.find((p) => p.id === id);
     if (foundRow) {
@@ -187,7 +321,6 @@ function ProductsDash() {
         setTrigger((p) => !p);
       });
     }
-    // setDataArray(foundRow);
   };
 
   const columns = [
@@ -229,13 +362,14 @@ function ProductsDash() {
     { field: "col10", headerName: "STOCK", width: 150 },
   ];
 
-  const handleChange = (e) => {
+  const handleRemoveImage = (e) => {
     e.preventDefault();
-  };
-  console.log("datauptodate", dataToUpdate);
 
-  console.log("datauptodate", dataToUpdate.name);
-  console.log("formik.Values", formik.values);
+    setUploadedImageUrl("");
+  };
+  // console.log("datauptodate", dataToUpdate);
+  // console.log("datauptodate", dataToUpdate.name);
+  // console.log("formikCreate.Values", formikCreate.values);
   return (
     <div>
       <Modal
@@ -245,14 +379,11 @@ function ProductsDash() {
         // aria-labelledby="modal-modal-title"
         // aria-describedby="modal-modal-description"
       >
-        <form className={styles.formContainer} onSubmit={formik.handleSubmit}>
+        <form
+          className={styles.formContainer}
+          onSubmit={formikCreate.handleSubmit}
+        >
           {" "}
-          <input
-            type="hidden"
-            name="image"
-            value={uploadedImageUrl}
-            onChange={formik.handleChange}
-          />
           <h2>Crear Producto</h2>{" "}
           <button className={styles.x} onClick={handleClose}>
             X
@@ -267,37 +398,85 @@ function ProductsDash() {
                     bordered
                     className={styles["field"]}
                     type="text"
-                    placeholder="name"
+                    placeholder="Name"
                     color="primary"
                     name="name"
-                    onChange={formik.handleChange}
-                    value={formik.values.name}
-                    error={formik.touched.name && formik.errors.name}
-                    helperText={formik.touched.name && formik.errors.name}
+                    onChange={formikCreate.handleChange}
+                    value={formikCreate.values.name}
+                    error={
+                      formikCreate.touched.name && formikCreate.errors.name
+                    }
+                    helperText={
+                      formikCreate.touched.name && formikCreate.errors.name
+                    }
                   />
                 </div>
               </div>
+
               <div className={styles.inputContainer}>
-                <label>Brand </label>
-                <div>
-                  <Input
-                    bordered
-                    className={styles["field"]}
-                    type="text"
-                    placeholder="brand"
-                    color="primary"
-                    name="brand"
-                    onChange={formik.handleChange}
-                    value={formik.values.brand}
-                    error={formik.touched.brand && formik.errors.brand}
-                    helperText={formik.touched.brand && formik.errors.brand}
-                  />
-                </div>
+                <label>Name </label>
+                <select
+                  id="brand"
+                  name="brand"
+                  className={styles.select}
+                  onChange={formikCreate.handleChange}
+                  value={formikCreate.values.brand}
+                >
+                  <option value={"none"}>Filter by Brand</option>
+
+                  {brands?.map((b, i) => (
+                    <option key={i} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
               </div>
+
+              <div className={styles.inputContainer}>
+                <label>Name </label>
+                <select
+                  id="category"
+                  name="category"
+                  className={styles.select}
+                  onChange={formikCreate.handleChange}
+                  value={formikCreate.values.category}
+                >
+                  {" "}
+                  <option value={"none"} defaultValue={"Filter by Category"}>
+                    Filter by Category
+                  </option>
+                  {categories?.map((c, i) => (
+                    <option key={i} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles.inputContainer}>
+                <label>Name </label>
+                <select
+                  id="subCategory"
+                  name="subCategory"
+                  className={styles.select}
+                  onChange={formikCreate.handleChange}
+                  value={formikCreate.values.subCategory}
+                >
+                  <option value={"none"}>Filter by SubCategory</option>
+
+                  {subCategories?.map((sc, i) => (
+                    <option key={i} value={sc}>
+                      {sc}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className={styles.inputContainer}>
                 <label>Price </label>
                 <div>
                   <Input
+                    // aria-label="Enter your name"
                     bordered
                     className={styles["field"]}
                     type="number"
@@ -305,17 +484,24 @@ function ProductsDash() {
                     placeholder="price"
                     color="primary"
                     name="price"
-                    onChange={formik.handleChange}
-                    value={formik.values.price}
-                    error={formik.touched.price && formik.errors.price}
-                    helperText={formik.touched.price && formik.errors.price}
+                    onChange={formikCreate.handleChange}
+                    value={formikCreate.values.price}
+                    error={
+                      formikCreate.touched.price && formikCreate.errors.price
+                    }
+                    helperText={
+                      formikCreate.touched.price && formikCreate.errors.price
+                    }
                   />
                 </div>
               </div>
+            </div>
+            <div className={styles.inputRight}>
               <div className={styles.inputContainer}>
                 <label>Stock </label>
                 <div>
                   <Input
+                    // aria-label="Enter your name"
                     bordered
                     className={styles["field"]}
                     type="number"
@@ -323,67 +509,13 @@ function ProductsDash() {
                     placeholder="stock"
                     color="primary"
                     name="stock"
-                    onChange={formik.handleChange}
-                    value={formik.values.stock}
-                    error={formik.touched.stock && formik.errors.stock}
-                    helperText={formik.touched.stock && formik.errors.stock}
-                  />
-                </div>
-              </div>
-              <div className={styles.inputContainer}>
-                <label>isActive </label>
-                <div></div>
-                <Input
-                  bordered
-                  className={styles["field"]}
-                  type="boolean"
-                  placeholder="isActive"
-                  color="primary"
-                  name="isActive"
-                  onChange={formik.handleChange}
-                  value={formik.values.isActive}
-                  error={formik.touched.isActive && formik.errors.isActive}
-                  helperText={formik.touched.isActive && formik.errors.isActive}
-                />
-              </div>
-            </div>
-            <div className={styles.inputRight}>
-              <div className={styles.inputContainer}>
-                <label>Category </label>
-                <div>
-                  <Input
-                    bordered
-                    className={styles["field"]}
-                    type="text"
-                    placeholder="category"
-                    color="primary"
-                    name="category"
-                    onChange={formik.handleChange}
-                    value={formik.values.category}
-                    error={formik.touched.category && formik.errors.category}
-                    helperText={
-                      formik.touched.category && formik.errors.category
-                    }
-                  />
-                </div>
-              </div>
-              <div className={styles.inputContainer}>
-                <label> Sub-Category </label>
-                <div>
-                  <Input
-                    bordered
-                    className={styles["field"]}
-                    type="text"
-                    placeholder="subCategory"
-                    color="primary"
-                    name="subCategory"
-                    onChange={formik.handleChange}
-                    value={formik.values.subCategory}
+                    onChange={formikCreate.handleChange}
+                    value={formikCreate.values.stock}
                     error={
-                      formik.touched.subCategory && formik.errors.subCategory
+                      formikCreate.touched.stock && formikCreate.errors.stock
                     }
                     helperText={
-                      formik.touched.subCategory && formik.errors.subCategory
+                      formikCreate.touched.stock && formikCreate.errors.stock
                     }
                   />
                 </div>
@@ -391,25 +523,34 @@ function ProductsDash() {
 
               <div className={styles.inputContainer}>
                 <label> Image </label>
-                <div className={styles.imageFileCantainer}>
-                  {/* <div className={styles.imageCoverBtn}> Select file </div> */}
+
+                <div className={styles.imageFileContainer}>
                   <div className={styles.selectImageInput}>
-                    <Input
+                    <p className={styles.p}>Select Image</p>
+                    <input
+                      aria-label="Input field"
                       type="file"
                       onChange={(e) => setImage(e.target.files[0])}
-                      bordered
-                      className={styles["field"]}
-                      color="primary"
+                      className={styles.selectfile}
                       value=""
                     />
                   </div>
-                  <div className={styles.imageInputs}>
-                    <button className={styles.loadButton} onClick={submitImage}>
-                      Load Image
-                    </button>
-                  </div>
+                </div>
+                <div className={styles.imageInputs} disabled={showUpload}>
+                  <button
+                    className={styles.loadButton}
+                    onClick={submitImageCreate}
+                  >
+                    Upload File
+                  </button>
                 </div>
               </div>
+              <input
+                name="image"
+                value={uploadedImageUrl}
+                onChange={formikCreate.handleChange}
+                aria-label="Input field"
+              />
               <div className={styles.imageDisplay}>
                 {uploadedImageUrl && (
                   <div className={styles["image-container"]}>
@@ -418,11 +559,12 @@ function ProductsDash() {
                       alt="Uploaded Image"
                       className={styles.image}
                     />
+                    <button onClick={handleRemoveImage}> X </button>
                   </div>
                 )}
               </div>
             </div>
-          </div>{" "}
+          </div>
           <button type="submit" className={styles["btn-green"]}>
             Submit
           </button>
@@ -435,12 +577,14 @@ function ProductsDash() {
         onRequestClose={closeModal}
         // style={customStyles}
         className={styles.modal2}
-        contentLabel="Update Product"
+        // contentLabel="Update Product"
+        // aria-labelledby="modal-modal-title"
+        // aria-describedby="modal-modal-description"
       >
-        <div>
+        <div className={styles.mainContainer}>
           <form
             className={styles["form-container"]}
-            onSubmit={formik.handleSubmit}
+            onSubmit={formikEdit.handleSubmit}
           >
             <div className={styles.xContainer}>
               <div className={styles.x}>
@@ -461,17 +605,11 @@ function ProductsDash() {
                 <p> {dataToUpdate.id}</p>
               </div>
             </div>
-            <div>
-              {" "}
-              <input
-                type="hidden"
-                name="image"
-                value={uploadedImageUrl}
-                onChange={formik.handleChange}
-              />{" "}
-            </div>
-            <div className={styles.inputContainer}>
+            <div className={styles.nameCont}>
+              <h4 className={styles.h4}> Price</h4>
+
               <Input
+                // aria-label="Enter your name"
                 bordered
                 className={styles["field"]}
                 type="number"
@@ -480,12 +618,16 @@ function ProductsDash() {
                 color="primary"
                 name="price"
                 id="price"
-                onChange={formik.handleChange}
-                value={formik.values.price}
-                error={formik.touched.price && formik.errors.price}
-                helperText={formik.touched.price && formik.errors.price}
+                onChange={formikEdit.handleChange}
+                value={formikEdit.values.price}
+                error={formikEdit.touched.price && formikEdit.errors.price}
+                helperText={formikEdit.touched.price && formikEdit.errors.price}
               />
+            </div>
+            <div className={styles.idCont}>
+              <h4 className={styles.h4}> Stock</h4>
               <Input
+                // aria-label="Enter your name"
                 bordered
                 className={styles["field"]}
                 type="number"
@@ -494,40 +636,58 @@ function ProductsDash() {
                 color="primary"
                 name="stock"
                 id="stock"
-                onChange={formik.handleChange}
-                value={formik.values.stock}
-                error={formik.touched.stock && formik.errors.stock}
-                helperText={formik.touched.stock && formik.errors.stock}
+                onChange={formikEdit.handleChange}
+                value={formikEdit.values.stock}
+                error={formikEdit.touched.stock && formikEdit.errors.stock}
+                helperText={formikEdit.touched.stock && formikEdit.errors.stock}
               />{" "}
             </div>
-            <div className={styles.imageContainer}>
-              <Input
-                type="file"
-                id="image"
-                name="image"
-                onChange={(e) => setImage(e.target.files[0])}
-                bordered
-                className={styles["field"]}
-                color="primary"
-                value=""
-              />
-              {uploadedImageUrl && (
-                <div className={styles["image-container"]}>
-                  <img
-                    src={uploadedImageUrl}
-                    alt="Uploaded Image"
-                    className={styles.image}
+            <div className={styles.inputContainer}>
+              {/* <label> Image </label> */}
+
+              <div className={styles.imageFileContainer}>
+                {/* <div className={styles.imageCoverBtn}> Select file </div> */}
+                <div className={styles.selectImageInput}>
+                  <p className={styles.p}>Select Image</p>
+                  <input
+                    // aria-label="Enter your name"
+                    type="file"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    className={styles.selectfile}
+                    value=""
                   />
                 </div>
-              )}
-              <Button
-                auto
-                className={styles["btn-green"]}
-                onClick={submitImage}
-              >
-                Upload Image
-              </Button>{" "}
+              </div>
+              <div className={styles.imageInputs} disabled={showUpload}>
+                <button className={styles.loadButton} onClick={submitImageEdit}>
+                  Upload File
+                </button>
+              </div>
             </div>
+
+            <div className={styles.nameCont}>
+              <h4 className={styles.h4}> Image URL</h4>
+
+              <div>
+                <Input
+                  // aria-label="Enter your name"
+                  className={styles["field"]}
+                  name="image"
+                  value={uploadedImageUrl}
+                  onChange={formikEdit.handleChange}
+                />
+              </div>
+            </div>
+            {uploadedImageUrl && (
+              <div className={styles["image-container"]}>
+                <img
+                  src={uploadedImageUrl}
+                  alt="Uploaded Image"
+                  className={styles.image}
+                />
+                <button onClick={handleRemoveImage}> X </button>
+              </div>
+            )}
             <Button auto type="submit" className={styles["btn-green"]}>
               Submit
             </Button>
@@ -547,16 +707,3 @@ function ProductsDash() {
 }
 
 export default ProductsDash;
-{
-  /* <form>
-          <div className={styles.inputContainer}>
-            <input placeholder="Price" onChange={handleChange} />
-            <input placeholder="Stock" onChange={handleChange} />
-            <input placeholder="image" onChange={handleChange} />
-          </div>
-          <div>
-            <button>Save Changes</button>{" "}
-            <button onClick={closeModal}>Cancel</button>
-          </div>
-        </form> */
-}

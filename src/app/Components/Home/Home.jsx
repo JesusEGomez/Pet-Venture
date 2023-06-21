@@ -6,14 +6,13 @@ import Ofertas2 from "../Ofertas2/Ofertas2";
 import Footer from "../Footer/Footer";
 import { useSelector } from "react-redux";
 
-import addDocuments from "@/app/firebase/firebaseConfig";
+import addDocuments from "@/app/Firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
-
 import styles from "./Home.module.css";
 import Swal from "sweetalert2";
-import { registerNewPurchase, updateUser } from "@/app/firebase/firebaseConfig";
+import { registerNewPurchase, updateUser } from "@/app/Firebase/firebaseConfig";
 // import axios from "axios";
 
 export default function Home() {
@@ -21,13 +20,12 @@ export default function Home() {
   const products = useSelector((state) => state.products);
   const userInfo = useSelector((state) => state.userInfo);
 
-
   useEffect(() => {
-    console.log("userInfo", userInfo)
-    handleAuthStateChanged(dispatch)
+    console.log("userInfo", userInfo);
+    handleAuthStateChanged(dispatch);
     const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get("status")
-    const id = urlParams.get("payment_id")
+    const status = urlParams.get("status");
+    const id = urlParams.get("payment_id");
     const temporalCarrito = JSON.parse(localStorage.getItem("temporalCarrito"));
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -36,18 +34,16 @@ export default function Home() {
         console.log("carrito temporal", temporalCarrito);
         await registerNewPurchase(temporalCarrito, id, user?.username);
 
-        let newCarritoUser = []
+        let newCarritoUser = [];
         if (user?.compras) {
-          newCarritoUser = [...user.compras]
-          temporalCarrito?.forEach(element => {
-            newCarritoUser.push(element)
+          newCarritoUser = [...user.compras];
+          temporalCarrito?.forEach((element) => {
+            newCarritoUser.push(element);
           });
-          const tmp = { ...user, compras: [...newCarritoUser], carrito: [] }
-          console.log("usuario actualizado", tmp)
-          await updateUser(tmp)
+          const tmp = { ...user, compras: [...newCarritoUser], carrito: [] };
+          console.log("usuario actualizado", tmp);
+          await updateUser(tmp);
         }
-
-
 
         Swal.fire({
           title: "Felicidades!",
@@ -58,10 +54,8 @@ export default function Home() {
         localStorage.clear();
       }
     };
-    registerPurchase()
-
-  }, [])
-
+    registerPurchase();
+  }, []);
 
   // ! Esta funcion esta comenentada para después poder cargar productos
   // const handlerClick = () => {

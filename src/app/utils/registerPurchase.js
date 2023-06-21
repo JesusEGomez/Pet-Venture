@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { registerNewPurchase } from "../firebase/firebaseConfig";
+import { registerNewPurchase } from "../Firebase/firebaseConfig";
 
 export const registerPurchase = async (status, id, userInfo) => {
   const { displayName } = userInfo;

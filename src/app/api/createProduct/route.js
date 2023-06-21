@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { addProduct } from "@/app/firebase/firebaseConfig";
+import { addProduct } from "@/app/Firebase/firebaseConfig";
 
 export async function POST(request) {
   const data = await request.json();
