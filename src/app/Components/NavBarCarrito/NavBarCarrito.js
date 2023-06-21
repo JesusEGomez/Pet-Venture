@@ -9,7 +9,7 @@ import { updateUser } from "@/app/Firebase/firebaseConfig";
 import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
-export default function NavBarCarrito(props) {
+export default function NavBarCarrito() {
   const carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
   const userState = useSelector((state) => state.userState);
@@ -74,17 +74,18 @@ export default function NavBarCarrito(props) {
                 Cantidad: {e?.quantity}
               </div>
             </div>
-            
+
             <Grid>
-            <Button flat color="error" auto
-              
-            
-              className={styles.cartCardButton}
-              onClick={() => handlerDelete(e?.id, e?.quantity)}>
-            
-              <p>Borrar del Carrito</p>
+              <Button
+                flat
+                color="error"
+                auto
+                className={styles.cartCardButton}
+                onClick={() => handlerDelete(e?.id, e?.quantity)}
+              >
+                <p>Borrar del Carrito</p>
               </Button>
-              </Grid>
+            </Grid>
           </div>
         );
       })}
@@ -118,4 +119,3 @@ export default function NavBarCarrito(props) {
     </div>
   );
 }
-
