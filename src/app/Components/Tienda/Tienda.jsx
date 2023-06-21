@@ -8,6 +8,7 @@ import { getProducts } from "../../../../redux/actions";
 import Pagination from "../Pagination/Pagination";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
+
 const Tienda = () => {
   const dispatch = useDispatch();
 

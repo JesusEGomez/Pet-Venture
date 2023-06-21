@@ -51,6 +51,7 @@ export default function Login() {
       } else {
         dispatch(setUserState(1))
       }
+<<<<<<< HEAD
       try {
         const response = await axios.post("http://localhost:3000/api/mailling/Welcome", {
           email,
@@ -64,6 +65,8 @@ export default function Login() {
 =======
 >>>>>>> 781bc1bc725af03f60dead8c5a052dfc43846475
       }
+=======
+>>>>>>> 4c23eeeb43748576023b9e300cff4f8e3455dbc3
     })
 
     if (userState === 2) {

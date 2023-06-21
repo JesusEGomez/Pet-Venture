@@ -1,4 +1,5 @@
 import { useFormik } from "formik"
+// import { existsUserName, updateUser } from "@/app/firebase/firebaseConfig"
 import { existsUserName, updateUser } from "@/app/Firebase/firebaseConfig"
 import { useSelector, useDispatch } from "react-redux"
 import { setUserState } from "../../../../redux/actions"
@@ -6,6 +7,7 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import Swal from "sweetalert2";
 import styles from './CreateUserName.module.css'
+import axios from "axios"
 
 const validate = async values => {
     const exists = await existsUserName(values.userName)
@@ -49,6 +51,15 @@ export default function CreateUserName() {
                 icon: 'success',
                 confirmButtonText: 'Continuar'
             })
+            try {
+                const response = await axios.post("/api/mailling/Welcome", {
+                    email: userInfo.email,
+                    displayName: values.name.length ? values.name : userInfo.email,
+                });
+                return response;
+            } catch (error) {
+                console.error("Hubo un error al enviar el correo:", error);
+            }
 
         }
     })
@@ -58,7 +69,7 @@ export default function CreateUserName() {
                 <div>
                     <form className={styles.mensaje} onSubmit={formik.handleSubmit}>
                         <h2>
-                            ¡Bienvenido! {userInfo.displayName}
+                            ¡Bienvenido! {userInfo?.displayName}
                         </h2>
                         <label htmlFor="userName">Crea tu Nombre de usuario: </label>
                         <input className={styles.input}

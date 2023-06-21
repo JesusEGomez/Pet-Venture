@@ -15,12 +15,24 @@ import {
 import database from "../utils/db.json";
 
 const firebaseConfig = {
+<<<<<<< HEAD
   apiKey: "AIzaSyAozIgnlrpuCJPxwaPv48bkvnN7Sm8m2u8",
   authDomain: "petventure-2f665.firebaseapp.com",
   projectId: "petventure-2f665",
   storageBucket: "petventure-2f665.appspot.com",
   messagingSenderId: "1012719367395",
   appId: "1:1012719367395:web:87d717f9f44e8fbd3a01d6"
+=======
+ 
+  apiKey: "AIzaSyAwcrHY5rIKNV57k9Bxj0pXKQRH1p7tUHs",
+  authDomain: "pet-venture.firebaseapp.com",
+  projectId: "pet-venture",
+  storageBucket: "pet-venture.appspot.com",
+  messagingSenderId: "182451092395",
+  appId: "1:182451092395:web:9e8c2bdf9cf6d1fa31b0ee",
+  measurementId: "G-FVG72QFE24"
+  
+>>>>>>> 4c23eeeb43748576023b9e300cff4f8e3455dbc3
 };
 // const firebaseConfig = {
   // apiKey: "AIzaSyAdjrZCa-2WG82dmHU1aII0g6cRdKYzoQg",
@@ -41,6 +53,14 @@ export const getAllProducts = async () => {
     products.push({ id: doc.id, ...doc.data() });
   });
   return products;
+};
+export const getAllPurchases = async () => {
+  const querySnapshot = await getDocs(collection(db, "compras"));
+  const purchases = [];
+  querySnapshot.forEach((doc) => {
+    purchases.push({ id: doc.id, ...doc.data() });
+  });
+  return purchases;
 };
 
 export const getAllUsers = async () => {
@@ -102,7 +122,7 @@ export async function updateProduct(product, onSuccess) {
     console.log(product);
     await setDoc(docRef, product);
 
-    // onSuccess();
+    onSuccess();
   } catch (error) {
     console.error(error);
   }
@@ -130,14 +150,15 @@ export async function registerNewPurchase(carrito, id, user) {
     let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
     let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
 
-    const collectionRef = collection(db, "compras");
-    const docRef = doc(collectionRef, id);
-
-    await setDoc(docRef, {
-      compras: [...carrito],
-      fecha: fechaFormateada,
-      user: user,
-    });
+    for (const producto of carrito) {
+      const ref = await addDoc(collection(db, "compras"), {
+        ...producto,
+        fecha: fechaFormateada,
+        orderId: id,
+        user: user,
+      });
+      console.log(ref);
+    }
   } catch (error) {
     console.error("Error al agregar la compra:", error);
   }

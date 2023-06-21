@@ -3,8 +3,11 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './detail.module.css';
 import CommentBox from '@/app/Components/CommentBox/CommentBox';
+import { Review } from '@/app/Components/Review/Review';
+
 
 function ProductDetail({ productId, product }) {
+
   return (
     <div>
       <div className={styles.container}>
@@ -36,9 +39,12 @@ function ProductDetail({ productId, product }) {
           <Link href="/tienda" className={styles.deleteFilter}>
             Volver a la tienda
           </Link>
+          <CommentBox productId={productId} />
+      <Review product={product[0]} />
         </div>
       </div>
       <CommentBox productId={productId} />
+      <Review product={product[0]} />
     </div>
   );
 }
@@ -57,3 +63,4 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
