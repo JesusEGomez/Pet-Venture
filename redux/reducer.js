@@ -118,6 +118,27 @@ export default function (state = initialState, action) {
       }
 
     case DELETE_CARRITO:
+      const { id, quantityToDelete } = action.payload;
+      const productIndex = state.carrito.findIndex(
+        (product) => product.id === id
+      );
+
+      if (productIndex !== -1) {
+        const updatedCart = [...state.carrito];
+        const product = updatedCart[productIndex];
+
+        if (product.quantity > quantityToDelete) {
+          // Si la cantidad es mayor a quantityToDelete, decrementar la cantidad
+          updatedCart[productIndex] = {
+            ...product,
+            quantity: product.quantity - quantityToDelete,
+          };
+        } else {
+          // Si la cantidad es menor o igual a quantityToDelete, eliminar el producto del carrito
+          updatedCart.splice(productIndex, 1);
+        }
+        state.userInfo.carrito = updatedCart;
+
       const productoExiste2 = state.carrito.find(
         (i) => i.id === action.payload.id
       );
