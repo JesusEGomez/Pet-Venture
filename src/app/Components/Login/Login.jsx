@@ -30,6 +30,7 @@ export default function Login() {
 
           }
           else {
+            console.log("usuario nuevo", user)
             await registerNewUser({
               uid: user.uid,
               displayName: user.displayName,
@@ -38,7 +39,8 @@ export default function Login() {
               processCompleted: false,
               carrito: [],
               compras: [],
-              isActive: true
+              isActive: true,
+              email: user.email
 
             })
             dispatch(setUserState(2))
@@ -129,11 +131,10 @@ export default function Login() {
         />
         {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
         <button type="submit">Crear</button>
-        <button onClick={handlerOnClick}> Login with Google </button>
         <Link href="/ingresar"><button>¿Ya tienes cuenta?</button></Link>
         <Link href="/"><button>Atrás</button></Link>
-
       </form>
+      <button onClick={handlerOnClick}> Accede con Google </button>
     </div>
 
   )

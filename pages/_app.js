@@ -1,5 +1,6 @@
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import React, { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
   return (

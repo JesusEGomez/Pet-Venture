@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import Swal from "sweetalert2";
 import styles from './CreateUserName.module.css'
+import axios from "axios"
 
 const validate = async values => {
     const exists = await existsUserName(values.userName)
@@ -43,21 +44,32 @@ export default function CreateUserName() {
             values.name.length ? tmp.displayName = values.name : null
             await updateUser(tmp)
             dispatch(setUserState(3))
+
             Swal.fire({
                 title: 'Felicidades!',
                 text: 'Te has registrado con exito',
                 icon: 'success',
                 confirmButtonText: 'Continuar'
             })
+            try {
+                const response = await axios.post("/api/mailling/Welcome", {
+                    email: userInfo.email,
+                    displayName: values.name.length ? values.name : userInfo.email,
+                });
+                return response;
+            } catch (error) {
+                console.error("Hubo un error al enviar el correo:", error);
+            }
+
         }
     })
     return (
         <div className={styles.container}>
-            {userInfo.displayName !== null ?
+            {userInfo?.displayName !== null ?
                 <div>
                     <form className={styles.mensaje} onSubmit={formik.handleSubmit}>
                         <h2>
-                            ¡Bienvenido! {userInfo.displayName}
+                            ¡Bienvenido! {userInfo?.displayName}
                         </h2>
                         <label htmlFor="userName">Crea tu Nombre de usuario: </label>
                         <input className={styles.input}

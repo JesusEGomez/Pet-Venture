@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { DataGrid } from "@mui/x-data-grid";
-
+import styles from "./usersList.module.css";
 import { Switch } from "@nextui-org/react";
 import Link from "next/link";
+import { updateUser } from "@/app/Firebase/firebaseConfig";
 
 function UsersDash() {
   const [dataArray, setDataArray] = useState([]);
-
-  // const [dataArray, setDataArray] = useState([]);
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
-    const getDbProducts = async () => {
+    const getDbUsers = async () => {
       try {
         const response = (await axios.get("http://localhost:3000/api/users"))
           .data;
@@ -24,22 +24,22 @@ function UsersDash() {
       }
     };
 
-    getDbProducts();
+    getDbUsers();
   }, []);
 
-  const handleSwitchChange = (e, id) => {
-    const updatedRows = dataArray.map((row) => {
-      if (row.id === id) {
-        return {
-          ...row,
-          isActive: e.target.checked,
-        };
-      }
-      return row;
-    });
+  const handleSwitchChange = async (e, id) => {
+    console.log("id", id);
 
-    setDataArray(updatedRows);
+    const foundRow = dataArray.find((p) => p.id === id);
+    if (foundRow) {
+      console.log("asd", foundRow);
+      console.log(foundRow.isActive);
+      await updateUser({ ...foundRow, isActive: !foundRow.isActive }, () => {
+        setTrigger((u) => !u);
+      });
+    }
   };
+
   const rows = dataArray.map((item) => ({
     id: item.id,
     col1: item.username,
@@ -47,20 +47,10 @@ function UsersDash() {
     col3: item.uid,
     col4: item.processCompleted,
     col5: item.profilePicture,
+    col11: item.isActive,
   }));
 
   const columns = [
-    {
-      field: "edit",
-      headerName: "",
-      width: 150,
-      renderCell: (params) => {
-        const { id, edit } = params.row;
-
-        return <Link href={`/user_detail/${id}`}>Edit</Link>;
-      },
-    },
-
     { field: "id", headerName: "ID", hide: true },
     {
       field: "col11",
@@ -90,8 +80,8 @@ function UsersDash() {
     <div>
       <h2>Users</h2>
 
-      <Link href="/formulario"> + hacer formulario para user</Link>
-      <div style={{ height: 600, width: "100%" }}>
+      {/* <Link href="/formulario"> + hacer formulario para user</Link> */}
+      <div className={styles.grid}>
         <DataGrid rows={rows} columns={columns} />
       </div>
     </div>

@@ -11,10 +11,8 @@ import {
   query,
   setDoc,
   where,
-  arrayUnion,
 } from "firebase/firestore";
 import database from "../utils/db.json";
-import { merge } from "lodash-es";
 
 const firebaseConfig = {
  
@@ -38,6 +36,14 @@ export const getAllProducts = async () => {
     products.push({ id: doc.id, ...doc.data() });
   });
   return products;
+};
+export const getAllPurchases = async () => {
+  const querySnapshot = await getDocs(collection(db, "compras"));
+  const purchases = [];
+  querySnapshot.forEach((doc) => {
+    purchases.push({ id: doc.id, ...doc.data() });
+  });
+  return purchases;
 };
 
 export const getAllUsers = async () => {
@@ -81,18 +87,25 @@ export async function registerNewUser(user) {
   } catch (error) {}
 }
 
-export async function updateUser(user) {
+export async function updateUser(user, onSuccess) {
   try {
     const collectionRef = collection(db, "users");
     const docRef = doc(collectionRef, user.uid);
     await setDoc(docRef, user);
-  } catch (error) {}
+    onSuccess();
+  } catch (error) {
+    console.error(error);
+  }
 }
-export async function updateProduct(product) {
+
+export async function updateProduct(product, onSuccess) {
   try {
     const collectionRef = collection(db, "productos");
     const docRef = doc(collectionRef, product.id);
+    console.log(product);
     await setDoc(docRef, product);
+
+    onSuccess();
   } catch (error) {
     console.error(error);
   }
@@ -120,14 +133,15 @@ export async function registerNewPurchase(carrito, id, user) {
     let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
     let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
 
-    const collectionRef = collection(db, "compras");
-    const docRef = doc(collectionRef, id);
-
-    await setDoc(docRef, {
-      compras: [...carrito],
-      fecha: fechaFormateada,
-      user: user,
-    });
+    for (const producto of carrito) {
+      const ref = await addDoc(collection(db, "compras"), {
+        ...producto,
+        fecha: fechaFormateada,
+        orderId: id,
+        user: user,
+      });
+      console.log(ref);
+    }
   } catch (error) {
     console.error("Error al agregar la compra:", error);
   }

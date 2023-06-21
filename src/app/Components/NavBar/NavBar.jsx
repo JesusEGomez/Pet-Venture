@@ -1,8 +1,9 @@
-import Home from "@/app/components/Home/Home";
 import React from "react";
 import Link from "next/link";
 import PetVenture from "../../../../public/img/PetVenture.svg";
-import styles from "./Navbar.module.css";
+
+import styles from "./NavBar.module.css";
+
 import { logout } from "@/app/Firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { clearUserData, setUserState } from "../../../../redux/actions";
@@ -16,13 +17,13 @@ const Navbar = () => {
   const carrito = useSelector((state) => state.carrito);
   const dispatch = useDispatch();
   const handlerLogout = async () => {
-    console.log(userInfo)
+    await updateUser(carrito)
     if (carrito.length !== 0) {
       carrito.forEach(element => {
         userInfo.carrito.push(element)
       });
     }
-    await updateUser(userInfo)
+    console.log("carrito del user al salir", userInfo.carrito)
     localStorage.clear()
     dispatch(clearUserData())
     logout();

@@ -22,7 +22,6 @@ export async function POST(request) {
         success: `${URL}`,
         failure: `${URL}`,
       },
-      notification_url: `${URL}/api/notify`,
     };
     const response = await mercadopago.preferences.create(preference);
     return NextResponse.json({ url: response.body.init_point });

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
 import { updateUser } from "@/app/Firebase/firebaseConfig";
 import { Button, Grid } from "@nextui-org/react";
+import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
 export default function NavBarCarrito(props) {
   const carrito = useSelector((state) => state.carrito);
@@ -27,7 +28,7 @@ export default function NavBarCarrito(props) {
       dispatch({ type: "SET_CARRITO", payload: userCarrito });
     }
 
-    console.log(userInfo.carrito);
+    handleAuthStateChanged(dispatch);
   }, [dispatch]);
 
   useEffect(() => {

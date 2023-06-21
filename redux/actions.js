@@ -108,6 +108,9 @@ export function getFilteredProducts(filters) {
     payload: result,
   };
 }
+export function setCarrito(carrito) {
+  return { type: SET_CARRITO, payload: carrito };
+}
 
 // * Actions de usuario
 export function setUserState(state) {

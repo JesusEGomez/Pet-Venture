@@ -1,22 +1,92 @@
-.main {
-  background: rgb(219, 213, 213);
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
+.sideBarContainer {
+  background-color: yellow;
+  width: 18%;
+}
+
+.statisticsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+  border-color: aqua;
+  height: 500px;
+  width: 80%;
+}
 .container {
   display: flex;
-
-  /* background: rgb(231, 28, 28); */
-  min-height: fit-content;
-  margin-top: 10px;
-  width: 90%;
+  background: tomato;
 }
 
-.section {
+.sideBar {
+  position: fixed;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  /* background: rgb(231, 28, 28); */
-  margin-left: 200px;
-  margin-top: 5px;
+  width: 200px;
+  height: 95%;
+  padding: 10x;
 
-  width: 100%;
+  /* border-color: tomato; */
+  /* border-style: solid; */
+  border-radius: 6px;
+  /* background: rgb(223, 217, 217); */
+}
+
+.buttonContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  height: 50%;
+  padding: 10x;
+
+  /* background: rgb(223, 217, 217); */
+}
+.topIcon {
+  /* background: blueviolet; */
+  color: tomato;
+  padding: 3px;
+  border-radius: lg;
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+  margin-top: 10px;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons {
+  /* background: grey; */
+  color: black;
+  padding: 3px;
+  border-radius: lg;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  border: none;
+  background: none;
+  font-size: large;
+}
+.buttons:hover {
+  background-color: tomato;
+  color: white;
+}
+.span {
+  border-bottom: 1px;
+  border-color: gray;
+  width: full;
+  padding: 2px;
 }
