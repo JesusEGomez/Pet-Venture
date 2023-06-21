@@ -33,10 +33,8 @@ function ProductDetail({ productId, product }) {
             <h4>Price: </h4>
             <span> {product[0].price} </span>
           </div>
-          <Link href="/" className={styles.deleteFilter}>
-            Volver a Home
-          </Link>
-          <Link href="/tienda" className={styles.deleteFilter}>
+          
+          <Link className={styles.enlaceposicionado } href="/tienda">
             Volver a la tienda
           </Link>
           <CommentBox productId={productId} />
