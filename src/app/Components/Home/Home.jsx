@@ -62,7 +62,7 @@ export default function Home() {
           return response;
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
-          throw new Error("Hubo un error al enviar el correo.");
+          // throw new Error("Hubo un error al enviar el correo.");
         }
         localStorage.clear();
       }
