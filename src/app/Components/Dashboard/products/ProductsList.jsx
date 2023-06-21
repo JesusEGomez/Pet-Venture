@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import styles from "./productsList.module.css";
 import Link from "next/link";
 import { StyledInputContainer, Switch } from "@nextui-org/react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import { updateProduct } from "@/app/Firebase/firebaseConfig";
 import { Input, Grid, Button } from "@nextui-org/react";
 
