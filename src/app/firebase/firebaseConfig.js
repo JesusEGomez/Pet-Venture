@@ -34,6 +34,14 @@ export const getAllProducts = async () => {
   });
   return products;
 };
+export const getAllPurchases = async () => {
+  const querySnapshot = await getDocs(collection(db, "compras"));
+  const purchases = [];
+  querySnapshot.forEach((doc) => {
+    purchases.push({ id: doc.id, ...doc.data() });
+  });
+  return purchases;
+};
 
 export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
@@ -94,7 +102,7 @@ export async function updateProduct(product, onSuccess) {
     console.log(product);
     await setDoc(docRef, product);
 
-    // onSuccess();
+    onSuccess();
   } catch (error) {
     console.error(error);
   }
@@ -122,14 +130,15 @@ export async function registerNewPurchase(carrito, id, user) {
     let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
     let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
 
-    const collectionRef = collection(db, "compras");
-    const docRef = doc(collectionRef, id);
-
-    await setDoc(docRef, {
-      compras: [...carrito],
-      fecha: fechaFormateada,
-      user: user,
-    });
+    for (const producto of carrito) {
+      const ref = await addDoc(collection(db, "compras"), {
+        ...producto,
+        fecha: fechaFormateada,
+        orderId: id,
+        user: user,
+      });
+      console.log(ref);
+    }
   } catch (error) {
     console.error("Error al agregar la compra:", error);
   }

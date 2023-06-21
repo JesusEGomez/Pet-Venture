@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CommentBox.module.css';
-import { Review } from '../Review/Review';
 
 import axios from 'axios';
 
@@ -28,7 +27,7 @@ export default function CommentBox({ productId }) {
           </div>
         ))}
       </div>
-      <Review product={product[0]} />
+
     </div>
   );
 };

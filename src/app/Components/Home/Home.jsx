@@ -13,8 +13,7 @@ import Swal from "sweetalert2";
 import { registerNewPurchase, updateUser } from "@/app/Firebase/firebaseConfig";
 import axios from "axios";
 import WhatsApp from "../WhatsApp/WhatsApp";
-
-// import axios from "axios";
+import { getAllPurchases } from "@/app/Firebase/firebaseConfig";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -33,10 +32,25 @@ export default function Home() {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const registerPurchase = async () => {
+
+      const response = await getAllPurchases()
+      console.log("compras", response)
+
+
+
       if (status === "approved") {
         console.log("carrito temporal", temporalCarrito);
         await registerNewPurchase(temporalCarrito, id, user?.username);
 
+        try {
+          const response = await axios.post("/api/mailling/Success", {
+            email: user.email,
+            displayName: user.displayName,
+          });
+          console.log(response)
+        } catch (error) {
+          console.error("Hubo un error al enviar el correo:", error);
+        }
         let newCarritoUser = []
         if (user?.compras) {
           let fecha = new Date();
@@ -50,25 +64,23 @@ export default function Home() {
           console.log("usuario actualizado", tmp)
           await updateUser(tmp)
         }
-
-
-
         Swal.fire({
           title: "Felicidades!",
           text: "Tu compra ah sido Exitosa",
           icon: "success",
           confirmButtonText: "Continuar",
         });
+        localStorage.clear();
+      } else if (status === "rejected") {
         try {
-          const response = await axios.post(URL, {
-            email,
-            displayName,
+          const response = await axios.post("/api/mailling/Failure", {
+            email: user.email,
+            displayName: user.displayName,
           });
-          return response;
+          console.log(response)
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
         }
-        localStorage.clear();
       }
     };
     registerPurchase()

@@ -8,32 +8,26 @@ import { handleAuthStateChanged } from '@/app/utils/handleAuthStateChanged';
 import { useDispatch } from 'react-redux';
 
 export const Review = ({ product }) => {
-  // console.log("review", product.id)
+  console.log("review", product)
   const dispatch = useDispatch()
   const [available, setAvailable] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [trigger, setTrigger] = useState(false)
   const user = useSelector((state) => state.userInfo)
-  const exist = []
-  console.log(user.compras)
-  user.compras?.forEach((element) => {
-    if (element.id === product?.id)
-      exist.push(element)
-  })
-  console.log("existe ?", exist)
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (comment.trim() === '') {
-  //     return; // Evitar agregar un comentario vacío
-  //   }
-  //   setComment('');
-  // };
+  console.log(user)
   useEffect(() => {
-    console.log(exist)
-    handleAuthStateChanged(dispatch)
+
+    const exist = []
+    console.log("user", user)
+    user.compras?.forEach((element) => {
+      if (element.id === product?.id)
+        exist.push(element)
+    })
     if (exist.length) {
       setAvailable(true)
     }
-  }, [])
+    handleAuthStateChanged(dispatch)
+  }, [buttonDisabled])
 
   const formik = useFormik({
     initialValues: {
@@ -47,11 +41,16 @@ export const Review = ({ product }) => {
     }),
     onSubmit: async values => {
       product.comments = [...product.comments, values.comentario]
+      await updateProduct(product, () => {
+        setTrigger((p) => !p)
+      })
       console.log(product.comments)
-      // await updateProduct(product)
+
+      setButtonDisabled(true);
 
     },
   })
+
 
 
   return (
@@ -66,7 +65,7 @@ export const Review = ({ product }) => {
             onChange={formik.handleChange}
             value={formik.values.comentario}
           />
-          <button type="submit">Comentar</button>
+          <button type="submit" disabled={buttonDisabled} >Comentar</button>
         </form>
           :
           <div><h2>No puedes comentar</h2></div>
