@@ -12,6 +12,7 @@ import styles from "./Home.module.css";
 import Swal from "sweetalert2";
 import { registerNewPurchase, updateUser } from "@/app/Firebase/firebaseConfig";
 import axios from "axios";
+import WhatsApp from "../WhatsApp/WhatsApp";
 
 
 export default function Home() {
@@ -83,6 +84,7 @@ export default function Home() {
       <Slider />
       <Ofertas products={products} />
       <Ofertas2 products={products} />
+      <WhatsApp />
       <Footer />
     </div>
   );
