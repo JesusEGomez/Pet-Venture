@@ -1,5 +1,4 @@
 import { onAuthStateChanged } from "firebase/auth";
-
 import { setUserInfo, setUserState } from "../../../redux/actions";
 import {
   auth,

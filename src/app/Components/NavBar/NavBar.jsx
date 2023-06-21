@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { clearUserData, setUserState } from "../../../../redux/actions";
 import { useSelector } from "react-redux";
 import { updateUser } from "@/app/firebase/firebaseConfig";
+import { User } from "@nextui-org/react";
 
 const Navbar = () => {
   const userState = useSelector((state) => state.userState);
@@ -63,7 +64,7 @@ const Navbar = () => {
           </li>
           <li>
             {userState === 3 ? (
-              <img src={userInfo.profilePicture} width="50px" height="50px" />
+              <User color="success" bordered size="xl" src={userInfo.profilePicture} width="50px" height="50px" />
             ) : null}
           </li>
         </ul>

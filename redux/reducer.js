@@ -90,24 +90,67 @@ export default function (state = initialState, action) {
         paginaactual: 1,
       };
 
-    case  ADD_CARRITO: 
-    return {
-      ...state,
-      carrito: [...state.carrito,action.payload]
-    }
+    case ADD_CARRITO:
+      const productoExiste = state.carrito.find(
+        (i) => i.id === action.payload.id
+      );
+
+      if (productoExiste) {
+        const productoModificado = {
+          ...productoExiste,
+          quantity: productoExiste.quantity + 1,
+          price: action.payload.price * (productoExiste.quantity + 1),
+        };
+
+        const updatedCarrito = state.carrito.map((producto) =>
+          producto.id === action.payload.id ? productoModificado : producto
+        );
+
+        return {
+          ...state,
+          carrito: updatedCarrito,
+        };
+      } else {
+        return {
+          ...state,
+          carrito: [...state.carrito, action.payload],
+        };
+      }
 
     case DELETE_CARRITO:
-  const updatedCart = state.carrito.filter(item => item.id !== action.payload);
-  return {
-    ...state,
-    carrito: updatedCart
-  };
+      const productoExiste2 = state.carrito.find(
+        (i) => i.id === action.payload.id
+      );
 
-  case SET_CARRITO:
-  return {
-    ...state,
-    carrito: action.payload
-  };
+      console.log(productoExiste2, "esto es productoexiste2");
+      if (productoExiste2.quantity > 1) {
+        const productoModificado = {
+          ...productoExiste2,
+          quantity: productoExiste2.quantity - 1,
+          price:
+            productoExiste2.price -
+            productoExiste2.price / productoExiste2.quantity,
+        };
+        return {
+          ...state,
+          carrito: state.carrito.map((i) =>
+            i.id === action.payload.id ? productoModificado : i
+          ),
+        };
+      } else {
+        const precioProducto = productoExiste2 ? productoExiste2.price : 0;
+        return {
+          ...state,
+          carrito: state.carrito.filter((i) => i.id !== action.payload.id),
+          totalPrice: state.totalPrice - precioProducto,
+        };
+      }
+
+    case SET_CARRITO:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
 
     case USERS_ERROR:
       return {

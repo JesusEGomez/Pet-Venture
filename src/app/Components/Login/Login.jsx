@@ -9,6 +9,7 @@ import styles from './Login.module.css'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const router = useRouter()
@@ -36,10 +37,12 @@ export default function Login() {
               username: "",
               processCompleted: false,
               carrito: [],
-              compras: []
+              compras: [],
+              isActive: true
 
             })
             dispatch(setUserState(2))
+
             dispatch(setUserInfo(userInfo))
           }
         }
@@ -92,10 +95,14 @@ export default function Login() {
         const refUSer = await createUserWithEmailAndPassword(auth, values.email, values.password)
         console.log(refUSer)
       } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: "El Email esta en uso",
+        })
         console.error(error)
       }
 
-    }
+    },
   })
 
 

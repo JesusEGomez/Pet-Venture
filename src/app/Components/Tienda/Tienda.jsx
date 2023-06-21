@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getProducts } from "../../../../redux/actions";
 import Pagination from "../Pagination/Pagination";
+import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
 const Tienda = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,8 @@ const Tienda = () => {
   const itemsToShow = allProducts?.slice(startIndex, endIndex);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts())
+    handleAuthStateChanged(dispatch)
   }, []);
 
   return (
@@ -33,7 +35,7 @@ const Tienda = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
-        // paginate={paginate}
+      // paginate={paginate}
       />
     </div>
   );
