@@ -150,6 +150,28 @@
 .enlaceposicionado {
   position: absolute;
   top: 10px; /* Ajusta el valor según la distancia desde la parte superior */
-  right: 10px; /* Ajusta el valor según la distancia desde la derecha */
+  left: 10px; /* Ajusta el valor según la distancia desde la izquierda */
   margin: 10px; /* Opcional: agrega margen para ajustar el espacio alrededor del enlace */
+}
+.right {
+  position: fixed;
+  top: 10px; 
+
+  left: 10px;
+  padding: 10px 10px;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.right:hover {
+  background-color: rgb(217, 168, 34);
+}
+
+.right:active {
+  top: 2px;
 }

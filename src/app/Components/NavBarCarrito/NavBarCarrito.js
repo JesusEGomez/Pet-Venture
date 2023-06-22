@@ -85,25 +85,25 @@ export default function NavBarCarrito() {
             </div>
 
             <Grid>
-              <Button
-                flat
-                color="error"
-                auto
-                className={styles.cartCardButton}
-                onClick={() => handleAddToCart(e?.id)}
-              >
-                <p>+</p>
-              </Button>
-              <Button
-                flat
-                color="error"
-                auto
-                className={styles.cartCardButton}
-                onClick={() => handlerDelete(e?.id)}
-              >
-                <p>-</p>
-              </Button>
-            </Grid>
+      <Button
+    flat
+    color="error"
+    auto
+    className={`${styles.cartCardButton} ${styles.marginRight}`}
+    onClick={() => handleAddToCart(e?.id)}
+  >
+    <p>+</p>
+  </Button>
+  <Button
+    flat
+    color="error"
+    auto
+    className={styles.cartCardButton}
+    onClick={() => handlerDelete(e?.id)}
+  >
+    <p>-</p>
+  </Button>
+</Grid>
           </div>
         );
       })}
@@ -112,7 +112,10 @@ export default function NavBarCarrito() {
         // console.log(totalPrice)
       })}
       <div className={styles.precios}>
-        Precio Total: {totalPrice}$--
+
+        Precio Total: $ {totalPrice}
+        
+
         {isCarritoEmpty ? (
           <>
             <p>--El carrito está vacío--</p>

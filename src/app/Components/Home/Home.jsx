@@ -66,21 +66,31 @@ export default function Home() {
         }
         Swal.fire({
           title: "Felicidades!",
-          text: "Tu compra ah sido Exitosa",
+          text: "Tu compra ha sido Exitosa",
           icon: "success",
           confirmButtonText: "Continuar",
         });
+
         localStorage.clear();
       } else if (status === "rejected") {
+       
         try {
+          Swal.fire({
+            title: "Error",
+            text: "Tu compra ha sido Rechazada",
+            icon: "error",
+            confirmButtonText: "Continuar",
+          });
           const response = await axios.post("/api/mailling/Failure", {
             email: user.email,
             displayName: user.displayName,
           });
+          
           console.log(response)
+          
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
-          throw new Error("Hubo un error al enviar el correo.");
+         
         }
         localStorage.clear();
       }
