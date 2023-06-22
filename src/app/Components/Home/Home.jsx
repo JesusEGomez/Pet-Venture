@@ -101,13 +101,13 @@ export default function Home() {
 
 
   // ! Esta funcion esta comenentada para despuÃ©s poder cargar productos
-  const handlerClick = () => {
-    addDocuments();
-  };
+  // const handlerClick = () => {
+  //   addDocuments();
+  // };
 
   return (
     <div className={styles.container}>
-      <button onClick={handlerClick}></button>
+{/*       <button onClick={handlerClick}></button> */}
       <Navbar />
       <Slider />
       <Ofertas products={products} />
