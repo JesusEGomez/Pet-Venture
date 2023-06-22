@@ -1,4 +1,5 @@
 .card {
+  border-style: solid;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -7,7 +8,7 @@
   width: 150px;
   margin: 5px;
   padding: 10px;
-  border: 1px solid white;
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   text-align: center;
   justify-content: space-evenly;
@@ -54,6 +55,9 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border: 2px solid rgb(0, 0, 0);
+
 }
 
 .namedescription {
