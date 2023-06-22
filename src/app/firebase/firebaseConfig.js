@@ -15,12 +15,14 @@ import {
 import database from "../utils/db.json";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyBvHJZFpSEuPjBgmmam-ZJvbdOnsFBqNM4",
   authDomain: "ptventure-8c447.firebaseapp.com",
   projectId: "ptventure-8c447",
   storageBucket: "ptventure-8c447.appspot.com",
   messagingSenderId: "403722173615",
   appId: "1:403722173615:web:5094d2d0b4fb9830b7a85a",
+
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
