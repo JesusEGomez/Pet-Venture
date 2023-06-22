@@ -68,7 +68,7 @@ export const Review = ({ product }) => {
           <button type="submit" disabled={buttonDisabled} >Comentar</button>
         </form>
           :
-          <div><h2>No puedes comentar</h2></div>
+          <div><h2>Debes comprar el producto para poder comentar</h2></div>
       }
 
     </div>

@@ -2,43 +2,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Cambiar "height" a "min-height" */
+  min-height: 80vh; /* Ajusta el valor según tus necesidades */
   background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   position: fixed;
-  top: 0; /* Asegurarse de que el contenedor esté en la parte superior */
-  left: 0; /* Asegurarse de que el contenedor esté a la izquierda */
-  right: 0; /* Asegurarse de que el contenedor esté a la derecha */
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
 }
 
 .img {
-  width: 30%;
-  height: stretch;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
   border: solid grey;
-  /* border-color: aqua; */
-  border: 10px;
 }
 
 .infoContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 20px;
-  padding: 5px;
+  /* padding: 5px; */
 }
+
+.infoContainer img {
+  max-width: 50%; /* Ajusta el tamaño máximo de la imagen al ancho del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto de la imagen */
+  align-self: flex-start; /* Alinea la imagen a la izquierda */
+}
+
 .propertyContainer {
   display: flex;
   flex-direction: row;
 
   justify-content: left;
   align-items: center;
-  justify-items: baseline;
-  text-align: justify;
-  border-radius: 20px;
+  /* justify-items: baseline; */
+  /* text-align: justify; */
 }
 
 .healthScoreTitle {
@@ -112,20 +115,21 @@
 }
 
 .deleteFilter {
-  
-    width: 80px;
-    height: 40px;
-    padding: 10px 10px;
-    background-color: rgb(214, 127, 21);
-    color: white;
-    border-radius: 5px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    top: -10px; /* Ajusta este valor según tus necesidades */
-  
-  
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  padding: 10px 10px;
+  background-color: rgb(214, 127, 21);
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  left: 50px;
+  /* position: relative; */
+  top: -10px; /* Ajusta este valor según tus necesidades */
+
   text-decoration: none;
 
   /* transition: background-color 0.3s ease-in-out; */
@@ -133,4 +137,19 @@
 .buttonimg {
   width: 100px;
   height: 100px;
+}
+.propertyContainer {
+  background-color: white;
+  background-color: white;
+  text-align: center; /* Centra el texto horizontalmente */
+  font-weight: bold; /* Establece el texto en negrita */
+  font-style: italic; /* Establece el texto en cursiva (opcional) */
+  font-size: 18px; /* Ajusta el tamaño de fuente según tus preferencias */
+  color: #333;
+}
+.enlaceposicionado {
+  position: absolute;
+  top: 10px; /* Ajusta el valor según la distancia desde la parte superior */
+  right: 10px; /* Ajusta el valor según la distancia desde la derecha */
+  margin: 10px; /* Opcional: agrega margen para ajustar el espacio alrededor del enlace */
 }

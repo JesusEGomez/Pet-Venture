@@ -1,42 +1,36 @@
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-} from "firebase/auth";
-import {
-  auth,
-  getUserInfo,
-  registerNewUser,
-  userExist,
-} from "@/app/Firebase/firebaseConfig";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { auth, getUserInfo, registerNewUser, userExist } from "@/app/Firebase/firebaseConfig";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUserInfo, setUserState } from "../../../../redux/actions";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import styles from "./Login.module.css";
+import styles from './Login.module.css'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import Swal from "sweetalert2";
 
 export default function Login() {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const userState = useSelector((state) => state.userState);
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const userState = useSelector((state) => state.userState)
+
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
+
       if (user) {
-        const isRegistered = userExist(user.uid);
+        const isRegistered = userExist(user.uid)
         if (isRegistered) {
-          const userInfo = await getUserInfo(user.uid);
+          const userInfo = await getUserInfo(user.uid)
           if (userInfo?.processCompleted) {
-            dispatch(setUserState(3));
-            dispatch(setUserInfo(userInfo));
-          } else {
-            console.log("usuario nuevo", user);
+            dispatch(setUserState(3))
+            dispatch(setUserInfo(userInfo))
+
+          }
+          else {
+            console.log("usuario nuevo", user)
             await registerNewUser({
               uid: user.uid,
               displayName: user.displayName,
@@ -47,26 +41,35 @@ export default function Login() {
               compras: [],
               isActive: true,
               email: user.email,
-              admin: false,
-            });
+              admin: false
 
-            dispatch(setUserState(2));
+            })
+            dispatch(setUserState(2))
 
-            dispatch(setUserInfo(userInfo));
+            dispatch(setUserInfo(userInfo))
           }
         }
       } else {
-        dispatch(setUserState(1));
+        dispatch(setUserState(1))
       }
-    });
-
+      try {
+        const response = await axios.post("http://localhost:3000/api/mailling/Welcome", {
+          email,
+          displayName,
+        });
+        return response;
+      } catch (error) {
+        console.error("Hubo un error al enviar el correo:", error);
+      }
+    })
     if (userState === 2) {
-      router.push("/createUserName");
+      router.push("/createUserName")
     }
     if (userState === 3) {
-      router.push("/");
+      router.push("/")
     }
-  }, [userState]);
+  }, [userState])
+
 
   const handlerOnClick = async () => {
     const googleProvider = new GoogleAuthProvider();
@@ -86,32 +89,33 @@ export default function Login() {
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: "",
+      password: ""
     },
     validationSchema: Yup.object({
-      email: Yup.string().email().required("Requerido"),
+      email: Yup.string()
+        .email()
+        .required("Requerido"),
       password: Yup.string()
         .min(5, "Mínimo de 5 caracteres")
         .max(15, "Maximo de 15 caracteres")
-        .required("Requerido"),
+        .required("Requerido")
     }),
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       try {
-        const refUSer = await createUserWithEmailAndPassword(
-          auth,
-          values.email,
-          values.password
-        );
-        console.log(refUSer);
+
+        const refUSer = await createUserWithEmailAndPassword(auth, values.email, values.password)
+        console.log(refUSer)
       } catch (error) {
         Swal.fire({
-          icon: "error",
+          icon: 'error',
           title: "El Email esta en uso",
-        });
-        console.error(error);
+        })
+        console.error(error)
       }
+
     },
-  });
+  })
+
 
   return (
     <div className={styles.container}>
@@ -125,9 +129,7 @@ export default function Login() {
           onChange={formik.handleChange}
           value={formik.values.email}
         />
-        {formik.errors.email && formik.touched.email && (
-          <div>{formik.errors.email}</div>
-        )}
+        {formik.errors.email && formik.touched.email && <div>{formik.errors.email}</div>}
         <label htmlFor="password">Contraseña: </label>
         <input
           type="password"
@@ -136,33 +138,16 @@ export default function Login() {
           onChange={formik.handleChange}
           value={formik.values.password}
         />
-        {formik.errors.password && formik.touched.password && (
-          <div>{formik.errors.password}</div>
-        )}
+        {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
         <button type="submit">Crear</button>
-        <Link href="/ingresar">
-          <button>¿Ya tienes cuenta?</button>
-        </Link>
-        <Link href="/">
-          <button>Atrás</button>
-        </Link>
+        <Link href="/ingresar"><button>¿Ya tienes cuenta?</button></Link>
+        <Link href="/"><button>Atrás</button></Link>
       </form>
       <button onClick={handlerOnClick}> Accede con Google </button>
     </div>
-  );
 
-  // if (userState === 2) {
-  //   return (
-  //     <div>
-  //       Estas autenticado...
-  //     </div>
-  //   )
-  // }
-  // if (userState === 3) {
-  //   return (
-  //     <div>
-  //       Estas Registrado...
-  //     </div>
-  //   )
-  // }
+  )
+
+
+
 }

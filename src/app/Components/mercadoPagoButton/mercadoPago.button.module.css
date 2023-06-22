@@ -19,4 +19,6 @@
 
 .button:hover {
   transform: scale(1.1);
+  background-color: #4CAF50; /* Green */
+  color: white;
 }

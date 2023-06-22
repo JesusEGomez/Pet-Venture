@@ -21,9 +21,8 @@ export const DELETE_CARRITO = "DELETE_CARRITO";
 export const SET_USER_STATE = "SET_USER_STATE";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CARRITO = "SET_CARRITO";
+export const CLEAR_CARRITO = "CLEAR_CARRITO";
 // actionTypes.js
-
-
 
 export const ADD_COMMENT = "ADD_COMMENT";
 // export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
@@ -131,4 +130,7 @@ export const addComment = (productId, comment) => {
 };
 export function clearUserData() {
   return { type: CLEAR_USER_DATA };
+}
+export function clearCarrito() {
+  return { type: CLEAR_CARRITO };
 }

@@ -238,6 +238,9 @@ const Filtros = () => {
         <Link href="/" className={styles.deleteFilter}>
           Home
         </Link>
+        <Link href="/compras" className={styles.deleteFilter}>
+          Mis compras
+        </Link>
       </div>
       
     </div>

@@ -12,7 +12,7 @@ function Card(props) {
   const handleAddToCart = (productId) => {
     dispatch(addCarrito(productId));
     Swal.fire({
-      position: "top-end",
+      position: "center",
       icon: "success",
       title: "Producto agregado al carrito",
       showConfirmButton: false,
@@ -35,7 +35,7 @@ function Card(props) {
             <h5 className={styles.title}>Marca: {props.brand}</h5>
           </div>
           <div>
-            <h5 className={styles.title}>Precio: {props.price}</h5>
+            <h5 className={styles.title}>Precio: {props.price}$</h5>
           </div>
           <div>
             <Link href={`/detail/${props.id}`}>Detalle</Link>

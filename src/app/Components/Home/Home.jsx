@@ -33,8 +33,7 @@ export default function Home() {
     const registerPurchase = async () => {
 
       const response = await getAllPurchases()
-
-      console.log("compras", response)
+      console.log("compras", response.data)
 
 
 
@@ -60,7 +59,8 @@ export default function Home() {
           temporalCarrito?.forEach(element => {
             newCarritoUser.push({ ...element, fecha: fechaFormateada })
           });
-          const tmp = { ...user, compras: [...newCarritoUser] }
+
+          const tmp = { ...user, compras: [...newCarritoUser], carrito: [] }
           console.log("usuario actualizado", tmp)
           await updateUser(tmp)
         }
@@ -80,14 +80,17 @@ export default function Home() {
           console.log(response)
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
+          throw new Error("Hubo un error al enviar el correo.");
         }
+        localStorage.clear();
       }
     };
     registerPurchase()
+
   }, [])
 
 
-  // ! Esta funcion esta comenentada para después poder cargar productos
+  // ! Esta funcion esta comenentada para despuÃ©s poder cargar productos
   const handlerClick = () => {
     addDocuments();
   };

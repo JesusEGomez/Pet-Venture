@@ -43,12 +43,14 @@ import database from "../utils/db.json";
 // };
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyBvHJZFpSEuPjBgmmam-ZJvbdOnsFBqNM4",
   authDomain: "ptventure-8c447.firebaseapp.com",
   projectId: "ptventure-8c447",
   storageBucket: "ptventure-8c447.appspot.com",
   messagingSenderId: "403722173615",
   appId: "1:403722173615:web:5094d2d0b4fb9830b7a85a",
+
 };
 
 const app = initializeApp(firebaseConfig);
@@ -63,6 +65,17 @@ export const getAllProducts = async () => {
   });
   return products;
 };
+
+export const getProductsTrue = async () => {
+  const q = query(collection(db, "productos"), where("isActive", "==", true));
+  const querySnapshot = await getDocs(q);
+  const products = [];
+  querySnapshot.forEach((doc) => {
+    products.push({ id: doc.id, ...doc.data() });
+  });
+  return products;
+};
+
 export const getAllPurchases = async () => {
   const querySnapshot = await getDocs(collection(db, "compras"));
   const purchases = [];
@@ -71,6 +84,8 @@ export const getAllPurchases = async () => {
   });
   return purchases;
 };
+
+
 
 export const getProductsTrue = async () => {
   const q = query(collection(db, "productos"), where("isActive", "==", true));
@@ -91,14 +106,6 @@ export const getAllUsers = async () => {
   return users;
 };
 
-// export const getAllPurchases = async () => {
-//   const querySnapshot = await getDocs(collection(db, "compras"));
-//   const purchases = [];
-//   querySnapshot.forEach((doc) => {
-//     purchases.push({ id: doc.id, ...doc.data() });
-//   });
-//   return purchases;
-// };
 
 export const addProduct = async (product) => {
   const docRef = await addDoc(collection(db, "productos"), product);
@@ -145,12 +152,11 @@ export async function updateUser(user, onSuccess) {
 
 export async function updateProduct(product, onSuccess) {
   try {
+    onSuccess();
     const collectionRef = collection(db, "productos");
     const docRef = doc(collectionRef, product.id);
     console.log(product);
     await setDoc(docRef, product);
-
-    onSuccess();
   } catch (error) {
     console.error(error);
   }
