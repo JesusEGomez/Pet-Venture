@@ -21,13 +21,12 @@ export default function Home() {
   const userInfo = useSelector((state) => state.userInfo);
   const carrito = useSelector((state) => state.carrito);
 
-
   useEffect(() => {
-    console.log("userInfo", userInfo)
-    handleAuthStateChanged(dispatch)
+    console.log("userInfo", userInfo);
+    handleAuthStateChanged(dispatch);
     const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get("status")
-    const id = urlParams.get("payment_id")
+    const status = urlParams.get("status");
+    const id = urlParams.get("payment_id");
     const temporalCarrito = JSON.parse(localStorage.getItem("temporalCarrito"));
     const user = JSON.parse(localStorage.getItem("user"));
 
