@@ -223,10 +223,10 @@ const Filtros = () => {
             </option>
             
             <option key="higher" value="higher">
-              Higher
+              Lower
             </option>
             <option key="lower" value="lower">
-              Lower
+              Higher
             </option>
             </select>
           
