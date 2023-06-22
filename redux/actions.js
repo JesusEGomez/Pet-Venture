@@ -21,6 +21,9 @@ export const DELETE_CARRITO = "DELETE_CARRITO";
 export const SET_USER_STATE = "SET_USER_STATE";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CARRITO = "SET_CARRITO";
+// actionTypes.js
+
+
 
 export const ADD_COMMENT = "ADD_COMMENT";
 // export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
@@ -104,6 +107,9 @@ export function getFilteredProducts(filters) {
     type: GET_FILTERED_PRODUCTS,
     payload: result,
   };
+}
+export function setCarrito(carrito) {
+  return { type: SET_CARRITO, payload: carrito };
 }
 
 // * Actions de usuario

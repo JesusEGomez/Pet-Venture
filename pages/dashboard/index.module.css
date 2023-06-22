@@ -80,6 +80,11 @@
   background: none;
   font-size: large;
 }
+.buttons:focus {
+  background-color: tomato;
+  color: white;
+}
+
 .buttons:hover {
   background-color: tomato;
   color: white;

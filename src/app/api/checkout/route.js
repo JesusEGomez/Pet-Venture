@@ -8,7 +8,7 @@ mercadopago.configure({
 export async function POST(request) {
   const data = await request.json();
 
-  const URL = "https://d2b9-190-30-177-199.ngrok-free.app"; //ojo cambiar al url que me da el  serv
+  const URL ="https://6968-191-98-182-182.ngrok-free.app"; //ojo cambiar al url que me da el  serv
 
   try {
     const preference = {
@@ -22,7 +22,6 @@ export async function POST(request) {
         success: `${URL}`,
         failure: `${URL}`,
       },
-      notification_url: `${URL}/api/notify`,
     };
     const response = await mercadopago.preferences.create(preference);
     return NextResponse.json({ url: response.body.init_point });

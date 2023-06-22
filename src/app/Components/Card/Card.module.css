@@ -2,15 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background-image: url("https://as2.ftcdn.net/v2/jpg/02/02/31/39/1000_F_202313943_RmQzYfyv9Yi9rRFwkkFuITTR5ERs4xJM.jpg");
-  background-size: cover; /* Ajusta el tamaño de la imagen al contenedor */
-  background-repeat: no-repeat;
-  background-position: center center;
+  background-color: white;
   height: 300px;
   width: 150px;
   margin: 5px;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 5px;
   text-align: center;
   justify-content: space-evenly;
@@ -38,7 +35,7 @@
 
 .img {
   width: 100%;
-  height: 80px; /* Cambia el valor para ajustar la altura deseada */
+  height: 100px; /* Cambia el valor para ajustar la altura deseada */
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   object-fit: contain;

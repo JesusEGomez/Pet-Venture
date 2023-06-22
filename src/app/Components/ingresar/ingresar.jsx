@@ -1,14 +1,14 @@
-import { useFormik } from "formik";
-import { onAuthStateChanged } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { auth, getUserInfo, userExist } from "@/app/Firebase/firebaseConfig";
-import { setUserInfo, setUserState } from "../../../../redux/actions";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { registerNewUser } from "@/app/Firebase/firebaseConfig";
-import styles from "./Ingresar.module.css";
-import Link from "next/link";
+import { useFormik } from "formik"
+import { onAuthStateChanged } from "firebase/auth"
+import { useSelector, useDispatch } from "react-redux"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
+import { auth, getUserInfo, userExist } from "@/app/Firebase/firebaseConfig"
+import { setUserInfo, setUserState } from "../../../../redux/actions"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { registerNewUser } from "@/app/Firebase/firebaseConfig"
+import styles from "./Ingresar.module.css"
+import Link from "next/link"
 import * as Yup from "yup";
 export default function Ingresar() {
   const router = useRouter();

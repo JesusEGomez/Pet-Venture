@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Cambiar "height" a "min-height" */
+    background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: fixed;
+    top: 0; /* Asegurarse de que el contenedor esté en la parte superior */
+    left: 0; /* Asegurarse de que el contenedor esté a la izquierda */
+    right: 0; /* Asegurarse de que el contenedor esté a la derecha */
+    bottom: 0; /* Asegurarse de que el contenedor esté en la parte inferior */
+  }
+  

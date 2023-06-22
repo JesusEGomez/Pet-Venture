@@ -4,9 +4,13 @@
   size: 100%;
   color: tomato;
   font-size: xx-large;
-  background-color: blueviolet;
+  background-color: white;
 }
 
+.table {
+  width: 1150px;
+  height: 480px;
+}
 .titleContainer {
   color: black;
   font-size: small;

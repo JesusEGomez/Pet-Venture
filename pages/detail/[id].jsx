@@ -1,9 +1,10 @@
-import axios from 'axios';
-import React from 'react';
-import Link from 'next/link';
-import styles from './detail.module.css';
-import Review from '@/app/Components/Review/Review';
-import CommentBox from '@/app/Components/CommentBox/CommentBox';
+import axios from "axios";
+import React from "react";
+import Link from "next/link";
+import styles from "./detail.module.css";
+import CommentBox from "@/app/Components/CommentBox/CommentBox";
+import { Review } from "@/app/Components/Review/Review";
+import Navbar from "@/app/Components/NavBar/NavBar";
 
 function ProductDetail({ productId, product }) {
   return (
@@ -23,7 +24,6 @@ function ProductDetail({ productId, product }) {
             <span> {product[0].category}</span>
           </div>
           <div className={styles.propertyContainer}>
-
             <h4>Descripcion: </h4>
             <span> {product[0].description} </span>
           </div>
@@ -37,10 +37,12 @@ function ProductDetail({ productId, product }) {
           <Link href="/tienda" className={styles.deleteFilter}>
             Volver a la tienda
           </Link>
+          <CommentBox productId={productId} />
+          <Review product={product[0]} />
         </div>
       </div>
-     
       <CommentBox productId={productId} />
+      <Review product={product[0]} />
     </div>
   );
 }
@@ -49,7 +51,9 @@ export default ProductDetail;
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  const response = await axios.get(`http://localhost:3000/api/productsById?id=${id}`);
+  const response = await axios.get(
+    `http://localhost:3000/api/productsById?id=${id}`
+  );
   const product = response.data;
 
   return {

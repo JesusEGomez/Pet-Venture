@@ -7,10 +7,10 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import styles from "./productsList.module.css";
 import Link from "next/link";
-import Swal from "sweetalert";
+import Swal from "sweetalert2";
 import { StyledInputContainer, Switch } from "@nextui-org/react";
 import Modal from "react-modal";
-import { updateProduct } from "@/app/Firebase/firebaseConfig";
+import { getAllProducts, updateProduct } from "@/app/Firebase/firebaseConfig";
 import { Input, Grid, Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -50,9 +50,9 @@ function ProductsDash() {
 
   const [trigger, setTrigger] = useState(false);
   const [showUpload, setShowUpload] = useState(true);
-
+  let allProducts = [];
   let brands = useSelector((state) => state.brands);
-  let allProducts = useSelector((state) => state.products);
+
   let categories = useSelector((state) => state.categories);
   let subCategories = useSelector((state) => state.subCategories);
 
@@ -61,12 +61,15 @@ function ProductsDash() {
   useEffect(() => {
     const getDbProducts = async () => {
       try {
-        const response = (await axios.get("http://localhost:3000/api/products"))
-          .data;
+        // const response =
+        // const response = (await axios.get("https://pet-venture-2-1wd1dd3wy-jesusegomez.vercel.app/api/products"))
+        // (await axios.get("http://localhost:3000/api/products")).data;
         // const response = getFakeProducts();
-        setDataArray(response);
+
         // console.log("response", response);
-        dispatch(getProducts(response));
+        // dispatch(getProducts(response));
+        allProducts = await getAllProducts();
+        setDataArray(allProducts);
       } catch (error) {
         console.error(error);
       }
@@ -156,7 +159,7 @@ function ProductsDash() {
 
   const formikCreate = useFormik({
     initialValues: {
-      id: "", //&comentar con api levantada
+      // id: "", //&comentar con api levantada
       name: "",
       brand: "",
       price: "",
@@ -198,10 +201,9 @@ function ProductsDash() {
       console.log("values", values);
       values.id = Math.floor(Math.random() * 1000000).toString();
       postFakeProduct(values);
-      // const response = await axios.post("/api/createProduct", values);
-      console.log("response submit", values);
+      const response = await axios.post("/api/createProduct", values);
+
       handleClose();
-      console.log("submitted");
 
       Swal.fire({
         title: "Producto Creado",
@@ -414,7 +416,7 @@ function ProductsDash() {
               </div>
 
               <div className={styles.inputContainer}>
-                <label>Name </label>
+                <label>Brand </label>
                 <select
                   id="brand"
                   name="brand"
@@ -433,7 +435,7 @@ function ProductsDash() {
               </div>
 
               <div className={styles.inputContainer}>
-                <label>Name </label>
+                <label>Category </label>
                 <select
                   id="category"
                   name="category"
@@ -454,7 +456,7 @@ function ProductsDash() {
               </div>
 
               <div className={styles.inputContainer}>
-                <label>Name </label>
+                <label>SubCategory </label>
                 <select
                   id="subCategory"
                   name="subCategory"
@@ -498,8 +500,9 @@ function ProductsDash() {
             </div>
             <div className={styles.inputRight}>
               <div className={styles.inputContainer}>
-                <label>Stock </label>
                 <div>
+                  {" "}
+                  <label>Stock </label>
                   <Input
                     // aria-label="Enter your name"
                     bordered
@@ -519,38 +522,60 @@ function ProductsDash() {
                     }
                   />
                 </div>
-              </div>
-
-              <div className={styles.inputContainer}>
-                <label> Image </label>
-
-                <div className={styles.imageFileContainer}>
-                  <div className={styles.selectImageInput}>
-                    <p className={styles.p}>Select Image</p>
-                    <input
-                      aria-label="Input field"
-                      type="file"
-                      onChange={(e) => setImage(e.target.files[0])}
-                      className={styles.selectfile}
-                      value=""
+                <div className={styles.inputContainer}>
+                  <div>
+                    <label>Brand URL </label>
+                    <Input
+                      bordered
+                      className={styles["field"]}
+                      type="text"
+                      placeholder="Brand URL"
+                      color="primary"
+                      name="brand_url"
+                      onChange={formikCreate.handleChange}
+                      value={formikCreate.values.brand_url}
+                      error={
+                        formikCreate.touched.name && formikCreate.errors.name
+                      }
+                      helperText={
+                        formikCreate.touched.name && formikCreate.errors.name
+                      }
                     />
                   </div>
                 </div>
-                <div className={styles.imageInputs} disabled={showUpload}>
-                  <button
-                    className={styles.loadButton}
-                    onClick={submitImageCreate}
-                  >
-                    Upload File
-                  </button>
-                </div>
               </div>
-              <input
-                name="image"
-                value={uploadedImageUrl}
-                onChange={formikCreate.handleChange}
-                aria-label="Input field"
-              />
+              <div>
+                <div className={styles.inputContainer}>
+                  {/* <label> Image </label> */}
+
+                  <div className={styles.imageFileContainer}>
+                    <div className={styles.selectImageInput}>
+                      <p className={styles.p}>Select Image</p>
+                      <input
+                        aria-label="Input field"
+                        type="file"
+                        onChange={(e) => setImage(e.target.files[0])}
+                        className={styles.selectfile}
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.imageInputs} disabled={showUpload}>
+                    <button
+                      className={styles.loadButton}
+                      onClick={submitImageCreate}
+                    >
+                      Upload File
+                    </button>
+                  </div>
+                </div>
+                <input
+                  name="image"
+                  value={uploadedImageUrl}
+                  onChange={formikCreate.handleChange}
+                  aria-label="Input field"
+                />
+              </div>{" "}
               <div className={styles.imageDisplay}>
                 {uploadedImageUrl && (
                   <div className={styles["image-container"]}>
