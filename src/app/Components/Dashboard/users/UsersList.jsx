@@ -14,7 +14,7 @@ function UsersDash() {
   useEffect(() => {
     const getDbUsers = async () => {
       try {
-        const response = (await axios.get("http://localhost:3000/api/users"))
+        const response = (await axios.get("https://pet-venture-2-git-develop-jesusegomez.vercel.app/api/users"))
           .data;
 
         setDataArray(response);
