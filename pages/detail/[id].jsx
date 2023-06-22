@@ -32,13 +32,9 @@ function ProductDetail({ productId, product }) {
           </div>
           <div className={styles.propertyContainer}>
             <h4>Price: </h4>
-            <span> {product[0].price} </span>
-            <Link href="/" className={styles.deleteFilter}>
-              Volver a Home
-            </Link>
-            <Link href="/tienda" className={styles.deleteFilter}>
-              Volver a la tienda
-            </Link>
+
+            <span> {product[0].price}$ </span>
+
           </div>
 
           <Link className={styles.enlaceposicionado} href="/tienda">
