@@ -12,7 +12,7 @@ function Card(props) {
   const handleAddToCart = (productId) => {
     dispatch(addCarrito(productId));
     Swal.fire({
-      position: "top-end",
+      position: "center",
       icon: "success",
       title: "Producto agregado al carrito",
       showConfirmButton: false,

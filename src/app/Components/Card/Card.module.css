@@ -1,6 +1,6 @@
 .card {
   border-style: solid;
-  border: 1px solid rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: stretch;

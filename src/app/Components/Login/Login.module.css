@@ -1,4 +1,4 @@
-/* Button.module.css */
+  /* Button.module.css */
 
 .container {
   display: flex;
@@ -29,8 +29,20 @@
   border-radius: 10px;
 }
 
+.button {
+  background-color: #e7e7e7;
+  border-radius: 8px;
+  color: rgb(0, 0, 0);
+  /* padding: 15px 32px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
 .button:hover {
   background-color: #2e2424;
+  color: rgb(255, 255, 255);
+
 }
 
 .container {
@@ -65,4 +77,20 @@
 
 .deleteFilter:active {
   top: 2px;
+}
+
+.button1 {
+  background-color: #e7e7e7;
+  border-radius: 8px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.button1:hover {
+  transform: scale(1.1);
+  background-color: #2e2424;
+  color: rgb(255, 255, 255);
+
 }

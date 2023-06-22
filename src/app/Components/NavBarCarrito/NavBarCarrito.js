@@ -5,7 +5,7 @@ import {
   decreaseQuantity,
   clearCarrito,
 } from "../../../../redux/actions";
-import styles from "./NavBarCarrito.module.css";
+// import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
@@ -14,6 +14,8 @@ import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 import { addCarrito } from "../../../../redux/actions";
 import { useState } from "react";
+// import { style } from "@mui/system";
+import styles from "./NavBarCarrito.module.css"
 
 export default function NavBarCarrito() {
   const carrito = useSelector((state) => state.carrito);
@@ -121,8 +123,8 @@ export default function NavBarCarrito() {
         // console.log(totalPrice)
       })}
       <div className={styles.precios}>
-        Precio Total: {totalPrice}$--
-        <button onClick={handlerClick}>Vaciar Carrito</button>
+        Precio Total: $ {totalPrice}
+        <button className={styles.button} onClick={handlerClick}>Vaciar Carrito</button>
         {isCarritoEmpty ? (
           <>
             <p>--El carrito está vacío--</p>
