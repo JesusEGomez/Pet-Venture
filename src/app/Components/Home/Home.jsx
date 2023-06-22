@@ -81,10 +81,6 @@ export default function Home() {
           console.log(response)
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
-<<<<<<< HEAD
-          // throw new Error("Hubo un error al enviar el correo.");
-=======
->>>>>>> 781bc1bc725af03f60dead8c5a052dfc43846475
         }
       }
     };
