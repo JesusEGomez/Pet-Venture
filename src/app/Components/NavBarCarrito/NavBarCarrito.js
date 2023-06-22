@@ -108,7 +108,7 @@ export default function NavBarCarrito(props) {
             ) : (
              
             <Link href="/login">
-            <p>Registrarte para comparar</p>
+            <p>Debes registrarte para comprar</p>
           </Link>
 
             )}
