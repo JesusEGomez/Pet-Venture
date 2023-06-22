@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../../../redux/actions";
+import { getProductsTrue } from "../../../../redux/actions";
 import styles from "./ofertas.module.css";
 
 import Card from "../Card/Card";
@@ -8,7 +8,7 @@ import Card from "../Card/Card";
 export default function Ofertas(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProductsTrue());
   }, [dispatch]);
 
   return (
