@@ -2,8 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import styles from "./mercadoPago.button.module.css"
 import { Loader } from "../Loader/Loader";
-import { setTemporalCarrito } from "../../../../redux/actions";
-import { useDispatch } from "react-redux";
+
 
 
 const MercadoPagoButton = ({ carrito }) => {
@@ -36,7 +35,7 @@ const MercadoPagoButton = ({ carrito }) => {
                 </button>
             ) : (
                 <a className={styles.button} href={url}>
-                    Comprar ahora
+                    Pagar ahora
                 </a>
             )}
         </div>

@@ -73,7 +73,7 @@ export default function Home() {
 
         localStorage.clear();
       } else if (status === "rejected") {
-       
+
         try {
           Swal.fire({
             title: "Error",
@@ -85,12 +85,12 @@ export default function Home() {
             email: user.email,
             displayName: user.displayName,
           });
-          
+
           console.log(response)
-          
+
         } catch (error) {
           console.error("Hubo un error al enviar el correo:", error);
-         
+
         }
         localStorage.clear();
       }

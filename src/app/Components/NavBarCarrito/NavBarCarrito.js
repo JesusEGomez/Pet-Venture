@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteCarrito } from "../../../../redux/actions";
-import styles from "./NavBarCarrito.module.css";
+import {
+  deleteCarrito,
+  decreaseQuantity,
+  clearCarrito,
+} from "../../../../redux/actions";
+// import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
@@ -10,9 +14,11 @@ import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 import { addCarrito } from "../../../../redux/actions";
 import { useState } from "react";
+// import { style } from "@mui/system";
+import styles from "./NavBarCarrito.module.css";
 
 export default function NavBarCarrito() {
-  let carrito = useSelector((state) => state.carrito);
+  const carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
   const userState = useSelector((state) => state.userState);
   const [trigger, setTrigger] = useState(false);
@@ -55,6 +61,13 @@ export default function NavBarCarrito() {
     );
   };
 
+  const handlerClick = () => {
+    dispatch(clearCarrito);
+    localStorage.removeItem("cart");
+    console.log(carrito);
+    setTrigger(!trigger);
+  };
+
   let totalPrice = 0;
 
   const isCarritoEmpty = carrito.length === 0;
@@ -83,25 +96,25 @@ export default function NavBarCarrito() {
             </div>
 
             <Grid>
-      <Button
-    flat
-    color="error"
-    auto
-    className={`${styles.cartCardButton} ${styles.marginRight}`}
-    onClick={() => handleAddToCart(e?.id)}
-  >
-    <p>+</p>
-  </Button>
-  <Button
-    flat
-    color="error"
-    auto
-    className={styles.cartCardButton}
-    onClick={() => handlerDelete(e?.id)}
-  >
-    <p>-</p>
-  </Button>
-</Grid>
+              <Button
+                flat
+                color="error"
+                auto
+                className={`${styles.cartCardButton} ${styles.marginRight}`}
+                onClick={() => handleAddToCart(e?.id)}
+              >
+                <p>+</p>
+              </Button>
+              <Button
+                flat
+                color="error"
+                auto
+                className={styles.cartCardButton}
+                onClick={() => handlerDelete(e?.id)}
+              >
+                <p>-</p>
+              </Button>
+            </Grid>
           </div>
         );
       })}
@@ -110,10 +123,7 @@ export default function NavBarCarrito() {
         // console.log(totalPrice)
       })}
       <div className={styles.precios}>
-
         Precio Total: $ {totalPrice}
-        
-
         {isCarritoEmpty ? (
           <>
             <p>--El carrito está vacío--</p>

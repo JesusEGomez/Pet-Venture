@@ -21,138 +21,131 @@
 .button:hover {
   transform: scale(1.1);
   background-color: #fb7373; /* Green */
-  color: white
+  color: white;
 }
 .cartContainer {
-    display: flex;
-    flex-wrap: wrap;
-    
-    grid-gap: 10px;
-  }
-  
-  .cartCard {
-    border-style: solid;
-    border: 2px solid rgb(0, 0, 0);  
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    background-color: white;
-    height: 300px;
-    width: 150px;
-    margin: 2px 5px; /* Ajusta los márgenes superior e inferior */
-    padding: 10px;
-    /* border: 1px solid rgb(4, 4, 4); */
-    border-radius: 5px;
-    text-align: center;
-    justify-content: space-evenly;
-  
-    margin: 20px auto 50px; /* Ajusta el margen superior para evitar superposición */
-    
-  }
-  
-  .cartCardInfo {
-    border-style: solid;
-    border: 1px solid rgb(0, 0, 0);  
-    margin-bottom: 10px;
-  }
-  
-  .cartCardImage {
-    width: 75%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  .cartCardButton {
-    background-color: #e6b12c;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: center;    
-    float:left;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  display: flex;
+  flex-wrap: wrap;
 
-  .cartCardButton:hover {
-    transform: scale(1.1);
-  }
-  
-  .backtotienda {
-    position: fixed;
-    top: 0;
-    right: 0;
-    margin: 20px;
-  }
-  
-  .deleteFilter {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-  }
-  .precios {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgb(171, 119, 55);
-    padding: 5px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .precios button {
-    display: inline-block;
-  }
-  
-  .rowContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .container {
-    background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-      display: flex;
-      flex-wrap: wrap;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      min-height: 100vh;
-      
-    }
-    
-    .card {
-      
-      
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        background-color: white;
-        height: 300px;
-        width: 150px;
-        margin: 5px;
-        padding: 10px;
-        border: 1px solid white;
-        border-radius: 5px;
-        text-align: center;
-        justify-content: space-evenly;
-      
-    }
+  grid-gap: 10px;
+}
 
-    .right{
-      text-decoration: underline;
-      position: fixed;
-      top: 10px;
-      right: 10px;
-    }
-    .marginRight {
-      margin-right: 50px; /* Ajusta el valor para obtener el espacio deseado */
-    }
-    
-    
+.cartCard {
+  border-style: solid;
+  border: 2px solid rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: white;
+  height: 300px;
+  width: 150px;
+  margin: 2px 5px; /* Ajusta los márgenes superior e inferior */
+  padding: 10px;
+  /* border: 1px solid rgb(4, 4, 4); */
+  border-radius: 5px;
+  text-align: center;
+  justify-content: space-evenly;
+
+  margin: 20px auto 50px; /* Ajusta el margen superior para evitar superposición */
+}
+
+.cartCardInfo {
+  border-style: solid;
+  border: 1px solid rgb(0, 0, 0);
+  margin-bottom: 10px;
+}
+
+.cartCardImage {
+  width: 75%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.cartCardButton {
+  background-color: #e6b12c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: center;
+  float: left;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cartCardButton:hover {
+  transform: scale(1.1);
+}
+
+.backtotienda {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.deleteFilter {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+.precios {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(171, 119, 55);
+  padding: 5px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.precios button {
+  display: inline-block;
+}
+
+.rowContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  min-height: 100vh;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: white;
+  height: 300px;
+  width: 150px;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.right {
+  text-decoration: underline;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+.marginRight {
+  margin-right: 50px; /* Ajusta el valor para obtener el espacio deseado */
+}
