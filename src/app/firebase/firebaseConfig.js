@@ -44,6 +44,7 @@ export const getProductsTrue = async () => {
   });
   return products;
 };
+
 export const getAllPurchases = async () => {
   const querySnapshot = await getDocs(collection(db, "compras"));
   const purchases = [];

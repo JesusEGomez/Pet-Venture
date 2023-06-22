@@ -135,7 +135,11 @@ export default function NavBarCarrito() {
             {userState === 3 ? (
               <MercadoPagoButton carrito={carrito} />
             ) : (
-              <p>--Necesitas Registrarte Para Poder Comprar--</p>
+             
+            <Link href="/login">
+            <p>Debes registrarte para comprar</p>
+          </Link>
+
             )}
 
             <Link href="/tienda">
