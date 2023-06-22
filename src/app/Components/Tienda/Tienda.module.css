@@ -4,8 +4,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    width: 100vw; /* Ancho igual al ancho de la ventana */
-    height: 100vh; /* Alto igual al alto de la ventana */
   }
   
   
