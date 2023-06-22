@@ -20,6 +20,7 @@ const firebaseConfig = {
   projectId: "petventure-2f665",
   storageBucket: "petventure-2f665.appspot.com",
   messagingSenderId: "1012719367395",
+<<<<<<< HEAD
   appId: "1:1012719367395:web:87d717f9f44e8fbd3a01d6"
  
   // apiKey: "AIzaSyAwcrHY5rIKNV57k9Bxj0pXKQRH1p7tUHs",
@@ -30,6 +31,9 @@ const firebaseConfig = {
   // appId: "1:182451092395:web:9e8c2bdf9cf6d1fa31b0ee",
   // measurementId: "G-FVG72QFE24"
   
+=======
+  appId: "1:1012719367395:web:87d717f9f44e8fbd3a01d6",
+>>>>>>> 99f966a4eadd5e2598c90ad7f7e316092d6ccbe4
 };
 // const firebaseConfig = {
   // apiKey: "AIzaSyAdjrZCa-2WG82dmHU1aII0g6cRdKYzoQg",
@@ -114,12 +118,11 @@ export async function updateUser(user, onSuccess) {
 
 export async function updateProduct(product, onSuccess) {
   try {
+    onSuccess();
     const collectionRef = collection(db, "productos");
     const docRef = doc(collectionRef, product.id);
     console.log(product);
     await setDoc(docRef, product);
-
-    onSuccess();
   } catch (error) {
     console.error(error);
   }

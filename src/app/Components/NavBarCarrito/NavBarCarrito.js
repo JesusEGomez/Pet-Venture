@@ -9,7 +9,7 @@ import { updateUser } from "@/app/Firebase/firebaseConfig";
 import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 
-export default function NavBarCarrito(props) {
+export default function NavBarCarrito() {
   const carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
   const userState = useSelector((state) => state.userState);
@@ -74,17 +74,18 @@ export default function NavBarCarrito(props) {
                 Cantidad: {e?.quantity}
               </div>
             </div>
-            
+
             <Grid>
-            <Button flat color="error" auto
-              
-            
-              className={styles.cartCardButton}
-              onClick={() => handlerDelete(e?.id, e?.quantity)}>
-            
-              <p>Borrar del Carrito</p>
+              <Button
+                flat
+                color="error"
+                auto
+                className={styles.cartCardButton}
+                onClick={() => handlerDelete(e?.id, e?.quantity)}
+              >
+                <p>Borrar del Carrito</p>
               </Button>
-              </Grid>
+            </Grid>
           </div>
         );
       })}
@@ -93,10 +94,10 @@ export default function NavBarCarrito(props) {
         // console.log(totalPrice)
       })}
       <div className={styles.precios}>
-        Precio Total: {totalPrice}$
+        Precio Total: {totalPrice}$--
         {isCarritoEmpty ? (
           <>
-            <p>El carrito está vacío</p>
+            <p>--El carrito está vacío--</p>
             <Link href="/tienda">
               <p>Volver a la tienda</p>
             </Link>
@@ -106,10 +107,13 @@ export default function NavBarCarrito(props) {
             {userState === 3 ? (
               <MercadoPagoButton carrito={carrito} />
             ) : (
-              <p>Necesitas Registrarte Para Poder Comprar</p>
+              <p>--Necesitas Registrarte Para Poder Comprar--</p>
             )}
+
+
+
             <Link href="/tienda">
-              <p className={styles.deleteFilter}>Volver a la tienda</p>
+              <p className={styles.right}>Volver a la tienda</p>
             </Link>
           </>
         )}
@@ -118,4 +122,3 @@ export default function NavBarCarrito(props) {
     </div>
   );
 }
-
