@@ -87,15 +87,7 @@ export const getAllPurchases = async () => {
 
 
 
-export const getProductsTrue = async () => {
-  const q = query(collection(db, "productos"), where("isActive", "==", true));
-  const querySnapshot = await getDocs(q);
-  const products = [];
-  querySnapshot.forEach((doc) => {
-    products.push({ id: doc.id, ...doc.data() });
-  });
-  return products;
-};
+
 
 export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
