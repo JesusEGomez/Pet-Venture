@@ -3,7 +3,6 @@ import Link from "next/link";
 import PetVenture from "../../../../public/img/PetVenture.svg";
 
 import styles from "./NavBar.module.css";
-
 import { logout } from "@/app/Firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { clearUserData, setUserState } from "../../../../redux/actions";
@@ -17,15 +16,15 @@ const Navbar = () => {
   const carrito = useSelector((state) => state.carrito);
   const dispatch = useDispatch();
   const handlerLogout = async () => {
-    await updateUser(carrito)
+    await updateUser(carrito);
     if (carrito.length !== 0) {
-      carrito.forEach(element => {
-        userInfo.carrito.push(element)
+      carrito.forEach((element) => {
+        userInfo.carrito.push(element);
       });
     }
-    console.log("carrito del user al salir", userInfo.carrito)
-    localStorage.clear()
-    dispatch(clearUserData())
+    console.log("carrito del user al salir", userInfo.carrito);
+    localStorage.clear();
+    dispatch(clearUserData());
     logout();
     dispatch(setUserState(1));
   };
@@ -48,11 +47,11 @@ const Navbar = () => {
           <li>
             <Link href="/compras">Mis Compras</Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/formulario">Crear Producto</Link>
-          </li>
+          </li> */}
           <li>
-            <Link href="/dashboard">Dashboard</Link>
+            {userInfo.admin ? <Link href="/dashboard">Dashboard</Link> : null}
           </li>
           <li>
             {userState === 3 ? (
@@ -65,7 +64,14 @@ const Navbar = () => {
           </li>
           <li>
             {userState === 3 ? (
-              <User color="success" bordered size="xl" src={userInfo.profilePicture} width="50px" height="50px" />
+              <User
+                color="success"
+                bordered
+                size="xl"
+                src={userInfo.profilePicture}
+                width="50px"
+                height="50px"
+              />
             ) : null}
           </li>
         </ul>

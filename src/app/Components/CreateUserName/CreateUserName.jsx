@@ -68,7 +68,7 @@ export default function CreateUserName() {
             {userInfo?.displayName !== null ?
                 <div>
                     <form className={styles.mensaje} onSubmit={formik.handleSubmit}>
-                        <h2>
+                        <h2 className={styles.text}>
                             ¡Bienvenido! {userInfo?.displayName}
                         </h2>
                         <label htmlFor="userName">Crea tu Nombre de usuario: </label>

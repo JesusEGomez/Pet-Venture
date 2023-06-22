@@ -1,16 +1,96 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Cambiar "height" a "min-height" */
-    background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    position: fixed;
-    top: 0; /* Asegurarse de que el contenedor esté en la parte superior */
-    left: 0; /* Asegurarse de que el contenedor esté a la izquierda */
-    right: 0; /* Asegurarse de que el contenedor esté a la derecha */
-    bottom: 0; /* Asegurarse de que el contenedor esté en la parte inferior */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 45px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0;
+  color: #0a0909; /* Color del texto del título */
+}
+
+
+.compra {
+
+  align-items: center;
+  margin-bottom: 20px;
+
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 20px;
+  ; /* Espaciado interno */
+  width: 500px; /* Ancho fijo para todas las compras */
   
+ 
+}
+
+.imagenContainer {
+  width: 100px;
+}
+
+.imagen {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.nombre {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.categoria {
+  margin-top: 5px;
+  color: #060505;
+}
+
+.cantidad {
+  margin-top: 5px;
+}
+
+.precio {
+  margin-top: 5px;
+}
+
+.fecha {
+  margin-top: 5px;
+  color: #100d0d;
+}
+
+.right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px 10px;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.right:hover {
+  background-color: rgb(217, 168, 34);
+}
+
+.right:active {
+  top: 2px;
+}

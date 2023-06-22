@@ -25,7 +25,7 @@ function UsersDash() {
     };
 
     getDbUsers();
-  }, []);
+  }, [trigger]);
 
   const handleSwitchChange = async (e, id) => {
     console.log("id", id);

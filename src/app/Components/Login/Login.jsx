@@ -148,20 +148,6 @@ export default function Login() {
 
   )
 
-  // if (userState === 2) {
-  //   return (
-  //     <div>
-  //       Estas autenticado...
-  //     </div>
-  //   )
-  // }
-  // if (userState === 3) {
-  //   return (
-  //     <div>
-  //       Estas Registrado...
-  //     </div>
-  //   )
-  // }
 
 
 }

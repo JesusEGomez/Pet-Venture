@@ -49,6 +49,7 @@ const Filtros = () => {
       const uniqueSubCategory = [...new Set(subCategoryArr)];
       return uniqueSubCategory;
     };
+
     dispatch(getBrands(filterBrands()));
     dispatch(getSubCategories(filterSubCategory()));
     dispatch(getCategories(filterCategory()));
@@ -236,6 +237,9 @@ const Filtros = () => {
         </button>
         <Link href="/" className={styles.deleteFilter}>
           Home
+        </Link>
+        <Link href="/compras" className={styles.deleteFilter}>
+          Mis compras
         </Link>
       </div>
       

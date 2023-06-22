@@ -10,6 +10,8 @@ import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
 import { addCarrito } from "../../../../redux/actions";
 import { useState } from "react";
+// import { style } from "@mui/system";
+import styles from "./NavBarCarrito.module.css";
 
 export default function NavBarCarrito() {
   let carrito = useSelector((state) => state.carrito);

@@ -1,6 +1,13 @@
 .table {
+  width: 1150px;
+  height: 480px;
+}
+
+.mainContianer {
   width: 900px;
   height: 400px;
+  margin-left: 600px;
+  padding: 20px;
 }
 .tableContianer {
   width: 900px;
@@ -95,7 +102,7 @@
 
 .inputContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -118,6 +125,7 @@
   width: 30px;
   padding: 10px;
 }
+
 .form-container {
   background-color: white;
   color: #999;
@@ -146,8 +154,8 @@
   text-align: center;
 }
 .image {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
 }
 
 .h4 {
@@ -188,12 +196,18 @@
 .loadButton {
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 100px;
-  background-color: rgb(245, 11, 31);
-  padding: 10px;
+  height: 40px;
+  background-color: blue;
+  /* padding: 10px; */
 }
-
+.loadButton:hover {
+  background-color: white;
+  border-color: black;
+  border-style: solid;
+  color: black;
+}
 .btn-green:hover {
   background-color: #37d839;
 }
@@ -218,19 +232,6 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  z-index: 9999;
-}
-
-.selectImageInput {
-  top: 0;
-  left: 0;
-
-  color: black;
-  width: 100px;
-  height: 30px;
-
-  border-radius: 15px;
-  cursor: pointer;
 }
 
 .imageCoverBtn {
@@ -243,16 +244,57 @@
   cursor: pointer; */
 }
 
-.imageFileCantainer {
+.imageFileContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 220px;
+  width: 150px;
   height: 40px;
-  background-color: yellow;
+  background-color: grey;
+
+  border-radius: 15px;
+}
+.selectImageInput:hover {
+  background-color: white;
+  border-color: black;
+  border-style: solid;
+  color: black;
+  height: 40px;
+}
+.selectfile {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+  opacity: 00%;
+}
+.p {
+  position: absolute;
 }
 
-.imageDisplay {
+.selectImageInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  background: black;
+  color: white;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 15px;
+  cursor: pointer;
 }
+
 .imageDisplayContainer {
+}
+
+.select {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 14px;
+  width: 220px;
 }

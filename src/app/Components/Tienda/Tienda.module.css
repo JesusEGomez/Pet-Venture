@@ -1,11 +1,10 @@
-
-  .container {
-    background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
+.container {
+  background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    width: 100vw; /* Ancho igual al ancho de la ventana */
-    height: 100vh; /* Alto igual al alto de la ventana */
+   
   }
-  
+
+
   
