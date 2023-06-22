@@ -8,7 +8,7 @@ mercadopago.configure({
 export async function POST(request) {
   const data = await request.json();
 
-  const URL = "https://pet-venture-2.vercel.app"; //ojo cambiar al url que me da el  serv
+  const URL = "https://pet-venture-2-git-develop-jesusegomez.vercel.app"; //ojo cambiar al url que me da el  serv
 
   try {
     const preference = {
