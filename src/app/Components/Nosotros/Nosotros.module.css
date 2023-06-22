@@ -1,17 +1,30 @@
 .container {
-    width: 80%;
-    margin: 0 ;
-    padding: 150px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(243, 10, 10, 0.1);
-    background-image:url("https://img.freepik.com/vector-gratis/fondo-colorido-modelo-huellas-pata-perro-o-gato_1017-30662.jpg?w=2000") ;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  padding: 150px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-image: url("https://img.freepik.com/fotos-premium/acuarela-patrones-fisuras-huellas-pata-gato-fondo-acuarela-pata-gato_467247-273.jpg?w=826");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+}
 
-  }
+
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  opacity: 0.8;
+  z-index: -1;
+}
+
 
 
   .text {
@@ -25,10 +38,18 @@
     letter-spacing: 1px;
 
     margin: 0;
-    padding: 0;
+    padding: 20;
     vertical-align: middle;
-    height: 100%
-
+    height: 100%;
+   
+    background-color: #fff; /* Fondo blanco */
+      padding: 20px;
+      border-radius: 8px;
+      text-align: justify;
+  
+    
+    
+    
 
   }
 
