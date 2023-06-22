@@ -53,10 +53,14 @@ export default function Home() {
         }
         let newCarritoUser = []
         if (user?.compras) {
+          let fecha = new Date();
+          let opciones = { day: "2-digit", month: "2-digit", year: "2-digit" };
+          let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
           newCarritoUser = [...user.compras]
           temporalCarrito?.forEach(element => {
-            newCarritoUser.push(element)
+            newCarritoUser.push({ ...element, fecha: fechaFormateada })
           });
+
           const tmp = { ...user, compras: [...newCarritoUser], carrito: [] }
           console.log("usuario actualizado", tmp)
           await updateUser(tmp)
@@ -88,9 +92,9 @@ export default function Home() {
 
 
   // ! Esta funcion esta comenentada para despuÃ©s poder cargar productos
-   const handlerClick = () => {
-     addDocuments();
-   };
+  const handlerClick = () => {
+    addDocuments();
+  };
 
   return (
     <div className={styles.container}>
