@@ -83,6 +83,7 @@ export const getAllPurchases = async () => {
   return purchases;
 };
 
+
 export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
   const users = [];

@@ -38,7 +38,7 @@ function ProductDetail({ productId, product }) {
           </div>
 
           <Link className={styles.enlaceposicionado} href="/tienda">
-            Volver a la tienda
+          <p className={styles.right}> Volver a la tienda</p>
           </Link>
           <CommentBox productId={productId} />
 

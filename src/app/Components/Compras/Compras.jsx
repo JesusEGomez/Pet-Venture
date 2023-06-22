@@ -8,7 +8,7 @@ export default function Compras() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Mis compras</h1>
-      {userInfo.compras.map((e) => (
+      {userInfo?.compras?.map((e) => (
         <div className={styles.compra} key={e.id}>
           <div className={styles.imagenContainer}>
             <img className={styles.imagen} src={e.image} alt="Not found" />
@@ -18,7 +18,7 @@ export default function Compras() {
             <div className={styles.categoria}>Categoría: {e.category}</div>
             <div className={styles.cantidad}>Cantidad: {e.quantity}</div>
             <div className={styles.precio}>Total pagado: {e.price}$</div>
-            <div className={styles.fecha}>Fecha de compra: {e.date}</div>
+            <div className={styles.fecha}>Fecha de compra: {e.fecha}</div>
           </div>
           
           
@@ -26,7 +26,7 @@ export default function Compras() {
 
       ))}
       <Link href="/tienda">
-              <p className={styles.right}>Volver a la tienda</p>
+              <p className={styles.right}>ir a la tienda</p>
             </Link>
     </div>
   );
