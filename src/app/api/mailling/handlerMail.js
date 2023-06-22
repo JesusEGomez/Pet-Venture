@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const homeURL = "http://localhost:3000/tienda";
+const homeURL = "https://pet-venture-2-git-develop-jesusegomez.vercel.app/";
 const MAIL = process.env.NEXT_MAIL;
 const MAIL_PASSWORD = process.env.NEXT_MAIL_PASSWORD;
 
