@@ -31,7 +31,7 @@ function ProductDetail({ productId, product }) {
           </div>
           <div className={styles.propertyContainer}>
             <h4>Price: </h4>
-            <span> {product[0].price} </span>
+            <span> {product[0].price}$ </span>
           </div>
           
           <Link className={styles.enlaceposicionado } href="/tienda">
