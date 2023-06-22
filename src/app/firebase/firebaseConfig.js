@@ -43,14 +43,12 @@ import database from "../utils/db.json";
 // };
 
 const firebaseConfig = {
-
   apiKey: "AIzaSyBvHJZFpSEuPjBgmmam-ZJvbdOnsFBqNM4",
   authDomain: "ptventure-8c447.firebaseapp.com",
   projectId: "ptventure-8c447",
   storageBucket: "ptventure-8c447.appspot.com",
   messagingSenderId: "403722173615",
   appId: "1:403722173615:web:5094d2d0b4fb9830b7a85a",
-
 };
 
 const app = initializeApp(firebaseConfig);
@@ -86,9 +84,6 @@ export const getAllPurchases = async () => {
 };
 
 
-
-
-
 export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
   const users = [];
@@ -97,7 +92,6 @@ export const getAllUsers = async () => {
   });
   return users;
 };
-
 
 export const addProduct = async (product) => {
   const docRef = await addDoc(collection(db, "productos"), product);
