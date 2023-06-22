@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../../../redux/actions";
 import Pagination from "../Pagination/Pagination";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
-
+import Navbar from "../NavBar/NavBar";
 
 const Tienda = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Tienda = () => {
   const carrito = useSelector((state) => state.carrito);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(15);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   const totalPages = Math.ceil(allProducts.length / itemsPerPage);
   const endIndex = currentPage * itemsPerPage;
@@ -25,8 +25,8 @@ const Tienda = () => {
   const itemsToShow = allProducts?.slice(startIndex, endIndex);
 
   useEffect(() => {
-    dispatch(getProducts())
-    handleAuthStateChanged(dispatch)
+    dispatch(getProducts());
+    handleAuthStateChanged(dispatch);
     console.log("carrito de tienda", carrito);
   }, []);
 
@@ -38,7 +38,7 @@ const Tienda = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
-      // paginate={paginate}
+        // paginate={paginate}
       />
     </div>
   );

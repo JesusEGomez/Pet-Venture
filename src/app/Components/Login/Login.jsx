@@ -40,7 +40,8 @@ export default function Login() {
               carrito: [],
               compras: [],
               isActive: true,
-              email: user.email
+              email: user.email,
+              admin: false
 
             })
             dispatch(setUserState(2))
@@ -138,29 +139,15 @@ export default function Login() {
           value={formik.values.password}
         />
         {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
-        <button className={styles.button}type="submit">Crear</button>
-        <Link href="/ingresar"><button className={styles.button}>¿Ya tienes cuenta?</button></Link>
-        <Link href="/"><button className={styles.button}>Atrás</button></Link>
+        <button type="submit">Crear</button>
+        <Link href="/ingresar"><button>¿Ya tienes cuenta?</button></Link>
+        <Link href="/"><button>Atrás</button></Link>
       </form>
-      <button className={styles.button1} onClick={handlerOnClick}> Accede con Google </button>
+      <button onClick={handlerOnClick}> Accede con Google </button>
     </div>
 
   )
 
-  // if (userState === 2) {
-  //   return (
-  //     <div>
-  //       Estas autenticado...
-  //     </div>
-  //   )
-  // }
-  // if (userState === 3) {
-  //   return (
-  //     <div>
-  //       Estas Registrado...
-  //     </div>
-  //   )
-  // }
 
 
 }

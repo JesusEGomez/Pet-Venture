@@ -1,7 +1,7 @@
-import { getAllProducts } from "@/app/Firebase/firebaseConfig";
+import { getProductsTrue } from "@/app/Firebase/firebaseConfig";
 export async function GET() {
   const products = [];
-  const querySnampshot = await getAllProducts();
+  const querySnampshot = await getProductsTrue();
   querySnampshot.forEach((doc) => {
     products.push(doc);
   });
