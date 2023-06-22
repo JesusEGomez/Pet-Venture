@@ -151,6 +151,8 @@
       top: 10px;
       right: 10px;
     }
-;
+    .marginRight {
+      margin-right: 50px; /* Ajusta el valor para obtener el espacio deseado */
+    }
     
     
