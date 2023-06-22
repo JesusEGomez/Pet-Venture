@@ -1,5 +1,3 @@
-
-
 import {
   GET_BRANDS,
   GET_CATEGORIES,
@@ -17,6 +15,7 @@ import {
   ADD_COMMENT,
   CLEAR_USER_DATA,
   SET_TEMPORAL_CARRITO,
+  CLEAR_CARRITO,
 } from "./actions";
 
 export const initialState = {
@@ -29,7 +28,7 @@ export const initialState = {
   productDetail: [],
   userState: 1,
   userInfo: [],
-  carrito: []
+  carrito: [],
 };
 
 try {
@@ -139,34 +138,34 @@ export default function (state = initialState, action) {
         }
         state.userInfo.carrito = updatedCart;
 
-      const productoExiste2 = state.carrito.find(
-        (i) => i.id === action.payload.id
-      );
+        const productoExiste2 = state.carrito.find(
+          (i) => i.id === action.payload.id
+        );
 
-      console.log(productoExiste2, "esto es productoexiste2");
-      if (productoExiste2.quantity > 1) {
-        const productoModificado = {
-          ...productoExiste2,
-          quantity: productoExiste2.quantity - 1,
-          price:
-            productoExiste2.price -
-            productoExiste2.price / productoExiste2.quantity,
-        };
-        return {
-          ...state,
-          carrito: state.carrito.map((i) =>
-            i.id === action.payload.id ? productoModificado : i
-          ),
-        };
-      } else {
-        const precioProducto = productoExiste2 ? productoExiste2.price : 0;
-        return {
-          ...state,
-          carrito: state.carrito.filter((i) => i.id !== action.payload.id),
-          totalPrice: state.totalPrice - precioProducto,
-        };
+        console.log(productoExiste2, "esto es productoexiste2");
+        if (productoExiste2.quantity > 1) {
+          const productoModificado = {
+            ...productoExiste2,
+            quantity: productoExiste2.quantity - 1,
+            price:
+              productoExiste2.price -
+              productoExiste2.price / productoExiste2.quantity,
+          };
+          return {
+            ...state,
+            carrito: state.carrito.map((i) =>
+              i.id === action.payload.id ? productoModificado : i
+            ),
+          };
+        } else {
+          const precioProducto = productoExiste2 ? productoExiste2.price : 0;
+          return {
+            ...state,
+            carrito: state.carrito.filter((i) => i.id !== action.payload.id),
+            totalPrice: state.totalPrice - precioProducto,
+          };
+        }
       }
-    }
 
     case SET_CARRITO:
       return {
@@ -195,8 +194,12 @@ export default function (state = initialState, action) {
         userInfo: [],
         carrito: [],
       };
+    case CLEAR_CARRITO:
+      return {
+        ...state,
+        carrito: [],
+      };
     default:
       return state;
   }
 }
-

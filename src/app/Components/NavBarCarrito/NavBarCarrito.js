@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteCarrito, decreaseQuantity } from "../../../../redux/actions";
+import {
+  deleteCarrito,
+  decreaseQuantity,
+  clearCarrito,
+} from "../../../../redux/actions";
 import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
@@ -8,11 +12,14 @@ import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";
 import { updateUser } from "@/app/Firebase/firebaseConfig";
 import { Button, Grid } from "@nextui-org/react";
 import { handleAuthStateChanged } from "@/app/utils/handleAuthStateChanged";
+import { addCarrito } from "../../../../redux/actions";
+import { useState } from "react";
 
 export default function NavBarCarrito() {
   const carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
   const userState = useSelector((state) => state.userState);
+  const [trigger, setTrigger] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -29,7 +36,11 @@ export default function NavBarCarrito() {
     }
 
     handleAuthStateChanged(dispatch);
-  }, [dispatch]);
+  }, [dispatch, trigger]);
+
+  const handleAddToCart = (productId) => {
+    dispatch(addCarrito(productId));
+  };
 
   useEffect(() => {
     console.log(carrito);
@@ -46,6 +57,13 @@ export default function NavBarCarrito() {
       "Se ha eliminado el producto del carrito",
       "success"
     );
+  };
+
+  const handlerClick = () => {
+    dispatch(clearCarrito);
+    localStorage.removeItem("cart");
+    console.log(carrito);
+    setTrigger(!trigger);
   };
 
   let totalPrice = 0;
@@ -81,9 +99,18 @@ export default function NavBarCarrito() {
                 color="error"
                 auto
                 className={styles.cartCardButton}
-                onClick={() => handlerDelete(e?.id, e?.quantity)}
+                onClick={() => handleAddToCart(e?.id)}
               >
-                <p>Borrar del Carrito</p>
+                <p>+</p>
+              </Button>
+              <Button
+                flat
+                color="error"
+                auto
+                className={styles.cartCardButton}
+                onClick={() => handlerDelete(e?.id)}
+              >
+                <p>-</p>
               </Button>
             </Grid>
           </div>
@@ -95,6 +122,7 @@ export default function NavBarCarrito() {
       })}
       <div className={styles.precios}>
         Precio Total: {totalPrice}$--
+        <button onClick={handlerClick}>Vaciar Carrito</button>
         {isCarritoEmpty ? (
           <>
             <p>--El carrito está vacío--</p>
@@ -109,8 +137,6 @@ export default function NavBarCarrito() {
             ) : (
               <p>--Necesitas Registrarte Para Poder Comprar--</p>
             )}
-
-
 
             <Link href="/tienda">
               <p className={styles.right}>Volver a la tienda</p>

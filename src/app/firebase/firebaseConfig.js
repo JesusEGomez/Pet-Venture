@@ -15,12 +15,12 @@ import {
 import database from "../utils/db.json";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAozIgnlrpuCJPxwaPv48bkvnN7Sm8m2u8",
-  authDomain: "petventure-2f665.firebaseapp.com",
-  projectId: "petventure-2f665",
-  storageBucket: "petventure-2f665.appspot.com",
-  messagingSenderId: "1012719367395",
-  appId: "1:1012719367395:web:87d717f9f44e8fbd3a01d6",
+  apiKey: "AIzaSyBvHJZFpSEuPjBgmmam-ZJvbdOnsFBqNM4",
+  authDomain: "ptventure-8c447.firebaseapp.com",
+  projectId: "ptventure-8c447",
+  storageBucket: "ptventure-8c447.appspot.com",
+  messagingSenderId: "403722173615",
+  appId: "1:403722173615:web:5094d2d0b4fb9830b7a85a",
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -28,6 +28,16 @@ export const auth = getAuth(app);
 
 export const getAllProducts = async () => {
   const querySnapshot = await getDocs(collection(db, "productos"));
+  const products = [];
+  querySnapshot.forEach((doc) => {
+    products.push({ id: doc.id, ...doc.data() });
+  });
+  return products;
+};
+
+export const getProductsTrue = async () => {
+  const q = query(collection(db, "productos"), where("isActive", "==", true));
+  const querySnapshot = await getDocs(q);
   const products = [];
   querySnapshot.forEach((doc) => {
     products.push({ id: doc.id, ...doc.data() });
