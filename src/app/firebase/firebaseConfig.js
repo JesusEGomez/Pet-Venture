@@ -15,6 +15,7 @@ import {
 import database from "../utils/db.json";
 
 const firebaseConfig = {
+
   
     apiKey: "AIzaSyBvHJZFpSEuPjBgmmam-ZJvbdOnsFBqNM4",
     authDomain: "ptventure-8c447.firebaseapp.com",
@@ -23,7 +24,24 @@ const firebaseConfig = {
     messagingSenderId: "403722173615",
     appId: "1:403722173615:web:5094d2d0b4fb9830b7a85a"
   
+
 };
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAozIgnlrpuCJPxwaPv48bkvnN7Sm8m2u8",
+//   authDomain: "petventure-2f665.firebaseapp.com",
+//   projectId: "petventure-2f665",
+//   storageBucket: "petventure-2f665.appspot.com",
+//   messagingSenderId: "1012719367395",
+//   appId: "1:1012719367395:web:87d717f9f44e8fbd3a01d6",
+// };
+// const firebaseConfig = {
+  // apiKey: "AIzaSyAdjrZCa-2WG82dmHU1aII0g6cRdKYzoQg",
+  // authDomain: "pet-venture-1777a.firebaseapp.com",
+  // projectId: "pet-venture-1777a",
+  // storageBucket: "pet-venture-1777a.appspot.com",
+  // messagingSenderId: "202804090837",
+  // appId: "1:202804090837:web:69fcf8f98a1c2eefc20f5c",
+// };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export const auth = getAuth(app);
@@ -99,12 +117,11 @@ export async function updateUser(user, onSuccess) {
 
 export async function updateProduct(product, onSuccess) {
   try {
+    onSuccess();
     const collectionRef = collection(db, "productos");
     const docRef = doc(collectionRef, product.id);
     console.log(product);
     await setDoc(docRef, product);
-
-    onSuccess();
   } catch (error) {
     console.error(error);
   }

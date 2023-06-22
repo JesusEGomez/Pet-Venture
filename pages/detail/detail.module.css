@@ -14,28 +14,18 @@
   bottom: 0;
 }
 
-
 .img {
-  width: 30%;
-  margin-top: 40px;
-  
-  height: 350px;
-  
-
-  /* border-color: aqua; */
-  
-  max-width: 50%; /* Ajusta el tamaño máximo de la imagen al ancho del contenedor */
-  
-  align-self: flex-start
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  border: solid grey;
 }
-
 
 .infoContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 20px;
-  padding: 5px;
+  /* padding: 5px; */
 }
 
 .infoContainer img {
@@ -44,16 +34,14 @@
   align-self: flex-start; /* Alinea la imagen a la izquierda */
 }
 
-
 .propertyContainer {
   display: flex;
   flex-direction: row;
 
   justify-content: left;
   align-items: center;
-  justify-items: baseline;
-  text-align: justify;
-  border-radius: 20px;
+  /* justify-items: baseline; */
+  /* text-align: justify; */
 }
 
 .healthScoreTitle {
@@ -127,20 +115,21 @@
 }
 
 .deleteFilter {
-  
-    width: 80px;
-    height: 40px;
-    padding: 10px 10px;
-    background-color: rgb(214, 127, 21);
-    color: white;
-    border-radius: 5px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    top: -10px; /* Ajusta este valor según tus necesidades */
-  
-  
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  padding: 10px 10px;
+  background-color: rgb(214, 127, 21);
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  left: 50px;
+  /* position: relative; */
+  top: -10px; /* Ajusta este valor según tus necesidades */
+
   text-decoration: none;
 
   /* transition: background-color 0.3s ease-in-out; */
@@ -149,7 +138,7 @@
   width: 100px;
   height: 100px;
 }
-.propertyContainer{
+.propertyContainer {
   background-color: white;
   background-color: white;
   text-align: center; /* Centra el texto horizontalmente */

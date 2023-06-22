@@ -3,13 +3,14 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './detail.module.css';
 import CommentBox from '@/app/Components/CommentBox/CommentBox';
-import { Review } from '@/app/Components/Review/Review';
+import Navbar from '@/app/Components/NavBar/NavBar';
 
 
 function ProductDetail({ productId, product }) {
 
   return (
     <div>
+      <Navbar />
       <div className={styles.container}>
         <img className={styles.img} src={product[0].image} alt="Not found" />
         <div className={styles.infoContainer}>
@@ -31,18 +32,17 @@ function ProductDetail({ productId, product }) {
           </div>
           <div className={styles.propertyContainer}>
             <h4>Price: </h4>
+
             <span> {product[0].price}$ </span>
+
           </div>
-          
-          <Link className={styles.enlaceposicionado } href="/tienda">
+
+          <Link className={styles.enlaceposicionado} href="/tienda">
             Volver a la tienda
           </Link>
           <CommentBox productId={productId} />
-      <Review product={product[0]} />
         </div>
       </div>
-      <CommentBox productId={productId} />
-      <Review product={product[0]} />
     </div>
   );
 }
