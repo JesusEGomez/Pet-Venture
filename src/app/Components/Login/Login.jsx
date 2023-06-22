@@ -40,7 +40,8 @@ export default function Login() {
               carrito: [],
               compras: [],
               isActive: true,
-              email: user.email
+              email: user.email,
+              admin: false
 
             })
             dispatch(setUserState(2))

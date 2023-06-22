@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteCarrito,
-  decreaseQuantity,
-  clearCarrito,
-} from "../../../../redux/actions";
+import { deleteCarrito } from "../../../../redux/actions";
 import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
@@ -16,7 +12,7 @@ import { addCarrito } from "../../../../redux/actions";
 import { useState } from "react";
 
 export default function NavBarCarrito() {
-  const carrito = useSelector((state) => state.carrito);
+  let carrito = useSelector((state) => state.carrito);
   const userInfo = useSelector((state) => state.userInfo);
   const userState = useSelector((state) => state.userState);
   const [trigger, setTrigger] = useState(false);
@@ -57,13 +53,6 @@ export default function NavBarCarrito() {
       "Se ha eliminado el producto del carrito",
       "success"
     );
-  };
-
-  const handlerClick = () => {
-    dispatch(clearCarrito);
-    localStorage.removeItem("cart");
-    console.log(carrito);
-    setTrigger(!trigger);
   };
 
   let totalPrice = 0;
@@ -122,7 +111,6 @@ export default function NavBarCarrito() {
       })}
       <div className={styles.precios}>
         Precio Total: {totalPrice}$--
-        <button onClick={handlerClick}>Vaciar Carrito</button>
         {isCarritoEmpty ? (
           <>
             <p>--El carrito está vacío--</p>
@@ -135,11 +123,9 @@ export default function NavBarCarrito() {
             {userState === 3 ? (
               <MercadoPagoButton carrito={carrito} />
             ) : (
-             
-            <Link href="/login">
-            <p>Debes registrarte para comprar</p>
-          </Link>
-
+              <Link href="/login">
+                <p>Debes registrarte para comprar</p>
+              </Link>
             )}
 
             <Link href="/tienda">
