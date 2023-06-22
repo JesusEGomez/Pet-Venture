@@ -53,7 +53,7 @@ export default ProductDetail;
 export async function getServerSideProps(context) {
   const { id } = context.query;
   const response = await axios.get(
-    `http://localhost:3000/api/productsById?id=${id}`
+    `https://pet-venture-2-git-develop-jesusegomez.vercel.app/api/productsById?id=${id}`
   );
   const product = response.data;
 
