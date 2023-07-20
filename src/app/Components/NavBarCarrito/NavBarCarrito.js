@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteCarrito,
-  decreaseQuantity,
-  clearCarrito,
-} from "../../../../redux/actions";
-// import styles from "./NavBarCarrito.module.css";
+import { deleteCarrito } from "../../../../redux/actions";
+//import styles from "./NavBarCarrito.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import MercadoPagoButton from "../mercadoPagoButton/mercadoPagoButton";

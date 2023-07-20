@@ -37,7 +37,7 @@ export const getAllProducts = async () => {
   return products;
 };
 
-export const getProductsTrue = async () => {
+ export const getProductsTrue = async () => {
   const q = query(collection(db, "productos"), where("isActive", "==", true));
   const querySnapshot = await getDocs(q);
   const products = [];
